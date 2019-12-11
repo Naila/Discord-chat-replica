@@ -1,0 +1,8 @@
+{
+  "apps": [
+    {
+      "name": "Discord Chat Replica",
+      "script": "./index.js"
+    }
+  ]
+}

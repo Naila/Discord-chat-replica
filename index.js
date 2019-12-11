@@ -16,4 +16,47 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// memes
+const { readFileSync } = require('fs')
+const React = require('react')
+const ReactDOMServer = require('react-dom/server')
+const Chat = require('./dist/Chat')
+const config = require('./config')
+const html = readFileSync('index.html', 'utf8')
+
+require('http')
+  .createServer((req, res) => {
+    /*
+    if (req.method !== 'POST') {
+      res.writeHead(404)
+      res.end()
+    } */
+    // let data = ''
+    // req.on('data', chunk => data += chunk)
+    // req.on('end', () => {
+    const data = {
+      channel_name: 'emma-is-cute',
+      users: {
+        '1337': {
+          avatar: 'https://weeb.services/assets/avatars/ZPhAsM9w3NA.png',
+          username: 'Shana',
+          discriminator: '6969',
+          staff: false
+        },
+        '6969': {
+          avatar: 'https://weeb.services/assets/avatars/rtzoj7LMmW4.png',
+          username: 'Noire',
+          discriminator: '1337',
+          staff: true
+        }
+      },
+      messages: [
+        { author: '1337', time: 1576091429571, content: [ "message 1", "message 2", "message *with* stupid **markdown**" ] },
+        { author: '6969', time: 1576091466245, content: [ "yes", "__but actually__", "emma is ***cute***" ] }
+      ]
+    }
+
+    // const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(Chat.default, JSON.parse(data)))
+    const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(Chat.default, data))
+    res.end(html.replace('{react}', rendered))
+    // })
+  }).listen(config.port)

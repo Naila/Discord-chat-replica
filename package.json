@@ -4,5 +4,15 @@
   "main": "index.js",
   "author": "Bowser65",
   "license": "AGPL-3.0",
-  "dependencies": {}
+  "scripts": {
+    "build-jsx": "sucrase ./components -d ./dist --transforms jsx,imports"
+  },
+  "dependencies": {
+    "marked": "^0.7.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "sucrase": "^3.10.1"
+  }
 }
