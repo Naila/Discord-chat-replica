@@ -22,7 +22,6 @@ import MessageGroup from './MessageGroup'
 
 export default class Chat extends React.Component {
   render () {
-    console.log(this.props)
     return <>
       <HeaderBar channelName={this.props.channel_name}/>
       <div className='messages'>

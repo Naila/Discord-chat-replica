@@ -23,6 +23,7 @@
         content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
   <meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <title>Discord Chat Archive</title>
+  <link rel='stylesheet' href='https://highlightjs.org/static/demo/styles/solarized-dark.css'>
   <style>
     * {
       box-sizing: border-box;
@@ -48,6 +49,8 @@
 
     .theme-dark {
       --background: #36393f;
+      --background-dark: #2f3136;
+      --background-very-dark: #202225;
       --color: #fff;
       --color-gray: #72767d;
       --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05), 0 2px 0 rgba(4, 4, 5, 0.05);
@@ -57,6 +60,8 @@
 
     .theme-light {
       --background: #fff;
+      --background-dark: #f2f3f5;
+      --background-very-dark: #e3e5e8;
       --color: #2e3338;
       --color-gray: #747f8d;
       --elevation: 0 1px 0 rgba(6, 6, 7, 0.1), 0 1.5px 0 rgba(6, 6, 7, 0.025), 0 2px 0 rgba(6, 6, 7, 0.025);
@@ -73,6 +78,15 @@
       background-color: var(--background);
       font-family: Whitney, sans-serif;
       overflow: hidden;
+    }
+
+    a {
+      color: #00b0f4;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     .header-bar {
@@ -135,6 +149,10 @@
       cursor: pointer;
     }
 
+    .message .header .name:hover {
+      text-decoration: underline;
+    }
+
     .message .header .badge {
       background: #7289da;
       color: #fff;
@@ -154,10 +172,226 @@
       margin-left: .3rem;
       margin-top: 2px;
     }
+
+    .message .details {
+      flex: 1;
+    }
+
+    .message .msg {
+      white-space: pre-wrap;
+    }
+
+    .message .msg p {
+      margin: 0;
+    }
+
+    .message .msg code, .message .msg pre {
+      width: auto;
+      height: auto;
+      padding: .2em;
+      margin: -.2em 0;
+      border-radius: 3px;
+      font-size: 85%;
+      font-family: Consolas, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Monaco, Courier New, Courier, monospace;
+      text-indent: 0;
+      border: none;
+      white-space: pre-wrap;
+      background: var(--background-dark);
+    }
+
+    .message .msg pre {
+      border: 1px solid var(--background-very-dark);
+      max-width: 90%;
+      border-radius: 4px;
+      margin-top: 6px;
+      white-space: pre-wrap;
+      background-clip: border-box;
+      padding: .5em;
+      position: relative;
+      font-size: 100%;
+    }
+
+    .message .msg pre code {
+      font-size: 100%;
+    }
+
+    .message .msg blockquote {
+      display: flex;
+      margin: 0;
+    }
+
+    .message .msg blockquote .side {
+      margin: 8px 0;
+      width: 4px;
+      border-radius: 4px;
+      background-color: #4f545c;
+    }
+
+    .message .msg blockquote .content {
+      padding: 0 8px 0 12px;
+      margin: 8px 0;
+    }
+
+    .message .msg img {
+      margin-top: 8px;
+      max-width: 520px;
+    }
+
+    .attachment {
+      display: flex;
+      border: 1px rgba(47, 49, 54, .6) solid;
+      background-color: rgba(47, 49, 54, .3);
+      align-items: center;
+      max-width: 520px;
+      width: 100%;
+      padding: 10px;
+      border-radius: 3px;
+    }
+
+    .msg .attachment .icon {
+      width: 30px;
+      height: 40px;
+      margin-right: 8px;
+      margin-top: 0;
+      flex-shrink: 0;
+    }
+
+    .attachment .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .attachment .details a {
+      opacity: .85;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .attachment .details span {
+      font-weight: 300;
+      color: #72767d;
+      margin-right: 8px;
+      line-height: 16px;
+      font-size: 12px;
+    }
+
+    .attachment .download {
+      color: #4f545c;
+      width: 24px;
+      height: 24px;
+    }
+
+    .img-enlarged {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 666;
+      background-color: rgba(0, 0, 0, .8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .img-enlarged .inner {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .img-enlarged .inner img {
+      max-height: 680px;
+    }
+
+    .img-enlarged a {
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      align-self: flex-start;
+      color: #fff !important;
+      text-decoration: none;
+      line-height: 30px;
+      opacity: .5;
+      flex-grow: 0;
+    }
+
+    .img-enlarged.opened {
+      display: flex;
+      animation: img1 .4s;
+    }
+
+    .img-enlarged.opened .inner {
+      transform-origin: 50% 50%;
+      animation: img2 .4s;
+    }
+
+    .img-enlarged.closing {
+      display: flex;
+      animation: img3 .2s;
+    }
+
+    .img-enlarged.closing .inner {
+      animation: img4 .2s;
+    }
+
+    .img-enlarged.closing {
+      opacity: 1;
+    }
+
+    img[data-enlargable] {
+      cursor: pointer;
+    }
+
+    @keyframes img1 {
+      from {
+        opacity: .4;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes img2 {
+      from {
+        opacity: 0;
+        transform: scale(.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes img3 {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes img4 {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(.5);
+      }
+    }
   </style>
 </head>
 <body class='theme-dark'>
   {react}
+  <div id='enlarge' class='img-enlarged'>
+    <div class='inner'>
+      <img src='' alt=''/>
+      <a href='' target='_blank'>Open Original</a>
+    </div>
+  </div>
   <textarea id='clipboard' style='display: none'></textarea>
   <script>
     // Light theme toggle
@@ -195,6 +429,23 @@
         textarea.style.display = 'none'
       })
     })
+
+    // Enlarge
+    const enlarge = document.getElementById('enlarge')
+    enlarge.addEventListener('click', () => {
+      enlarge.classList.remove('opened')
+      enlarge.classList.add('closing')
+      setTimeout(() => enlarge.classList.remove('closing'), 200)
+    })
+    enlarge.querySelector('img').addEventListener('click', e => e.stopPropagation())
+    document.querySelectorAll('[data-enlargable]').forEach(el => {
+      el.addEventListener('click', () => {
+        enlarge.querySelector('img').src = el.src
+        enlarge.querySelector('a').href = el.src
+        enlarge.classList.add('opened')
+      })
+    })
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
 </body>
 </html>

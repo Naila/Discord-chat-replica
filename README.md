@@ -20,24 +20,54 @@ A small microservice to generate a Discord-like chat section.
       "avatar": "https://weeb.services/assets/avatars/ZPhAsM9w3NA.png",
       "username": "Shana",
       "discriminator": "6969",
-      "staff": false
+      "badge": null
     },
     "6969": {
       "avatar": "https://weeb.services/assets/avatars/rtzoj7LMmW4.png",
       "username": "Noire",
       "discriminator": "1337",
-      "staff": true
+      "badge": "Staff"
     }
   },
   "messages": [
     {
       "author": "1337",
       "time": 1576091429571,
-      "content": [ "message 1", "message 2", "message *with* stupid **markdown**" ]
-    }, {
+      "content": [
+        {
+          "msg": "message 1"
+        },
+        {
+          "msg": "message 2"
+        },
+        {
+          "msg": "message *with* stupid **markdown**"
+        }
+      ]
+    },
+    {
       "author": "6969",
       "time": 1576091466245,
-      "content": [ "yes", "__but actually__", "emma is ***cute***" ]
+      "content": [
+        {
+          "msg": "yes"
+        },
+        {
+          "msg": "__but actually__"
+        },
+        {
+          "msg": "emma is ***cute***"
+        },
+        {
+          "msg": "here is a file",
+          "attachments": [
+            {
+              "url": "https://example.com/test.zip",
+              "size": 133769
+            }
+          ]
+        }
+      ]
     }
   ]
 }

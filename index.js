@@ -40,18 +40,82 @@ require('http')
           avatar: 'https://weeb.services/assets/avatars/ZPhAsM9w3NA.png',
           username: 'Shana',
           discriminator: '6969',
-          staff: false
+          badge: null
         },
         '6969': {
           avatar: 'https://weeb.services/assets/avatars/rtzoj7LMmW4.png',
           username: 'Noire',
           discriminator: '1337',
-          staff: true
+          badge: 'Staff'
         }
       },
       messages: [
-        { author: '1337', time: 1576091429571, content: [ "message 1", "message 2", "message *with* stupid **markdown**" ] },
-        { author: '6969', time: 1576091466245, content: [ "yes", "__but actually__", "emma is ***cute***" ] }
+        {
+          author: '1337',
+          time: 1576091429571,
+          content: [
+            { msg: 'basic *formatting* using **markdown** because it\'s __important__ and it seems to be `working`' }
+          ]
+        },
+        {
+          author: '6969',
+          time: 1576091466245,
+          content: [
+            { msg: '> it seems to be working\nthen don\'t touch anything' },
+            { msg: '# life pro tips' },
+            { msg: 'https://example.com' }
+          ]
+        },
+        {
+          author: '1337',
+          time: 1576091429571,
+          content: [
+            { msg: '```js\nconsole.log("uwu")\n```' }
+          ]
+        },
+        {
+          author: '6969',
+          time: 1576091466245,
+          content: [
+            { msg: '>>> that looks\ndope man' }
+          ]
+        },
+        {
+          author: '6969',
+          time: 1576091466245,
+          content: [
+            { msg: 'https://media.karousell.com/media/photos/products/2018/11/09/754_tumblr_tropical_ulzzang_beach_wear_kimono_1541746668_9831ddd5_progressive.jpg' }
+          ]
+        },
+        {
+          author: '6969',
+          time: 1576091466245,
+          content: [
+            {
+              msg: 'test file',
+              attachments: [
+                {
+                  url: 'https://example.com/test.zip',
+                  size: 69691337
+                }
+              ]
+            }
+          ]
+        },
+        {
+          author: '6969',
+          time: 1576091466245,
+          content: [
+            {
+              msg: 'test img',
+              attachments: [
+                {
+                  url: 'https://epic.weeb.services/0afe075b36.png'
+                }
+              ]
+            }
+          ]
+        }
       ]
     }
 
