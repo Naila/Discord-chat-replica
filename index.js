@@ -17,110 +17,63 @@
  */
 
 const { readFileSync } = require('fs')
+const https = require('https')
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 const Chat = require('./dist/Chat')
+const testData = require('./example')
 const config = require('./config')
 const html = readFileSync('index.html', 'utf8')
 
 require('http')
   .createServer((req, res) => {
-    /*
-    if (req.method !== 'POST') {
+    if (!['GET', 'POST'].includes(req.method)) {
       res.writeHead(404)
       res.end()
-    } */
-    // let data = ''
-    // req.on('data', chunk => data += chunk)
-    // req.on('end', () => {
-    const data = {
-      channel_name: 'emma-is-cute',
-      users: {
-        '1337': {
-          avatar: 'https://weeb.services/assets/avatars/ZPhAsM9w3NA.png',
-          username: 'Shana',
-          discriminator: '6969',
-          badge: null
-        },
-        '6969': {
-          avatar: 'https://weeb.services/assets/avatars/rtzoj7LMmW4.png',
-          username: 'Noire',
-          discriminator: '1337',
-          badge: 'Staff'
-        }
-      },
-      messages: [
-        {
-          author: '1337',
-          time: 1576091429571,
-          content: [
-            { msg: 'basic *formatting* using **markdown** because it\'s __important__ and it seems to be `working`' }
-          ]
-        },
-        {
-          author: '6969',
-          time: 1576091466245,
-          content: [
-            { msg: '> it seems to be working\nthen don\'t touch anything' },
-            { msg: '# life pro tips' },
-            { msg: 'https://example.com' }
-          ]
-        },
-        {
-          author: '1337',
-          time: 1576091429571,
-          content: [
-            { msg: '```js\nconsole.log("uwu")\n```' }
-          ]
-        },
-        {
-          author: '6969',
-          time: 1576091466245,
-          content: [
-            { msg: '>>> that looks\ndope man' }
-          ]
-        },
-        {
-          author: '6969',
-          time: 1576091466245,
-          content: [
-            { msg: 'https://media.karousell.com/media/photos/products/2018/11/09/754_tumblr_tropical_ulzzang_beach_wear_kimono_1541746668_9831ddd5_progressive.jpg' }
-          ]
-        },
-        {
-          author: '6969',
-          time: 1576091466245,
-          content: [
-            {
-              msg: 'test file',
-              attachments: [
-                {
-                  url: 'https://example.com/test.zip',
-                  size: 69691337
-                }
-              ]
-            }
-          ]
-        },
-        {
-          author: '6969',
-          time: 1576091466245,
-          content: [
-            {
-              msg: 'test img',
-              attachments: [
-                {
-                  url: 'https://epic.weeb.services/0afe075b36.png'
-                }
-              ]
-            }
-          ]
-        }
-      ]
+    }
+    const handler = async (data) => {
+      data.messages = await Promise.all(
+        data.messages.map(async msg => {
+          msg.content = await Promise.all(
+            msg.content.map(async c => {
+              if (c.attachments) {
+                c.attachments = await Promise.all(
+                  c.attachments.map(async a => {
+                    if (a.url) return a
+                    return {
+                      url: a,
+                      size: await new Promise(resolve => {
+                        const parts = a.split('/').slice(2)
+                        const host = parts.shift()
+                        const path = `/${parts.join('/')}`
+                        const req = https.request({
+                          method: 'HEAD',
+                          host, path,
+                          port: 443
+                        }, (res) => {
+                          resolve(parseInt(res.headers['content-length']))
+                        })
+                        req.end()
+                      })
+                    }
+                  })
+                )
+              }
+              return c
+            })
+          )
+          return msg
+        })
+      )
+      const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(Chat.default, data))
+      res.end(html.replace('{react}', rendered))
     }
 
-    // const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(Chat.default, JSON.parse(data)))
-    const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(Chat.default, data))
-    res.end(html.replace('{react}', rendered))
-    // })
+    if (req.method === 'POST') {
+      let data = ''
+      req.on('data', chunk => data += chunk)
+      req.on('end', () => handler(JSON.parse(data)))
+    } else {
+      handler(testData)
+    }
   }).listen(config.port)

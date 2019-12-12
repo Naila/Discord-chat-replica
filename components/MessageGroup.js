@@ -48,9 +48,9 @@ renderer.paragraph = (str) => {
 }
 
 export default class MessageGroup extends React.Component {
-  render () {
+  render() {
     return <div className='message'>
-      <img src={this.props.author.avatar} alt='avatar' className='avatar'/>
+      <img src={this.props.author.avatar} alt='avatar' className='avatar' />
       <div className='details'>
         <div className='header'>
           <span className='name' data-copy-id={this.props.authorId}>{this.props.author.username}</span>
@@ -59,7 +59,7 @@ export default class MessageGroup extends React.Component {
         </div>
         <div className='contents'>
           {this.props.content.map((msg, i) => <div key={i} className='msg'>
-            <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(msg.msg) }}/>
+            <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(msg.msg) }} />
             {this.renderAttachments(msg)}
           </div>)}
         </div>
@@ -67,28 +67,28 @@ export default class MessageGroup extends React.Component {
     </div>
   }
 
-  renderAttachments (msg) {
-    const images = [ 'webp', 'jpeg', 'jpg', 'png', 'gif' ]
+  renderAttachments(msg) {
+    const images = ['webp', 'jpeg', 'jpg', 'png', 'gif']
     const duckduckgo = 'https://external-content.duckduckgo.com/iu/?u='
     const attachments = []
     if (msg.attachments) {
       msg.attachments.forEach((attachment, i) => {
         if (images.includes(attachment.url.split('.').pop())) {
-          attachments.push(<img data-enlargable='' key={i} src={attachment.url} alt=''/>)
+          attachments.push(<img data-enlargable='' key={i} src={attachment.url} alt='' />)
         } else {
-          attachments.push(<Attachment key={i} {...attachment}/>)
+          attachments.push(<Attachment key={i} {...attachment} />)
         }
       })
     }
 
     const urls = (msg.msg.match(urlRegex) || []).filter(u => u.match(imgRegex))
     for (const url of urls) {
-      attachments.push(<img data-enlargable='' key={url} src={duckduckgo + encodeURIComponent(url)} alt=''/>)
+      attachments.push(<img data-enlargable='' key={url} src={duckduckgo + encodeURIComponent(url)} alt='' />)
     }
     return attachments
   }
 
-  renderMarkdown (str) {
+  renderMarkdown(str) {
     const tokens = lexer.lex(str)
     return marked.parser(tokens, {
       renderer,

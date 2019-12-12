@@ -17,10 +17,11 @@
 -->
 <!doctype html>
 <html lang='en'>
+
 <head>
   <meta charset='UTF-8'>
   <meta name='viewport'
-        content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
+    content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
   <meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <title>Discord Chat Archive</title>
   <link rel='stylesheet' href='https://highlightjs.org/static/demo/styles/solarized-dark.css'>
@@ -69,7 +70,8 @@
       --theme: url(https://discordapp.com/assets/6c8c8654d649bee316b88e2342b6c8fa.svg);
     }
 
-    html, body {
+    html,
+    body {
       width: 100%;
       height: 100%;
       margin: 0;
@@ -185,7 +187,8 @@
       margin: 0;
     }
 
-    .message .msg code, .message .msg pre {
+    .message .msg code,
+    .message .msg pre {
       width: auto;
       height: auto;
       padding: .2em;
@@ -238,14 +241,23 @@
     }
 
     .attachment {
-      display: flex;
       border: 1px rgba(47, 49, 54, .6) solid;
       background-color: rgba(47, 49, 54, .3);
-      align-items: center;
       max-width: 520px;
       width: 100%;
       padding: 10px;
       border-radius: 3px;
+      margin-top: 8px;
+    }
+
+    .attachment .data {
+      display: flex;
+      align-items: center;
+    }
+
+    .theme-light .attachment {
+      border-color: #f6f6f7;
+      background-color: transparent;
     }
 
     .msg .attachment .icon {
@@ -347,6 +359,7 @@
       from {
         opacity: .4;
       }
+
       to {
         opacity: 1;
       }
@@ -357,6 +370,7 @@
         opacity: 0;
         transform: scale(.5);
       }
+
       to {
         opacity: 1;
         transform: scale(1);
@@ -367,6 +381,7 @@
       from {
         opacity: 1;
       }
+
       to {
         opacity: 0;
       }
@@ -377,6 +392,7 @@
         opacity: 1;
         transform: scale(1);
       }
+
       to {
         opacity: 0;
         transform: scale(.5);
@@ -384,11 +400,12 @@
     }
   </style>
 </head>
+
 <body class='theme-dark'>
   {react}
   <div id='enlarge' class='img-enlarged'>
     <div class='inner'>
-      <img src='' alt=''/>
+      <img src='' alt='' />
       <a href='' target='_blank'>Open Original</a>
     </div>
   </div>
@@ -401,7 +418,7 @@
 
     // Timestamps
     document.querySelectorAll('[data-timestamp]').forEach(el => {
-      const days = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
+      const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
       const today = new Date()
       const date = new Date(parseInt(el.dataset.timestamp))
       const daysBetween = (today.getUTCFullYear() - date.getUTCFullYear()) * 365
@@ -446,6 +463,8 @@
       })
     })
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.6.0/dist/highlightjs-line-numbers.min.js"></script>
 </body>
+
 </html>

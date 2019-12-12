@@ -28,14 +28,16 @@ const formatBytes = (bytes) => {
 
 export default ({ url, size }) =>
   <div className='attachment'>
-    <img src='https://discordapp.com/assets/985ea67d2edab4424c62009886f12e44.svg' alt='' className='icon'/>
-    <div className='details'>
-      <a href={url} target='_blank'>{url.split('/').pop()}</a>
-      <span>{formatBytes(size)}</span>
+    <div className='data'>
+      <img src='https://discordapp.com/assets/985ea67d2edab4424c62009886f12e44.svg' alt='' className='icon' />
+      <div className='details'>
+        <a href={url} target='_blank'>{url.split('/').pop()}</a>
+        <span>{formatBytes(size)}</span>
+      </div>
+      <a href={url} target='_blank' className='download'>
+        <svg width='24' height='24' viewBox='0 0 24 24'>
+          <path fill='currentColor' d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z' />
+        </svg>
+      </a>
     </div>
-    <a href={url} target='_blank' className='download'>
-      <svg width='24' height='24' viewBox='0 0 24 24'>
-        <path fill='currentColor' d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/>
-      </svg>
-    </a>
   </div>
