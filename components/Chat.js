@@ -23,7 +23,7 @@ import MessageGroup from './MessageGroup'
 export default class Chat extends React.Component {
   render () {
     return <>
-      <HeaderBar channelName={this.props.channel_name}/>
+      <HeaderBar channelName={this.props.channel_name} messagesCount={this.props.messages.length}/>
       <div className='messages'>
         {this.props.messages.map((message, i) => <MessageGroup
           author={this.props.users[message.author]}

@@ -27,7 +27,7 @@ const html = readFileSync('index.html', 'utf8')
 
 require('http')
   .createServer((req, res) => {
-    if (!['GET', 'POST'].includes(req.method)) {
+    if (![ 'GET', 'POST' ].includes(req.method)) {
       res.writeHead(404)
       res.end()
     }
@@ -74,6 +74,6 @@ require('http')
       req.on('data', chunk => data += chunk)
       req.on('end', () => handler(JSON.parse(data)))
     } else {
-      handler(testData)
+      return handler(testData)
     }
   }).listen(config.port)

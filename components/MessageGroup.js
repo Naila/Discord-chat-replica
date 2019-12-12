@@ -50,10 +50,12 @@ renderer.paragraph = (str) => {
 export default class MessageGroup extends React.Component {
   render() {
     return <div className='message'>
-      <img src={this.props.author.avatar} alt='avatar' className='avatar' />
+      <img src={this.props.author.avatar} alt='avatar' className='avatar'/>
       <div className='details'>
         <div className='header'>
-          <span className='name' data-copy-id={this.props.authorId}>{this.props.author.username}</span>
+          <span className='name' data-id={this.props.authorId} data-discrim={this.props.author.discriminator}>
+            {this.props.author.username}
+          </span>
           {this.props.author.badge && <span className='badge'>{this.props.author.badge}</span>}
           <span className='time' data-timestamp={this.props.time}>{new Date(this.props.time).toGMTString()}</span>
         </div>
