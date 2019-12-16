@@ -49,15 +49,24 @@ renderer.paragraph = (str) => {
 
 export default class MessageGroup extends React.Component {
   render() {
-    return <div className='message'>
+    return <div
+      className='message'
+      data-timestamp={this.props.time}
+      data-author-id={this.props.authorId}
+      data-author-name={this.props.author.username}
+      data-author-avatar={this.props.author.avatar}
+      data-author-discrim={this.props.author.discriminator}
+      data-author-badge={this.props.author.badge}
+      data-msg-count={this.props.content.length}
+    >
       <img src={this.props.author.avatar} alt='avatar' className='avatar'/>
       <div className='details'>
         <div className='header'>
-          <span className='name' data-id={this.props.authorId} data-discrim={this.props.author.discriminator}>
+          <span className='name'>
             {this.props.author.username}
           </span>
           {this.props.author.badge && <span className='badge'>{this.props.author.badge}</span>}
-          <span className='time' data-timestamp={this.props.time}>{new Date(this.props.time).toGMTString()}</span>
+          <span className='time'>{new Date(this.props.time).toGMTString()}</span>
         </div>
         <div className='contents'>
           {this.props.content.map((msg, i) => <div key={i} className='msg'>
@@ -71,11 +80,10 @@ export default class MessageGroup extends React.Component {
 
   renderAttachments(msg) {
     const images = ['webp', 'jpeg', 'jpg', 'png', 'gif']
-    const duckduckgo = 'https://external-content.duckduckgo.com/iu/?u='
     const attachments = []
     if (msg.attachments) {
       msg.attachments.forEach((attachment, i) => {
-        if (images.includes(attachment.url.split('.').pop())) {
+        if (attachment.url.match(imgRegex)) {
           attachments.push(<img data-enlargable='' key={i} src={attachment.url} alt='' />)
         } else {
           attachments.push(<Attachment key={i} {...attachment} />)
@@ -85,7 +93,7 @@ export default class MessageGroup extends React.Component {
 
     const urls = (msg.msg.match(urlRegex) || []).filter(u => u.match(imgRegex))
     for (const url of urls) {
-      attachments.push(<img data-enlargable='' key={url} src={duckduckgo + encodeURIComponent(url)} alt='' />)
+      attachments.push(<img data-enlargable='' key={url} src={url.replace(/(https?):\//, 'https://proxy.kanin.dev/$1')} alt='' />)
     }
     return attachments
   }

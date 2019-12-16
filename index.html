@@ -149,6 +149,7 @@
       margin-right: 20px;
       padding-top: 3px;
       user-select: none;
+      cursor: pointer;
     }
 
     .message .header {
@@ -189,10 +190,6 @@
 
     .message .details {
       flex: 1;
-    }
-
-    .message .msg {
-      /* white-space: pre-wrap; */
     }
 
     .message .msg .markup {
@@ -305,6 +302,7 @@
       opacity: .85;
       text-overflow: ellipsis;
       overflow: hidden;
+      line-height: 16px;
     }
 
     .attachment .details span {
@@ -357,32 +355,28 @@
 
     .modal-container.opened {
       display: flex;
-      animation: img1 .4s;
+      animation: modal1 .4s;
     }
 
     .modal-container.opened .inner {
       transform-origin: 50% 50%;
-      animation: img2 .4s;
+      animation: modal2 .4s;
     }
 
     .modal-container.closing {
       display: flex;
-      animation: img3 .2s;
+      animation: modal3 .2s;
     }
 
     .modal-container.closing .inner {
-      animation: img4 .2s;
+      animation: modal4 .2s;
     }
 
     .modal-container.closing {
       opacity: 1;
     }
 
-    img[data-enlargable] {
-      cursor: pointer;
-    }
-
-    @keyframes img1 {
+    @keyframes modal1 {
       from {
         opacity: .4;
       }
@@ -392,7 +386,7 @@
       }
     }
 
-    @keyframes img2 {
+    @keyframes modal2 {
       from {
         opacity: 0;
         transform: scale(.5);
@@ -404,7 +398,7 @@
       }
     }
 
-    @keyframes img3 {
+    @keyframes modal3 {
       from {
         opacity: 1;
       }
@@ -414,7 +408,7 @@
       }
     }
 
-    @keyframes img4 {
+    @keyframes modal4 {
       from {
         opacity: 1;
         transform: scale(1);
@@ -424,6 +418,30 @@
         opacity: 0;
         transform: scale(.5);
       }
+    }
+
+    .clipboard {
+      position: absolute;
+      bottom: 20px;
+      right: 40px;
+      height: 48px;
+      width: 250px;
+      border-radius: 5px;
+      background-color: #43b581;
+      box-shadow: var(--elevation);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(70px);
+      transition: transform .3s;
+    }
+
+    .clipboard.opened {
+      transform: translateY(0);
+    }
+
+    img[data-enlargable] {
+      cursor: pointer;
     }
   </style>
 </head>
@@ -435,20 +453,26 @@
       <a href='' target='_blank'>Open Original</a>
     </div>
   </div>
+  <div class='clipboard' id='copied'>
+    <span>ID copied to clipboard.</span>
+  </div>
   <textarea id='clipboard' style='display: none'></textarea>
   <script src='https://twemoji.maxcdn.com/v/latest/twemoji.min.js' crossorigin='anonymous'></script>
   <script>
     (() => {
       // Utils
       const textarea = document.getElementById('clipboard')
+      const copied = document.getElementById('copied')
       const modal = document.getElementById('modal')
 
       function copy (text) {
         textarea.style.display = 'block'
+        copied.classList.add('opened')
         textarea.value = text
         textarea.select()
         document.execCommand('copy')
         textarea.style.display = 'none'
+        setTimeout(() => copied.classList.remove('opened'), 2500)
       }
 
       function openModal (type) {
@@ -480,20 +504,22 @@
         const daysBetween = (today.getUTCFullYear() - date.getUTCFullYear()) * 365
           + (today.getUTCMonth() - date.getUTCMonth()) * 30
           + (today.getUTCDate() - date.getUTCDate())
+        const timeEl = el.querySelector('.time')
         if (daysBetween === 0) {
-          el.innerText = `Today at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+          timeEl.innerText = `Today at ${date.getUTCHours()}:${date.getUTCMinutes()}`
         } else if (daysBetween === 1) {
-          el.innerText = `Yesterday at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+          timeEl.innerText = `Yesterday at ${date.getUTCHours()}:${date.getUTCMinutes()}`
         } else if (daysBetween < 7) {
-          el.innerText = `Last ${days[date.getUTCDay() - 1]} at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+          timeEl.innerText = `Last ${days[date.getUTCDay() - 1]} at ${date.getUTCHours()}:${date.getUTCMinutes()}`
         } else {
-          el.innerText = `${date.getUTCDay()}/${date.getUTCMonth()}/${date.getUTCFullYear()}`
+          timeEl.innerText = `${date.getUTCDay()}/${date.getUTCMonth()}/${date.getUTCFullYear()}`
         }
       })
 
       // Copy ID (@todo: make it be popout)
-      document.querySelectorAll('[data-id]').forEach(el => {
-        el.addEventListener('click', () => copy(el.dataset.id))
+      document.querySelectorAll('[data-author-id]').forEach(el => {
+        el.querySelector('.name').addEventListener('click', () => copy(el.dataset.id))
+        el.querySelector('.avatar').addEventListener('click', () => copy(el.dataset.id))
       })
 
       // Enlarge
