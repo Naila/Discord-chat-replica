@@ -23,6 +23,8 @@ import Attachment from './Attachment'
 
 const urlRegex = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm
 const imgRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:webp|jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/g
+const audioRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:mp3|ogg|wav|flac))(?:\?([^#]*))?(?:#(.*))?/g
+const videoRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:mp4|webm|mov))(?:\?([^#]*))?(?:#(.*))?/g
 
 const lexer = new marked.Lexer()
 const renderer = new marked.Renderer()
@@ -44,7 +46,7 @@ renderer.paragraph = (str) => {
   for (const url of urls) {
     text = text.replace(url, `<a target='_blank' href='${url}'>${url}</a>`)
   }
-  return text
+  return '<p>' + text.replace('\n', '</p><p>') + '</p>'
 }
 
 renderer.__code = renderer.code
@@ -96,9 +98,16 @@ export default class MessageGroup extends React.Component {
       })
     }
 
-    const urls = (msg.msg.match(urlRegex) || []).filter(u => u.match(imgRegex))
+    const urls = msg.msg.match(urlRegex) || []
     for (const url of urls) {
-      attachments.push(<img data-enlargable='' key={url} src={url.replace(/(https?):\//, 'https://proxy.kanin.dev/$1')} alt='' />)
+      const proxyUrl = url.replace(/(https?):\//, 'https://proxy.kanin.dev/$1')
+      if (imgRegex.test(url)) {
+        attachments.push(<img data-enlargable='' key={url} src={proxyUrl} alt='' />)
+      } else if (audioRegex.test(url)) {
+        attachments.push(<audio key={url} src={proxyUrl} controls />)
+      } else if (videoRegex.test(url)) {
+        attachments.push(<video key={url} src={proxyUrl} controls />)
+      }
     }
     return attachments
   }

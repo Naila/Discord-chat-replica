@@ -194,8 +194,6 @@
     }
 
     .message .msg .markup {
-      display: flex;
-      align-items: center;
       white-space: pre-wrap;
     }
 
@@ -207,6 +205,8 @@
     }
 
     .message .msg p {
+      display: flex;
+      align-items: center;
       margin: 0;
     }
 
@@ -262,7 +262,7 @@
     .message .msg .codeblock code {
       padding: .15em;
       font-size: 16px;
-      line-height: 1.125rem;
+      line-height: 20px;
     }
 
     .message .msg .codeblock .lines:before {
@@ -277,7 +277,7 @@
       height: 100%;
       width: 30px;
       font-size: 16px;
-      line-height: 1.125rem;
+      line-height: 20px;
     }
 
     .message .msg .codeblock .copy {
@@ -324,6 +324,18 @@
       margin-top: 8px;
       max-width: 520px;
       max-height: 300px;
+    }
+
+    .message .msg audio {
+      margin-top: 5px;
+      height: 32px;
+      width: 380px;
+    }
+
+    .message .msg video {
+      margin-top: 5px;
+      width: 380px;
+      max-height: 540px;
     }
 
     .attachment {
@@ -379,6 +391,16 @@
       color: #4f545c;
       width: 24px;
       height: 24px;
+    }
+
+    .message .msg .attachment video {
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .message .msg .attachment audio {
+      width: 100%;
+      margin-top: 15px;
     }
 
     .modal-container {

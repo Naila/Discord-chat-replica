@@ -26,6 +26,11 @@ const formatBytes = (bytes) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
+const ext = {
+  audio: ['mp3', 'ogg', 'wav', 'flac'],
+  video: ['mp4', 'webm', 'mov']
+}
+
 export default ({ url, size }) =>
   <div className='attachment'>
     <div className='data'>
@@ -40,4 +45,6 @@ export default ({ url, size }) =>
         </svg>
       </a>
     </div>
+    {ext.audio.includes(url.split('.').pop()) && <audio src={url} controls />}
+    {ext.video.includes(url.split('.').pop()) && <video src={url} controls />}
   </div>
