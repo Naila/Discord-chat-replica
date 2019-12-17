@@ -47,6 +47,12 @@ renderer.paragraph = (str) => {
   return text
 }
 
+renderer.__code = renderer.code
+renderer.code = (code, infostring, escaped) => {
+  const res = renderer.__code(code, infostring, escaped)
+  return res.slice(0, 4) + ' class="codeblock"><div class="lang">' + infostring + '</div><div class="shitcode"><div class="lines"></div>' + res.slice(5, res.length - 7) + '</div><div class="copy">Copy</div></pre>'
+}
+
 export default class MessageGroup extends React.Component {
   render() {
     return <div
@@ -59,7 +65,7 @@ export default class MessageGroup extends React.Component {
       data-author-badge={this.props.author.badge}
       data-msg-count={this.props.content.length}
     >
-      <img src={this.props.author.avatar} alt='avatar' className='avatar'/>
+      <img src={this.props.author.avatar} alt='avatar' className='avatar' />
       <div className='details'>
         <div className='header'>
           <span className='name'>
@@ -79,7 +85,6 @@ export default class MessageGroup extends React.Component {
   }
 
   renderAttachments(msg) {
-    const images = ['webp', 'jpeg', 'jpg', 'png', 'gif']
     const attachments = []
     if (msg.attachments) {
       msg.attachments.forEach((attachment, i) => {
