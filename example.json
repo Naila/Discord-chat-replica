@@ -35,7 +35,7 @@
       "time": 1576091429571,
       "content": [
         {
-          "msg": "```js\nconsole.log(\"uwu\")\n```"
+          "msg": "```js\nfor (let i = 0; i < 69; i++) {\n  console.log('Emma is cute')\n}\n```"
         }
       ]
     },

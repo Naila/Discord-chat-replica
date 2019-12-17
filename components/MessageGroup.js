@@ -19,7 +19,7 @@
 import React from 'react'
 import marked from 'marked'
 import hljs from 'highlight.js'
-import Attachment from './Attachment'
+import Attachment  from './Attachment'
 
 const urlRegex = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm
 const imgRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:webp|jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/g
@@ -56,7 +56,7 @@ renderer.code = (code, infostring, escaped) => {
 }
 
 export default class MessageGroup extends React.Component {
-  render() {
+  render () {
     return <div
       className='message'
       data-timestamp={this.props.time}
@@ -67,7 +67,7 @@ export default class MessageGroup extends React.Component {
       data-author-badge={this.props.author.badge}
       data-msg-count={this.props.content.length}
     >
-      <img src={this.props.author.avatar} alt='avatar' className='avatar' />
+      <img src={this.props.author.avatar} alt='avatar' className='avatar'/>
       <div className='details'>
         <div className='header'>
           <span className='name'>
@@ -78,7 +78,7 @@ export default class MessageGroup extends React.Component {
         </div>
         <div className='contents'>
           {this.props.content.map((msg, i) => <div key={i} className='msg'>
-            <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(msg.msg) }} />
+            <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(msg.msg) }}/>
             {this.renderAttachments(msg)}
           </div>)}
         </div>
@@ -86,12 +86,12 @@ export default class MessageGroup extends React.Component {
     </div>
   }
 
-  renderAttachments(msg) {
+  renderAttachments (msg) {
     const attachments = []
     if (msg.attachments) {
       msg.attachments.forEach((attachment, i) => {
         if (attachment.url.match(imgRegex)) {
-          attachments.push(<img data-enlargable='' key={i} src={attachment.url} alt='' />)
+          attachments.push(<img data-enlargable='' key={i} src={attachment.url} alt=''/>)
         } else {
           attachments.push(<Attachment key={i} {...attachment} />)
         }
@@ -102,23 +102,23 @@ export default class MessageGroup extends React.Component {
     for (const url of urls) {
       const proxyUrl = url.replace(/(https?):\//, 'https://proxy.kanin.dev/$1')
       if (imgRegex.test(url)) {
-        attachments.push(<img data-enlargable='' key={url} src={proxyUrl} alt='' />)
+        attachments.push(<img data-enlargable='' key={url} src={proxyUrl} alt=''/>)
       } else if (audioRegex.test(url)) {
-        attachments.push(<audio key={url} src={proxyUrl} controls />)
+        attachments.push(<audio key={url} src={proxyUrl} controls/>)
       } else if (videoRegex.test(url)) {
-        attachments.push(<video key={url} src={proxyUrl} controls />)
+        attachments.push(<video key={url} src={proxyUrl} controls/>)
       }
     }
     return attachments
   }
 
-  renderMarkdown(str) {
+  renderMarkdown (str) {
     const tokens = lexer.lex(str)
     return marked.parser(tokens, {
       renderer,
       breaks: true,
       langPrefix: 'hljs ',
-      highlight: (code) => hljs.highlightAuto(code).value
+      highlight: (code, lang) => hljs.highlight(lang, code).value
     })
   }
 }
