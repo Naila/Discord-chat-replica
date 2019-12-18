@@ -20,10 +20,14 @@ const { readFileSync } = require('fs')
 const https = require('https')
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
-const Chat = require('./dist/Chat')
+
+const Chat = require('./dist/Chat').default
 const testData = require('./example')
 const config = require('./config')
-const html = readFileSync('index.html', 'utf8')
+
+const html = readFileSync('src/index.html', 'utf8')
+  .replace('/* style */', readFileSync('dist/style.css', 'utf8'))
+  .replace('/* script */', readFileSync('dist/script.js', 'utf8'))
 
 require('http')
   .createServer((req, res) => {
@@ -31,47 +35,44 @@ require('http')
       res.writeHead(404)
       res.end()
     }
+
+    const sizeFetcher = (url) => new Promise(resolve => {
+      console.log(url)
+      const parts = url.split('/').slice(2)
+      const host = parts.shift()
+      const path = `/${parts.join('/')}`
+      const req = https.request({
+        method: 'HEAD',
+        port: 443,
+        host,
+        path
+      }, (res) => {
+        resolve(parseInt(res.headers['content-length']))
+      })
+      req.end()
+    })
+
     const handler = async (data) => {
-      data.messages = await Promise.all(
-        data.messages.map(async msg => {
-          msg.content = await Promise.all(
-            msg.content.map(async c => {
-              if (c.attachments) {
-                c.attachments = await Promise.all(
-                  c.attachments.map(async a => {
-                    if (a.url) return a
-                    return {
-                      url: a,
-                      size: await new Promise(resolve => {
-                        const parts = a.split('/').slice(2)
-                        const host = parts.shift()
-                        const path = `/${parts.join('/')}`
-                        const req = https.request({
-                          method: 'HEAD',
-                          host, path,
-                          port: 443
-                        }, (res) => {
-                          resolve(parseInt(res.headers['content-length']))
-                        })
-                        req.end()
-                      })
-                    }
-                  })
-                )
+      for (const i1 in data.messages) {
+        for (const i2 in data.messages[i1].content) {
+          for (const i3 in data.messages[i1].content[i2].attachments) {
+            const url = data.messages[i1].content[i2].attachments[i3]
+            if (typeof url === 'string') {
+              data.messages[i1].content[i2].attachments[i3] = {
+                url: url,
+                size: await sizeFetcher(url)
               }
-              return c
-            })
-          )
-          return msg
-        })
-      )
-      const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(Chat.default, data))
-      res.end(html.replace('{react}', rendered))
+            }
+          }
+        }
+      }
+      const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(Chat, data))
+      res.end(html.replace('{chan}', data.channel_name).replace('{react}', rendered))
     }
 
     if (req.method === 'POST') {
       let data = ''
-      req.on('data', chunk => data += chunk)
+      req.on('data', chunk => (data += chunk))
       req.on('end', () => handler(JSON.parse(data)))
     } else {
       return handler(testData)

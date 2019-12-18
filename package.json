@@ -5,15 +5,31 @@
   "author": "Bowser65",
   "license": "AGPL-3.0",
   "scripts": {
-    "build-jsx": "sucrase ./components -d ./dist --transforms jsx,imports"
+    "build-jsx": "sucrase src/components -d ./dist --transforms jsx,imports",
+    "build-scss": "node-sass src/style.scss --output-style compressed dist/style.css",
+    "build-js": "babel src/script.js --presets=@babel/preset-env | uglifyjs -c -m -o dist/script.js",
+    "build": "npm run build-jsx && npm run build-js && npm run build-scss"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.7.6",
+    "eslint-plugin-react": "^7.17.0",
     "highlight.js": "^9.17.0",
     "marked": "^0.7.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "twemoji": "^12.1.4",
+    "uglify-js": "^3.7.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "eslint": "^6.7.2",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "node-sass": "^4.13.0",
     "sucrase": "^3.10.1"
   }
 }

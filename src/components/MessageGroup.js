@@ -19,9 +19,10 @@
 import React from 'react'
 import marked from 'marked'
 import hljs from 'highlight.js'
-import Attachment  from './Attachment'
+import twemoji from 'twemoji'
+import Attachment from './Attachment'
 
-const urlRegex = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm
+const urlRegex = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])/igm
 const imgRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:webp|jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/g
 const audioRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:mp3|ogg|wav|flac))(?:\?([^#]*))?(?:#(.*))?/g
 const videoRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:mp4|webm|mov))(?:\?([^#]*))?(?:#(.*))?/g
@@ -36,7 +37,7 @@ lexer.rules.blockquote = /(?:^ {0,3}(?:(?:>>> ((.|\n)*))|(> (.*))))/
 renderer.blockquote = (str) => {
   return `<blockquote>
   <div class='side'></div>
-  <div class='content'>${str.replace(/^&gt;&gt; /, '')}</div>
+  <div class='content'>${str.replace(/^<p>&gt;&gt; /, '<p>')}</div>
 </blockquote>`
 }
 
@@ -46,13 +47,13 @@ renderer.paragraph = (str) => {
   for (const url of urls) {
     text = text.replace(url, `<a target='_blank' href='${url}'>${url}</a>`)
   }
-  return '<p>' + text.replace('\n', '</p><p>') + '</p>'
+  return twemoji.parse(`<p>${text.replace('\n', '</p><p>')}</p>`)
 }
 
 renderer.__code = renderer.code
 renderer.code = (code, infostring, escaped) => {
   const res = renderer.__code(code, infostring, escaped)
-  return res.slice(0, 4) + ' class="codeblock"><div class="lang">' + infostring + '</div><div class="shitcode"><div class="lines"></div>' + res.slice(5, res.length - 7) + '</div><div class="copy">Copy</div></pre>'
+  return `${res.slice(0, 4)} class="codeblock"><div class='lang'>${infostring}</div><div class='shitcode'><div class='lines'></div>${res.slice(5, res.length - 7)}</div><div class='copy'>Copy</div></pre>`
 }
 
 export default class MessageGroup extends React.Component {
@@ -93,7 +94,7 @@ export default class MessageGroup extends React.Component {
         if (attachment.url.match(imgRegex)) {
           attachments.push(<img data-enlargable='' key={i} src={attachment.url} alt=''/>)
         } else {
-          attachments.push(<Attachment key={i} {...attachment} />)
+          attachments.push(<Attachment key={i} {...attachment}/>)
         }
       })
     }

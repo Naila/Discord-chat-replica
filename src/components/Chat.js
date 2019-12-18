@@ -20,19 +20,20 @@ import React from 'react'
 import HeaderBar from './HeaderBar'
 import MessageGroup from './MessageGroup'
 
-export default class Chat extends React.Component {
-  render () {
-    return <>
-      <HeaderBar channelName={this.props.channel_name} messagesCount={this.props.messages.reduce((red, m) => red += m.content.length, 0)}/>
-      <div className='messages'>
-        {this.props.messages.map((message, i) => <MessageGroup
-          author={this.props.users[message.author]}
-          authorId={message.author}
-          content={message.content}
-          time={message.time}
-          key={i}
-        />)}
-      </div>
-    </>
-  }
-}
+const Chat = (props) => <>
+  <HeaderBar
+    channelName={props.channel_name}
+    messagesCount={props.messages.reduce((red, m) => (red += m.content.length), 0)}
+  />
+  <div className='messages'>
+    {props.messages.map((message, i) => <MessageGroup
+      author={props.users[message.author]}
+      authorId={message.author}
+      content={message.content}
+      time={message.time}
+      key={i}
+    />)}
+  </div>
+</>
+
+export default Chat

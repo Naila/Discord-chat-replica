@@ -6,7 +6,7 @@ A small microservice to generate a Discord-like chat section.
 
  - git clone
  - npm i
- - npm run build-jsx
+ - npm run build
  - create config.json
  - pm2 start pm2.json
 
