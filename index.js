@@ -37,7 +37,6 @@ require('http')
     }
 
     const sizeFetcher = (url) => new Promise(resolve => {
-      console.log(url)
       const parts = url.split('/').slice(2)
       const host = parts.shift()
       const path = `/${parts.join('/')}`
