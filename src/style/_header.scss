@@ -16,11 +16,41 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@import "style/font";
-@import "style/global";
-@import "style/header";
-@import "style/messages";
-@import "style/attachments";
-@import "style/embeds";
-@import "style/modal";
-@import "style/toast";
+.header-bar {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  height: 48px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: var(--elevation);
+
+  svg {
+    margin-left: 16px;
+    margin-right: 8px;
+    margin-top: 1px;
+    color: var(--color-gray)
+  }
+
+  .topic {
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 1px var(--spacer) solid;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    color: var(--color-light-gray);
+    flex: 1;
+  }
+
+  #theme-toggle {
+    margin-left: auto;
+    width: 24px;
+    height: 24px;
+    background-image: var(--theme);
+    margin-right: 16px;
+    cursor: pointer;
+  }
+}

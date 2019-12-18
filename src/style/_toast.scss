@@ -16,11 +16,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@import "style/font";
-@import "style/global";
-@import "style/header";
-@import "style/messages";
-@import "style/attachments";
-@import "style/embeds";
-@import "style/modal";
-@import "style/toast";
+.toast {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  height: 48px;
+  width: 250px;
+  border-radius: 5px;
+  background-color: #43b581;
+  box-shadow: var(--elevation);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(70px);
+  transition: transform .3s;
+}
+
+.toast.opened {
+  transform: translateY(0);
+}

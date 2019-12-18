@@ -18,18 +18,18 @@
 
 // Utils
 const textarea = document.getElementById('clipboard')
-const copied = document.getElementById('copied')
+const toast = document.getElementById('toast')
 const modal = document.getElementById('modal')
 
 function copy (text, label = 'ID copied to clipboard.') {
   textarea.style.display = 'block'
-  copied.querySelector('span').innerText = label
-  copied.classList.add('opened')
+  toast.querySelector('span').innerText = label
+  toast.classList.add('opened')
   textarea.value = text
   textarea.select()
   document.execCommand('copy')
   textarea.style.display = 'none'
-  setTimeout(() => copied.classList.remove('opened'), 2500)
+  setTimeout(() => toast.classList.remove('opened'), 2500)
 }
 
 function openModal (type) {

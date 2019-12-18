@@ -83,7 +83,7 @@ export default class Attachment extends React.Component {
         </div>
         {this.renderDownload(url)}
       </div>
-      <video src={url} controls/>
+      <video src={url} controls controlsList="nodownload"/>
     </div>
   }
 
@@ -101,7 +101,7 @@ export default class Attachment extends React.Component {
           </div>
           {this.renderDownload(url)}
         </div>
-        {ext.audio.includes(url.split('.').pop()) && <audio src={url} controls/>}
+        {ext.audio.includes(url.split('.').pop()) && <audio src={url} controls controlsList="nodownload"/>}
       </div>
   }
 }

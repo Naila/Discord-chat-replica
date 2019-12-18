@@ -16,11 +16,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@import "style/font";
-@import "style/global";
-@import "style/header";
-@import "style/messages";
-@import "style/attachments";
-@import "style/embeds";
-@import "style/modal";
-@import "style/toast";
+@font-face {
+  font-family: Whitney;
+  font-weight: 400;
+  src: url(https://discordapp.com/assets/e8acd7d9bf6207f99350ca9f9e23b168.woff) format("woff")
+}
+
+@font-face {
+  font-family: Whitney;
+  font-weight: 500;
+  src: url(https://discordapp.com/assets/3bdef1251a424500c1b3a78dea9b7e57.woff) format("woff")
+}
+
+@font-face {
+  font-family: Whitney;
+  font-weight: 600;
+  src: url(https://discordapp.com/assets/be0060dafb7a0e31d2a1ca17c0708636.woff) format("woff")
+}

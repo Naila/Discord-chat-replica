@@ -105,9 +105,9 @@ export default class MessageGroup extends React.Component {
       if (imgRegex.test(url)) {
         attachments.push(<img data-enlargable='' key={url} src={proxyUrl} alt=''/>)
       } else if (audioRegex.test(url)) {
-        attachments.push(<audio key={url} src={proxyUrl} controls/>)
+        attachments.push(<audio key={url} src={proxyUrl} controls controlsList="nodownload"/>)
       } else if (videoRegex.test(url)) {
-        attachments.push(<video key={url} src={proxyUrl} controls/>)
+        attachments.push(<video key={url} src={proxyUrl} controls controlsList="nodownload"/>)
       }
     }
     return attachments
