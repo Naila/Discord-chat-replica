@@ -31,10 +31,11 @@
   &.opened {
     display: flex;
     animation: modal1 .4s;
+    animation-fill-mode: forwards;
 
     .inner {
-      transform-origin: 50% 50%;
       animation: modal2 .4s;
+      animation-fill-mode: forwards;
     }
   }
 
@@ -42,9 +43,11 @@
     opacity: 1;
     display: flex;
     animation: modal3 .2s;
+    animation-fill-mode: forwards;
 
     .inner {
       animation: modal4 .2s;
+      animation-fill-mode: forwards;
     }
   }
 

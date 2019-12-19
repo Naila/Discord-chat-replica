@@ -83,7 +83,7 @@ export default class Attachment extends React.Component {
         </div>
         {this.renderDownload(url)}
       </div>
-      <video src={url} controls controlsList="nodownload"/>
+      <video src={url} controls controlsList="nodownload" disablePictureInPicture/>
     </div>
   }
 

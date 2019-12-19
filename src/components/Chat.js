@@ -32,6 +32,11 @@ const Chat = (props) => <>
       content={message.content}
       time={message.time}
       key={i}
+      entities={{
+        users: props.users,
+        channels: props.channels,
+        roles: props.roles
+      }}
     />)}
   </div>
 </>

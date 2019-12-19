@@ -35,8 +35,8 @@ export default class Embed extends React.Component {
     return <div className='fields'>
       {this.props.fields.map((field, i) => {
         const rendered = <div className='field' key={`f${i}`}>
-          <div className='title' dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(field.name) }}/>
-          <div className='contents' dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(field.value, true) }}/>
+          <div className='title' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(field.name) }}/>
+          <div className='contents' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(field.value, true) }}/>
         </div>
         if (field.inline) {
           elBuffer.push(rendered)
@@ -86,14 +86,14 @@ export default class Embed extends React.Component {
             this.props.url
               ? <a
                 href={this.props.url} target='_blank' className='title'
-                dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(this.props.title) }}
+                dangerouslySetInnerHTML={{ __html: this.renderMarkdown(this.props.title) }}
               />
-              : <div className='title' dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(this.props.title) }}/>
+              : <div className='title' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(this.props.title) }}/>
           )}
           {this.props.description &&
           <div
             className='description'
-            dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(this.props.description, true) }}
+            dangerouslySetInnerHTML={{ __html: this.renderMarkdown(this.props.description, true) }}
           />}
           {this.props.fields && this.renderFields()}
         </div>
@@ -102,6 +102,10 @@ export default class Embed extends React.Component {
       {this.props.image && <img data-enlargable='' src={this.props.image.url} alt='' className='image'/>}
       {(this.props.footer || this.props.timestamp) && this.renderFooter()}
     </div>
+  }
+
+  renderMarkdown (md, ext) {
+    return Markdown.renderMarkdown(md, this.props.entities, ext)
   }
 
   int2rgb (int) {

@@ -196,6 +196,30 @@
         margin-top: 0;
         margin-bottom: -5px;
       }
+
+      .mention {
+        color: #7289da;
+        background-color: rgba(114, 137, 218, .1);
+        transition: background-color 50ms ease-out, color 50ms ease-out;
+        cursor: pointer;
+        padding: 0 2px;
+        font-weight: 500;
+
+        &:hover {
+          color: #fff;
+          background-color: rgba(114, 137, 218, .7);
+        }
+
+        &.role {
+          color: var(--role-color);
+          background-color: var(--role-bg);
+
+          &:hover {
+            color: var(--role-color);
+            background-color: var(--role-bg-h);
+          }
+        }
+      }
     }
   }
 }

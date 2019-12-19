@@ -44,9 +44,9 @@ export default class MessageGroup extends React.Component {
         </div>
         <div className='contents'>
           {this.props.content.map((msg, i) => <div key={i} className='msg'>
-            <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(msg.msg) }}/>
+            <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(msg.msg) }}/>
             {this.renderAttachments(msg)}
-            {msg.embed && <Embed {...msg.embed}/>}
+            {msg.embed && <Embed {...msg.embed} entities={this.props.entities}/>}
           </div>)}
         </div>
       </div>
@@ -73,9 +73,13 @@ export default class MessageGroup extends React.Component {
       } else if (Markdown.audioRegex.test(url)) {
         attachments.push(<audio key={url} src={proxyUrl} controls controlsList="nodownload"/>)
       } else if (Markdown.videoRegex.test(url)) {
-        attachments.push(<video key={url} src={proxyUrl} controls controlsList="nodownload"/>)
+        attachments.push(<video key={url} src={proxyUrl} controls controlsList="nodownload" disablePictureInPicture/>)
       }
     }
     return attachments
+  }
+
+  renderMarkdown (md, ext) {
+    return Markdown.renderMarkdown(md, this.props.entities, ext)
   }
 }
