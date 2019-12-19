@@ -50,7 +50,13 @@ modal.addEventListener('click', closeModal)
 
 // Light theme toggle
 document.getElementById('theme-toggle').addEventListener('click', () => {
-  document.body.className = document.body.className.includes('dark') ? 'theme-light' : 'theme-dark'
+  if (document.body.className.includes('dark')) {
+    document.body.classList.remove('theme-dark')
+    document.body.classList.add('theme-light')
+  } else {
+    document.body.classList.remove('theme-light')
+    document.body.classList.add('theme-dark')
+  }
 })
 
 // Timestamps
@@ -99,3 +105,12 @@ document.querySelectorAll('[data-enlargable]').forEach(el => {
     openModal('enlarge')
   })
 })
+
+// FF
+if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
+  document.body.classList.add('firefox')
+}
+
+if (navigator.userAgent.toLowerCase().indexOf('chrome') !== -1) {
+  document.body.classList.add('chrome')
+}

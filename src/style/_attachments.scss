@@ -158,13 +158,19 @@ img[data-enlargable] {
   background-color: transparent;
 }
 
-// Chrome specific
-// noinspection CssInvalidPseudoSelector
-audio::-webkit-media-controls-enclosure {
+audio {
   border-radius: 3px;
+
+  // noinspection CssInvalidPseudoSelector
+  &::-webkit-media-controls-enclosure {
+    border-radius: 3px;
+  }
 }
 
-// noinspection CssInvalidPseudoSelector
-.theme-dark audio::-webkit-media-controls {
+.chrome.theme-dark audio {
+  filter: invert(95%);
+}
+
+.firefox.theme-light audio {
   filter: invert(95%);
 }
