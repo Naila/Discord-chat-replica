@@ -20,6 +20,17 @@
       "badge": "Bot"
     }
   },
+  "channels": {
+    "1": {
+      "name": "test-channel"
+    }
+  },
+  "roles": {
+    "3": {
+      "name": "test role",
+      "color": 16029848
+    }
+  },
   "messages": [
     {
       "author": "1337",
@@ -29,10 +40,13 @@
           "msg": "> it seems to be __working__\nthen **don't** touch *anything*"
         },
         {
-          "msg": "# life pro tips \uD83E\uDDE1\uD83D\uDC3F\uD83C\uDF42\uD83C\uDF3A"
+          "msg": "# life pro tips \uD83E\uDDE1\uD83D\uDC3F\uD83C\uDF42\uD83C\uDF3A "
         },
         {
-          "msg": "https://example.com"
+          "msg": "https://example.com https://testlink.owo/__owo__/owo"
+        },
+        {
+          "msg": "[test](https://example.com) <#1> <@&3> <@1337> <@!6969>"
         }
       ]
     },
@@ -41,7 +55,7 @@
       "time": 1576091429571,
       "content": [
         {
-          "msg": "```js\nfor (let i = 0; i < 69; i++) {\n  console.log('Emma is cute')\n}\n```"
+          "msg": "```js\nfor (let i = 0; i < 69; i++) {\n  console.log('Emma is cute')\n}\n```\n```\nbtw have i told you i use arch\n```"
         }
       ]
     },
@@ -137,7 +151,7 @@
           "msg": "<:blobcatsalute:381555549097164800> Embed test",
           "embed": {
             "title": "title ~~(did you know you can have markdown here too?)~~",
-            "description": "this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown. ```\nyes, even code blocks```",
+            "description": "this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown.\n```\nyes, even code blocks\n```",
             "url": "https://discordapp.com",
             "color": 7501608,
             "timestamp": "2019-12-18T22:40:46.571Z",

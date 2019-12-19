@@ -17,49 +17,9 @@
  */
 
 import React from 'react'
-import marked from 'marked'
-import hljs from 'highlight.js'
-import twemoji from 'twemoji'
 import Attachment from './Attachment'
 import Embed from './Embed'
-
-// @todo: move all of the md shit to an ext file
-// @todo: emoji parsing
-// @todo: extended parsing (named links)
-// @todo: user, channel and role mentions
-const urlRegex = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])/ig
-const imgRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:webp|jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/ig
-const audioRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:mp3|ogg|wav|flac))(?:\?([^#]*))?(?:#(.*))?/ig
-const videoRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:mp4|webm|mov))(?:\?([^#]*))?(?:#(.*))?/ig
-
-const lexer = new marked.Lexer()
-const renderer = new marked.Renderer()
-
-lexer.rules.hr = lexer.rules.heading = lexer.rules.list = lexer.rules.table = /^$/
-marked.InlineLexer.rules.normal.strong = /^\*\*([^\s*])\*\*(?!\*)|^\*\*([^\s][\s\S]*?[^\s])\*\*(?!\*)/
-lexer.rules.blockquote = /(?:^ {0,3}(?:(?:>>> ((.|\n)*))|(> (.*))))/
-
-renderer.blockquote = (str) => {
-  return `<blockquote>
-  <div class='side'></div>
-  <div class='content'>${str.replace(/^<p>&gt;&gt; /, '<p>')}</div>
-</blockquote>`
-}
-
-renderer.paragraph = (str) => {
-  let text = str.replace(/__([^\s_])__(?!_)|__([^\s][\s\S]*?[^\s])__(?!_)/g, '<u>$2</u>')
-  const urls = text.match(urlRegex) || []
-  for (const url of urls) {
-    text = text.replace(url, `<a target='_blank' href='${url}'>${url}</a>`)
-  }
-  return twemoji.parse(`<p>${text.replace('\n', '</p><p>')}</p>`)
-}
-
-renderer.__code = renderer.code
-renderer.code = (code, infostring, escaped) => {
-  const res = renderer.__code(code, infostring, escaped)
-  return `${res.slice(0, 4)} class="codeblock"><div class='lang'>${infostring}</div><div class='shitcode'><div class='lines'></div>${res.slice(5, res.length - 7)}</div><div class='copy'>Copy</div></pre>`
-}
+import Markdown from '../src/markdown'
 
 export default class MessageGroup extends React.Component {
   render () {
@@ -84,7 +44,7 @@ export default class MessageGroup extends React.Component {
         </div>
         <div className='contents'>
           {this.props.content.map((msg, i) => <div key={i} className='msg'>
-            <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(msg.msg) }}/>
+            <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(msg.msg) }}/>
             {this.renderAttachments(msg)}
             {msg.embed && <Embed {...msg.embed}/>}
           </div>)}
@@ -97,7 +57,7 @@ export default class MessageGroup extends React.Component {
     const attachments = []
     if (msg.attachments) {
       msg.attachments.forEach((attachment, i) => {
-        if (attachment.url.match(imgRegex)) {
+        if (attachment.url.match(Markdown.imgRegex)) {
           attachments.push(<img data-enlargable='' key={i} src={attachment.url} alt=''/>)
         } else {
           attachments.push(<Attachment key={i} {...attachment}/>)
@@ -105,27 +65,17 @@ export default class MessageGroup extends React.Component {
       })
     }
 
-    const urls = msg.msg.match(urlRegex) || []
+    const urls = msg.msg.match(Markdown.urlRegex) || []
     for (const url of urls) {
       const proxyUrl = url.replace(/(https?):\//, 'https://proxy.kanin.dev/$1')
-      if (imgRegex.test(url)) {
+      if (Markdown.imgRegex.test(url)) {
         attachments.push(<img data-enlargable='' key={url} src={proxyUrl} alt=''/>)
-      } else if (audioRegex.test(url)) {
+      } else if (Markdown.audioRegex.test(url)) {
         attachments.push(<audio key={url} src={proxyUrl} controls controlsList="nodownload"/>)
-      } else if (videoRegex.test(url)) {
+      } else if (Markdown.videoRegex.test(url)) {
         attachments.push(<video key={url} src={proxyUrl} controls controlsList="nodownload"/>)
       }
     }
     return attachments
-  }
-
-  renderMarkdown (str) {
-    const tokens = lexer.lex(str)
-    return marked.parser(tokens, {
-      renderer,
-      breaks: true,
-      langPrefix: 'hljs ',
-      highlight: (code, lang) => hljs.highlight(lang, code).value
-    })
   }
 }

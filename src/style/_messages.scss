@@ -77,13 +77,9 @@
     }
 
     .msg {
-      .markup {
-        white-space: pre-wrap;
-      }
-
       p {
-        display: flex;
-        align-items: center;
+        white-space: pre-wrap;
+        line-height: 22px;
         margin: 0;
       }
 
@@ -198,6 +194,7 @@
         height: 1.375em;
         object-fit: contain;
         margin-top: 0;
+        margin-bottom: -5px;
       }
     }
   }

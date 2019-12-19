@@ -17,6 +17,7 @@
  */
 
 import React from 'react'
+import Markdown from '../src/markdown'
 
 export default class Embed extends React.Component {
   renderAuthor () {
@@ -34,8 +35,8 @@ export default class Embed extends React.Component {
     return <div className='fields'>
       {this.props.fields.map((field, i) => {
         const rendered = <div className='field' key={`f${i}`}>
-          <div className='title'>{this.renderMarkdown(field.name)}</div>
-          <div className='contents'>{this.renderMarkdown(field.value, true)}</div>
+          <div className='title' dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(field.name) }}/>
+          <div className='contents' dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(field.value, true) }}/>
         </div>
         if (field.inline) {
           elBuffer.push(rendered)
@@ -83,12 +84,17 @@ export default class Embed extends React.Component {
           {this.props.author && this.renderAuthor()}
           {this.props.title && (
             this.props.url
-              ? <a href={this.props.url} target='_blank' className='title'>{this.renderMarkdown(this.props.title)}</a>
-              : <div className='title'>{this.renderMarkdown(this.props.title)}</div>
+              ? <a
+                href={this.props.url} target='_blank' className='title'
+                dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(this.props.title) }}
+              />
+              : <div className='title' dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(this.props.title) }}/>
           )}
-          {this.props.description && <div className='description'>
-            {this.renderMarkdown(this.props.description, true)}
-          </div>}
+          {this.props.description &&
+          <div
+            className='description'
+            dangerouslySetInnerHTML={{ __html: Markdown.renderMarkdown(this.props.description, true) }}
+          />}
           {this.props.fields && this.renderFields()}
         </div>
         {this.props.thumbnail && <img data-enlargable='' src={this.props.thumbnail.url} alt='' className='thumbnail'/>}
@@ -96,11 +102,6 @@ export default class Embed extends React.Component {
       {this.props.image && <img data-enlargable='' src={this.props.image.url} alt='' className='image'/>}
       {(this.props.footer || this.props.timestamp) && this.renderFooter()}
     </div>
-  }
-
-  renderMarkdown (md, extended) {
-    // @todo: parse md
-    return md
   }
 
   int2rgb (int) {
