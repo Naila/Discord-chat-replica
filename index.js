@@ -53,10 +53,14 @@ require('http')
 
     const handler = async (data) => {
       for (const i1 in data.messages) {
+        // noinspection JSUnfilteredForInLoop
         for (const i2 in data.messages[i1].content) {
+          // noinspection JSUnfilteredForInLoop
           for (const i3 in data.messages[i1].content[i2].attachments) {
+            // noinspection JSUnfilteredForInLoop
             const url = data.messages[i1].content[i2].attachments[i3]
             if (typeof url === 'string') {
+              // noinspection JSUnfilteredForInLoop
               data.messages[i1].content[i2].attachments[i3] = {
                 url: url,
                 size: await sizeFetcher(url)

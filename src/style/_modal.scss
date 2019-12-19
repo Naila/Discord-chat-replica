@@ -31,6 +31,7 @@
   &.opened {
     display: flex;
     animation: modal1 .4s;
+
     .inner {
       transform-origin: 50% 50%;
       animation: modal2 .4s;
@@ -41,7 +42,8 @@
     opacity: 1;
     display: flex;
     animation: modal3 .2s;
-    .closing .inner {
+
+    .inner {
       animation: modal4 .2s;
     }
   }
@@ -49,9 +51,11 @@
   .img-enlarge {
     display: flex;
     flex-direction: column;
+
     img {
       max-height: 680px;
     }
+
     a {
       font-size: 14px;
       font-weight: 500;

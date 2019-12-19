@@ -12,6 +12,12 @@
       "username": "Noire",
       "discriminator": "1337",
       "badge": "Staff"
+    },
+    "420": {
+      "avatar": "https://weeb.services/assets/avatars/QRUqd-yuqYI.png",
+      "username": "WeebBot",
+      "discriminator": "0420",
+      "badge": "Bot"
     }
   },
   "messages": [
@@ -120,6 +126,62 @@
           "attachments": [
             "https://cdn.discordapp.com/attachments/246699000659443714/656479595754946570/Alan-Walker_Play.mp3"
           ]
+        }
+      ]
+    },
+    {
+      "author": "420",
+      "time": 1576098466245,
+      "content": [
+        {
+          "msg": "<:blobcatsalute:381555549097164800> Embed test",
+          "embed": {
+            "title": "title ~~(did you know you can have markdown here too?)~~",
+            "description": "this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown. ```\nyes, even code blocks```",
+            "url": "https://discordapp.com",
+            "color": 7501608,
+            "timestamp": "2019-12-18T22:40:46.571Z",
+            "author": {
+              "name": "author name *md*",
+              "url": "https://weeb.services",
+              "icon_url": "https://weeb.services/assets/avatars/d3IDxm3pvhE.png"
+            },
+            "thumbnail": {
+              "url": "https://weeb.services/assets/avatars/vs9g_CvR3U8.png"
+            },
+            "fields": [
+              {
+                "name": "Field Title *md* [a](https://a.a)",
+                "value": "this is a vert interesting and useful thing *md*"
+              },
+              {
+                "name": "Field Title *md*",
+                "value": "with a lot of important data *md*"
+              },
+              {
+                "name": "Inline Field *md*",
+                "value": "these last two *md*",
+                "inline": true
+              },
+              {
+                "name": "Inline Field *md*",
+                "value": "are inline fields *md*",
+                "inline": true
+              },
+              {
+                "name": "Inline Field *md*",
+                "value": "are inline fields *md*",
+                "inline": true
+              }
+            ],
+            "image": {
+              "url": "https://weeb.services/assets/avatars/KlkfjuQgejw.png"
+            },
+            "footer": {
+              "icon_url": "https://weeb.services/assets/avatars/UQ2Q40pAq4A.png",
+              "text": "footer text *md*"
+            }
+          }
         }
       ]
     }

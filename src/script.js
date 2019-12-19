@@ -62,14 +62,15 @@ document.querySelectorAll('[data-timestamp]').forEach(el => {
     (today.getUTCMonth() - date.getUTCMonth()) * 30 +
     (today.getUTCDate() - date.getUTCDate())
   const timeEl = el.querySelector('.time')
+  const effectiveEl = timeEl || el
   if (daysBetween === 0) {
-    timeEl.innerText = `Today at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+    effectiveEl.innerText = `Today at ${date.getUTCHours()}:${date.getUTCMinutes()}`
   } else if (daysBetween === 1) {
-    timeEl.innerText = `Yesterday at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+    effectiveEl.innerText = `Yesterday at ${date.getUTCHours()}:${date.getUTCMinutes()}`
   } else if (daysBetween < 7) {
-    timeEl.innerText = `Last ${days[date.getUTCDay() - 1]} at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+    effectiveEl.innerText = `Last ${days[date.getUTCDay() - 1]} at ${date.getUTCHours()}:${date.getUTCMinutes()}`
   } else {
-    timeEl.innerText = `${date.getUTCDay().toString().padStart(2, '0')}/` +
+    effectiveEl.innerText = `${date.getUTCDay().toString().padStart(2, '0')}/` +
       `${date.getUTCMonth().toString().padStart(2, '0')}/` +
       `${date.getUTCFullYear().toString().padStart(2, '0')}`
   }

@@ -21,7 +21,12 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 import twemoji from 'twemoji'
 import Attachment from './Attachment'
+import Embed from './Embed'
 
+// @todo: move all of the md shit to an ext file
+// @todo: emoji parsing
+// @todo: extended parsing (named links)
+// @todo: user, channel and role mentions
 const urlRegex = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])/ig
 const imgRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:webp|jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/ig
 const audioRegex = /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:mp3|ogg|wav|flac))(?:\?([^#]*))?(?:#(.*))?/ig
@@ -81,6 +86,7 @@ export default class MessageGroup extends React.Component {
           {this.props.content.map((msg, i) => <div key={i} className='msg'>
             <div key={i} className='markup' dangerouslySetInnerHTML={{ __html: this.renderMarkdown(msg.msg) }}/>
             {this.renderAttachments(msg)}
+            {msg.embed && <Embed {...msg.embed}/>}
           </div>)}
         </div>
       </div>
