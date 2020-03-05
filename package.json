@@ -5,9 +5,9 @@
   "author": "Bowser65",
   "license": "AGPL-3.0",
   "scripts": {
-    "build-jsx": "sucrase src/components -d ./dist --transforms jsx,imports",
-    "build-scss": "node-sass src/style.scss --output-style compressed dist/style.css",
-    "build-js": "babel src/script.js --presets=@babel/preset-env | uglifyjs -c -m -o dist/script.js",
+    "build-jsx": "sucrase old_src/components -d ./dist --transforms jsx,imports",
+    "build-scss": "node-sass old_src/style.scss --output-style compressed dist/style.css",
+    "build-js": "babel old_src/script.js --presets=@babel/preset-env | uglifyjs -c -m -o dist/script.js",
     "build": "npm run build-jsx && npm run build-js && npm run build-scss"
   },
   "dependencies": {

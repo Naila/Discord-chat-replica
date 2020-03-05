@@ -1,6 +1,6 @@
-/**
+/*
  * Small microservice to generate a Discord-like chat section
- * Copyright (C) 2019-present Bowser65
+ * Copyright (C) 2020 Bowser65
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,20 +16,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@font-face {
-  font-family: Whitney;
-  font-weight: 400;
-  src: url(https://discordapp.com/assets/e8acd7d9bf6207f99350ca9f9e23b168.woff) format("woff")
-}
+import React from 'react'
+import HeaderBar from './HeaderBar'
+import MessageGroup from './MessageGroup'
 
-@font-face {
-  font-family: Whitney;
-  font-weight: 500;
-  src: url(https://discordapp.com/assets/3bdef1251a424500c1b3a78dea9b7e57.woff) format("woff")
-}
+const Chat = (props) => <>
+  <HeaderBar
+    channelName={props.channel_name}
+    messagesCount={props.messages.reduce((red, m) => (red += m.content.length), 0)}
+  />
+  <div className='messages'>
+    {props.messages.map((message, i) => <MessageGroup
+      author={props.users[message.author]}
+      authorId={message.author}
+      content={message.content}
+      time={message.time}
+      key={i}
+      entities={{
+        users: props.users,
+        channels: props.channels,
+        roles: props.roles
+      }}
+    />)}
+  </div>
+</>
 
-@font-face {
-  font-family: Whitney;
-  font-weight: 600;
-  src: url(https://discordapp.com/assets/be0060dafb7a0e31d2a1ca17c0708636.woff) format("woff")
-}
+export default Chat
