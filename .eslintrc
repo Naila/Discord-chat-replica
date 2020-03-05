@@ -1,17 +1,12 @@
 {
   "extends": "standard",
   "env": {
-    "node": true
+    "node": true,
+    "browser": true
   },
-  "plugins": [
-    "react"
-  ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    }
+  "globals": {
+    "twemoji": true
   },
-  "globals": {},
   "rules": {
     "no-void": "off",
     "no-undefined": "error",
@@ -42,19 +37,6 @@
       "error",
       "always-multiline"
     ],
-    "object-property-newline": "error",
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "react/no-this-in-sfc": "error",
-    "react/prefer-stateless-function": "error",
-    "react/react-in-jsx-scope": "error",
-    "react/style-prop-object": "error",
-    "react/void-dom-elements-no-children": "error",
-    "react/jsx-fragments": "error",
-    "react/jsx-pascal-case": "error",
-    "react/jsx-props-no-multi-spaces": "error",
-    "react/no-children-prop": "error",
-    "react/no-deprecated": "error",
-    "react/no-direct-mutation-state": "error"
+    "object-property-newline": "error"
   }
 }

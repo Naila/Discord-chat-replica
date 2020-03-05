@@ -1,0 +1,20 @@
+<% for (const msg of group) { %>
+    <% const author = data.users[msg.author] %>
+    <div class='message'>
+        <% if (group.indexOf(msg) === 0) { %>
+            <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>' alt='avatar' class='avatar'/>
+        <% } else { %>
+            <message-date type='time' timestamp='<%= msg.time %>'><%= new Date(msg.time).toUTCString() %></message-date>
+        <% } %>
+        <div class='contents'>
+            <% if (group.indexOf(msg) === 0) { %>
+                <div class='header' is='message-header'>
+                    <span class='name'><%= author.username %></span>
+                    <span class='badge'><%= author.badge %></span>
+                    <message-date class='date' type='date' timestamp='<%= msg.time %>'><%= new Date(msg.time).toUTCString() %></message-date>
+                </div>
+            <% } %>
+            <div class='markup' is='message-contents'><%= msg.content %></div>
+        </div>
+    </div>
+<% } %>

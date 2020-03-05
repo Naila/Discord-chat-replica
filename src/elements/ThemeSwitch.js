@@ -16,48 +16,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-.header-bar {
-  display: flex;
-  align-items: center;
-  user-select: none;
-  height: 48px;
-  font-weight: 600;
-  font-size: 16px;
-  box-shadow: var(--elevation);
-
-  svg {
-    margin-left: 16px;
-    margin-right: 8px;
-    margin-top: 1px;
-    color: var(--color-gray)
+export default class ThemeSwitch extends HTMLElement {
+  constructor () {
+    super()
+    this.toggle = this.toggle.bind(this)
   }
 
-  .topic, .date {
-    margin-left: 16px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    font-size: 14px;
-    line-height: 18px;
-    font-weight: 500;
-    color: var(--color-light-gray);
+  connectedCallback () {
+    this.addEventListener('click', this.toggle)
   }
 
-  .topic {
-    padding-left: 16px;
-    border-left: 1px var(--spacer) solid;
-    flex: 1;
-  }
-
-  .date {
-    margin-left: auto;
-    margin-right: 15px;
-  }
-
-  theme-switch {
-    width: 24px;
-    height: 24px;
-    background-image: var(--theme);
-    margin-right: 16px;
-    cursor: pointer;
+  toggle () {
+    const theme = document.body.className
+    if (theme === 'theme-dark') {
+      document.body.className = 'theme-light'
+    } else {
+      document.body.className = 'theme-dark'
+    }
   }
 }
+
+customElements.define('theme-switch', ThemeSwitch)

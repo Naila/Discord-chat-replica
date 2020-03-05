@@ -16,9 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const marked = require('marked')
-const twemoji = require('twemoji')
-const hljs = require('highlight.js')
+import marked from 'marked'
+import hljs from 'highlight.js'
 
 class Markdown {
   constructor () {
@@ -63,10 +62,12 @@ class Markdown {
       renderer: this.renderer,
       langPrefix: 'hljs ',
       highlight: (code, lang) => {
+        console.log('e', lang)
         if (!lang) return code
         try {
           return hljs.highlight(lang, code).value
         } catch (e) {
+          console.warn(e)
           return code
         }
       }

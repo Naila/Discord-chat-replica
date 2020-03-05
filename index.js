@@ -16,61 +16,45 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { readFileSync } = require('fs')
-const https = require('https')
-const React = require('react')
-const ReactDOMServer = require('react-dom/server')
+const { existsSync, createReadStream } = require('fs')
+const { resolve } = require('path')
+const mime = require('mime-types')
+const ejs = require('ejs')
 
-const Chat = require('./dist/Chat').default
-const testData = require('./example')
+const Formatter = require('./formatter')
+
+// Stuff
 const config = require('./config')
-
-const html = readFileSync('src/index.html', 'utf8')
-  .replace('/* style */', readFileSync('dist/style.css', 'utf8'))
-  .replace('/* script */', readFileSync('dist/script.js', 'utf8'))
+const manifest = require('./dist/manifest')
+const testData = require('./example')
 
 require('http')
   .createServer((req, res) => {
     if (![ 'GET', 'POST' ].includes(req.method)) {
-      res.writeHead(404)
+      res.writeHead(405)
       res.end()
     }
 
-    const sizeFetcher = (url) => new Promise(resolve => {
-      const parts = url.split('/').slice(2)
-      const host = parts.shift()
-      const path = `/${parts.join('/')}`
-      const req = https.request({
-        method: 'HEAD',
-        port: 443,
-        host,
-        path
-      }, (res) => {
-        resolve(parseInt(res.headers['content-length']))
-      })
-      req.end()
-    })
+    // Assets
+    if (req.url.startsWith('/dist/')) {
+      const target = req.url.split('/')[2]
+      const file = resolve(__dirname, 'dist', target)
+      if (existsSync(file) && target && target !== '.' && target !== '..') {
+        res.setHeader('content-type', mime.lookup(file) || 'application/octet-stream')
+        return createReadStream(file).pipe(res)
+      }
+    }
 
     const handler = async (data) => {
-      for (const i1 in data.messages) {
-        // noinspection JSUnfilteredForInLoop
-        for (const i2 in data.messages[i1].content) {
-          // noinspection JSUnfilteredForInLoop
-          for (const i3 in data.messages[i1].content[i2].attachments) {
-            // noinspection JSUnfilteredForInLoop
-            const url = data.messages[i1].content[i2].attachments[i3]
-            if (typeof url === 'string') {
-              // noinspection JSUnfilteredForInLoop
-              data.messages[i1].content[i2].attachments[i3] = {
-                url: url,
-                size: await sizeFetcher(url)
-              }
-            }
-          }
+      const fm = new Formatter(data)
+      ejs.renderFile('./views/index.ejs', { data: await fm.format(), manifest }, null, (err, str) => {
+        if (err) {
+          res.writeHead(500)
+          res.end('Internal Server Error')
+          console.error(err)
         }
-      }
-      const rendered = ReactDOMServer.renderToStaticMarkup(React.createElement(Chat, data))
-      res.end(html.replace('{chan}', data.channel_name).replace('{react}', rendered))
+        res.end(str)
+      })
     }
 
     if (req.method === 'POST') {

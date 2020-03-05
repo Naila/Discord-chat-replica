@@ -16,48 +16,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-.header-bar {
-  display: flex;
-  align-items: center;
-  user-select: none;
-  height: 48px;
-  font-weight: 600;
-  font-size: 16px;
-  box-shadow: var(--elevation);
-
-  svg {
-    margin-left: 16px;
-    margin-right: 8px;
-    margin-top: 1px;
-    color: var(--color-gray)
+export default class MessageAvatar extends HTMLImageElement {
+  constructor () {
+    super()
+    this.onError = this.onError.bind(this)
   }
 
-  .topic, .date {
-    margin-left: 16px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    font-size: 14px;
-    line-height: 18px;
-    font-weight: 500;
-    color: var(--color-light-gray);
+  connectedCallback () {
+    this.addEventListener('error', this.onError)
+    this.addEventListener('click', () => {
+      console.log('todo') // TODO
+    })
   }
 
-  .topic {
-    padding-left: 16px;
-    border-left: 1px var(--spacer) solid;
-    flex: 1;
-  }
-
-  .date {
-    margin-left: auto;
-    margin-right: 15px;
-  }
-
-  theme-switch {
-    width: 24px;
-    height: 24px;
-    background-image: var(--theme);
-    margin-right: 16px;
-    cursor: pointer;
+  onError () {
+    this.removeEventListener('error', this.onError)
+    console.log('handle') // TODO
   }
 }
+
+customElements.define('message-avatar', MessageAvatar, { extends: 'img' })

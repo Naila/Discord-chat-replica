@@ -35,169 +35,131 @@
     {
       "author": "1337",
       "time": 1576091429571,
-      "content": [
-        {
-          "msg": "> it seems to be __working__\nthen **don't** touch *anything*"
-        },
-        {
-          "msg": "# life pro tips \uD83E\uDDE1\uD83D\uDC3F\uD83C\uDF42\uD83C\uDF3A soon™ ©® \uD83D\uDD2B\uD83D\uDC40"
-        },
-        {
-          "msg": "https://example.com https://testlink.owo/__owo__/owo"
-        },
-        {
-          "msg": "[test](https://example.com) <#1> <@&3> <@1337> <@!6969>"
-        }
-      ]
+      "content": "> it seems to be __working__\nthen **don't** touch *anything*"
     },
     {
       "author": "1337",
       "time": 1576091429571,
-      "content": [
-        {
-          "msg": "```js\nfor (let i = 0; i < 69; i++) {\n  console.log('Emma is cute')\n}\n```\n```\nbtw have i told you i use arch\n```"
-        }
+      "content": "# life pro tips \uD83E\uDDE1\uD83D\uDC3F\uD83C\uDF42\uD83C\uDF3A soon™ ©® \uD83D\uDD2B\uD83D\uDC40"
+    },
+    {
+      "author": "1337",
+      "time": 1576091429571,
+      "content": "https://example.com https://testlink.owo/__owo__/owo"
+    },
+    {
+      "author": "1337",
+      "time": 1576091429571,
+      "content": "[test](https://example.com) <#1> <@&3> <@1337> <@!6969>"
+    },
+    {
+      "author": "1337",
+      "time": 1576091429571,
+      "content": "```js\nfor (let i = 0; i < 69; i++) {\n  console.log('Emma is cute')\n}\n```\n```\nbtw have i told you i use arch\n```"
+    },
+    {
+      "author": "6969",
+      "time": 1576091466245,
+      "content": ">>> that looks\ndope man"
+    },
+    {
+      "author": "6969",
+      "time": 1576091466245,
+      "content": "https://media.karousell.com/media/photos/products/2018/11/09/754_tumblr_tropical_ulzzang_beach_wear_kimono_1541746668_9831ddd5_progressive.jpg"
+    },
+    {
+      "author": "6969",
+      "time": 1576091466245,
+      "content": "test file",
+      "attachments": [
+        "https://cdn.discordapp.com/attachments/553325417088679938/654667517985292318/Editable.psd"
       ]
     },
     {
       "author": "6969",
       "time": 1576091466245,
-      "content": [
-        {
-          "msg": ">>> that looks\ndope man"
-        }
+      "content": "test img",
+      "attachments": [
+        "https://epic.weeb.services/0afe075b36.png"
       ]
     },
     {
       "author": "6969",
       "time": 1576091466245,
-      "content": [
-        {
-          "msg": "https://media.karousell.com/media/photos/products/2018/11/09/754_tumblr_tropical_ulzzang_beach_wear_kimono_1541746668_9831ddd5_progressive.jpg"
-        }
-      ]
+      "content": "this is very professional https://cdn.discordapp.com/attachments/246699000659443714/656478179552395265/handcuffs.mp4\nhot tho"
     },
     {
       "author": "6969",
       "time": 1576091466245,
-      "content": [
-        {
-          "msg": "test file",
-          "attachments": [
-            "https://cdn.discordapp.com/attachments/553325417088679938/654667517985292318/Editable.psd"
-          ]
-        }
-      ]
+      "content": "thats lit man https://cdn.discordapp.com/attachments/246699000659443714/656479595754946570/Alan-Walker_Play.mp3"
     },
     {
-      "author": "6969",
+      "author": "1337",
       "time": 1576091466245,
-      "content": [
-        {
-          "msg": "test img",
-          "attachments": [
-            "https://epic.weeb.services/0afe075b36.png"
-          ]
-        }
-      ]
-    },
-    {
-      "author": "6969",
-      "time": 1576091466245,
-      "content": [
-        {
-          "msg": "this is very professional https://cdn.discordapp.com/attachments/246699000659443714/656478179552395265/handcuffs.mp4\nhot tho"
-        }
-      ]
-    },
-    {
-      "author": "6969",
-      "time": 1576091466245,
-      "content": [
-        {
-          "msg": "thats lit man https://cdn.discordapp.com/attachments/246699000659443714/656479595754946570/Alan-Walker_Play.mp3"
-        }
+      "content": "test video",
+      "attachments": [
+        "https://cdn.discordapp.com/attachments/246699000659443714/656478179552395265/handcuffs.mp4"
       ]
     },
     {
       "author": "1337",
       "time": 1576091466245,
-      "content": [
-        {
-          "msg": "test video",
-          "attachments": [
-            "https://cdn.discordapp.com/attachments/246699000659443714/656478179552395265/handcuffs.mp4"
-          ]
-        }
-      ]
-    },
-    {
-      "author": "1337",
-      "time": 1576091466245,
-      "content": [
-        {
-          "msg": "test audio",
-          "attachments": [
-            "https://cdn.discordapp.com/attachments/246699000659443714/656479595754946570/Alan-Walker_Play.mp3"
-          ]
-        }
+      "content": "test audio",
+      "attachments": [
+        "https://cdn.discordapp.com/attachments/246699000659443714/656479595754946570/Alan-Walker_Play.mp3"
       ]
     },
     {
       "author": "420",
       "time": 1576098466245,
-      "content": [
-        {
-          "msg": "<:blobcatsalute:381555549097164800> Embed test",
-          "embed": {
-            "title": "title ~~(did you know you can have markdown here too?)~~",
-            "description": "this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown.\n```\nyes, even code blocks\n```",
-            "url": "https://discordapp.com",
-            "color": 7501608,
-            "timestamp": "2019-12-18T22:40:46.571Z",
-            "author": {
-              "name": "author name *md*",
-              "url": "https://weeb.services",
-              "icon_url": "https://weeb.services/assets/avatars/d3IDxm3pvhE.png"
-            },
-            "thumbnail": {
-              "url": "https://weeb.services/assets/avatars/vs9g_CvR3U8.png"
-            },
-            "fields": [
-              {
-                "name": "Field Title *md* [a](https://a.a)",
-                "value": "this is a vert interesting and useful thing *md*"
-              },
-              {
-                "name": "Field Title *md*",
-                "value": "with a lot of important data *md*"
-              },
-              {
-                "name": "Inline Field *md*",
-                "value": "these last two *md*",
-                "inline": true
-              },
-              {
-                "name": "Inline Field *md*",
-                "value": "are inline fields *md*",
-                "inline": true
-              },
-              {
-                "name": "Inline Field *md*",
-                "value": "are inline fields *md*",
-                "inline": true
-              }
-            ],
-            "image": {
-              "url": "https://weeb.services/assets/avatars/KlkfjuQgejw.png"
-            },
-            "footer": {
-              "icon_url": "https://weeb.services/assets/avatars/UQ2Q40pAq4A.png",
-              "text": "footer text *md*"
-            }
+      "content": "<:blobcatsalute:381555549097164800> Embed test",
+      "embed": {
+        "title": "title ~~(did you know you can have markdown here too?)~~",
+        "description": "this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown.\n```\nyes, even code blocks\n```",
+        "url": "https://discordapp.com",
+        "color": 7501608,
+        "timestamp": "2019-12-18T22:40:46.571Z",
+        "author": {
+          "name": "author name *md*",
+          "url": "https://weeb.services",
+          "icon_url": "https://weeb.services/assets/avatars/d3IDxm3pvhE.png"
+        },
+        "thumbnail": {
+          "url": "https://weeb.services/assets/avatars/vs9g_CvR3U8.png"
+        },
+        "fields": [
+          {
+            "name": "Field Title *md* [a](https://a.a)",
+            "value": "this is a vert interesting and useful thing *md*"
+          },
+          {
+            "name": "Field Title *md*",
+            "value": "with a lot of important data *md*"
+          },
+          {
+            "name": "Inline Field *md*",
+            "value": "these last two *md*",
+            "inline": true
+          },
+          {
+            "name": "Inline Field *md*",
+            "value": "are inline fields *md*",
+            "inline": true
+          },
+          {
+            "name": "Inline Field *md*",
+            "value": "are inline fields *md*",
+            "inline": true
           }
+        ],
+        "image": {
+          "url": "https://weeb.services/assets/avatars/KlkfjuQgejw.png"
+        },
+        "footer": {
+          "icon_url": "https://weeb.services/assets/avatars/UQ2Q40pAq4A.png",
+          "text": "footer text *md*"
         }
-      ]
+      }
     }
   ]
 }
