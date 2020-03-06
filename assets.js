@@ -16,12 +16,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Markdown from '../utils/markdown'
+const { readFileSync } = require('fs')
+const { join } = require('path')
 
-export default class MessageContents extends HTMLDivElement {
-  connectedCallback () {
-    this.innerHTML = Markdown.renderMarkdown(this.innerHTML)
-  }
-}
+const script = readFileSync(join(__dirname, 'dist', 'script.js'))
+const style = readFileSync(join(__dirname, 'dist', 'style.css'))
 
-customElements.define('message-contents', MessageContents, { extends: 'div' })
+module.exports = { style, script }

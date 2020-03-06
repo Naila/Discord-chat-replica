@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no'>
+    <meta charset='UTF-8'/>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no'/>
     <title>#<%= data.channel_name %> • Discord Chat Archive</title>
 
-    <meta name='theme-color' content='#affaff'>
+    <meta name='theme-color' content='#affaff'/>
     <meta property='og:locale' content='en_US'/>
     <meta property='og:title' content='Discord Chat Archive'/>
     <meta property='og:site_name' content='NailaBot'/>
@@ -17,9 +18,8 @@
     <meta name='twitter:card' content='summary'/>
     <meta name='twitter:site' content='@NailaBot'/>
     <meta name='twitter:creator' content='@Bowser65'/>
-    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-    <link rel='stylesheet' href='https://highlightjs.org/static/demo/styles/solarized-dark.css'>
-    <link rel='stylesheet' href='/dist/<%= manifest.hash %>.css'/>
+    <link rel='stylesheet' href='https://highlightjs.org/static/demo/styles/solarized-dark.css'/>
+    <style><%- assets.style %></style>
 </head>
 <body class='theme-dark'>
     <%- include('header.ejs', { data: data }) %>
@@ -29,6 +29,6 @@
         <% } %>
     </div>
     <script src='https://twemoji.maxcdn.com/v/latest/twemoji.min.js' crossorigin='anonymous'></script>
-    <script src='/dist/<%= manifest.hash %>.js'></script>
+    <script><%- assets.script %></script>
 </body>
 </html>

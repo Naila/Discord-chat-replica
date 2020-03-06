@@ -29,7 +29,7 @@ module.exports = class Formatter {
     }
 
     await this._formatAttachments()
-    await this._formatMessages()
+    this._formatMessages()
     return this.payload
   }
 
@@ -44,7 +44,7 @@ module.exports = class Formatter {
           if (typeof url === 'string') {
             // noinspection JSUnfilteredForInLoop
             this.payload.messages[i1].content[i2].attachments[i3] = {
-              url: url,
+              url,
               size: await this._fetchSize(url)
             }
           }
@@ -53,9 +53,25 @@ module.exports = class Formatter {
     }
   }
 
-  async _formatMessages () {
+  _formatMessages () {
+    let cursor = -1
     this.payload.grouppedMessages = []
-    this.payload.messages.forEach(m => this.payload.grouppedMessages.push([ m ])) // TODO
+    this.payload.messages.forEach(msg => {
+      const lastMessage = cursor !== -1 ? this.payload.grouppedMessages[cursor].reverse()[0] : null
+      if (!lastMessage || msg.author !== lastMessage.author || msg.time - lastMessage.time > 420000) {
+        this.payload.grouppedMessages.push([])
+        cursor++
+      }
+      this.payload.grouppedMessages[cursor].push({
+        ...msg,
+        markdownContent: this._markdown(msg.content)
+      })
+    })
+    this.payload.grouppedMessages = this.payload.grouppedMessages.filter(a => a.length !== 0)
+  }
+
+  _markdown (message) {
+    return message // TODO
   }
 
   _validate () {

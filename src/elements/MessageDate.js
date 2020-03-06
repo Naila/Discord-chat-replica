@@ -22,7 +22,8 @@ export default class MessageDate extends HTMLElement {
     if (type === 'date') {
       this.formatDate()
     } else if (type === 'time') {
-
+      const date = new Date(parseInt(this.getAttribute('timestamp')))
+      this.innerText = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
     } else {
       console.warn(`MessageDate: Cannot parse date: unknown format ${type}`)
     }

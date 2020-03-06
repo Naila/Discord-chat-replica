@@ -1,4 +1,3 @@
-/* eslint-disable import/first */
 /*
  * Small microservice to generate a Discord-like chat section
  * Copyright (C) 2020 Bowser65
@@ -21,4 +20,3 @@ import './elements/ThemeSwitch'
 import './elements/MessageHeader'
 import './elements/MessageAvatar'
 import './elements/MessageDate'
-import './elements/MessageContents'

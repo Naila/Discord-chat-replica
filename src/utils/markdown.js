@@ -19,6 +19,7 @@
 import marked from 'marked'
 import hljs from 'highlight.js'
 
+// TODO: Rewrite this to use Discord's behaviour
 class Markdown {
   constructor () {
     // Regexes
@@ -34,17 +35,17 @@ class Markdown {
     marked.InlineLexer.rules.normal.link = extended ? this._link : /^$/
     this.renderer.paragraph = (str) => {
       str = this.renderer.__paragraph(str)
-        .replace(/&lt;@([\d]+)&gt;/g, (raw, id) => {
+        .replace(/<@([\d]+)>/g, (raw, id) => {
           let mention = `<span class='mention' data-id='${id}'>`
           mention += (entities && entities.users && entities.users[id]) ? `@${entities.users[id].username}` : raw
           mention += '</span>'
           return mention
-        }).replace(/&lt;#([\d]+)&gt;/g, (raw, id) => {
+        }).replace(/<#([\d]+)>/g, (raw, id) => {
           let mention = '<span class="mention">'
           mention += (entities && entities.channels && entities.channels[id]) ? `#${entities.channels[id].name}` : raw
           mention += '</span>'
           return mention
-        }).replace(/&lt;@&amp;([\d]+)&gt;/g, (raw, id) => {
+        }).replace(/<@&amp;([\d]+)>/g, (raw, id) => {
           if (entities && entities.roles && entities.roles[id]) {
             const role = entities.roles[id]
             const style = role.color
@@ -90,8 +91,8 @@ class Markdown {
     this.renderer.__paragraph = (str) => {
       str = str.replace(/__([^\s_])__(?!_)|__([^\s][\s\S]*?[^\s])__(?!_)/g, '<u>$2</u>')
         .replace(/&#95;/g, '_')
-        .replace(/&lt;@!([\d]+)&gt;/g, '&lt;@$1&gt;')
-        .replace(/&lt;(a?):([^:]+):(\d+)&gt;/g, (_, a, name, id) =>
+        .replace(/<@!([\d]+)>/g, '<@$1>')
+        .replace(/<(a?):([^:]+):(\d+)>/g, (_, a, name, id) =>
           `<img class="emoji" src="https://cdn.discordapp.com/emojis/${id}.${a ? 'gif' : 'png'}" alt="${name}"/>`)
       return twemoji.parse(`<p>${str.replace('\n', '</p><p>')}</p>`, {
         callback: function (icon, options) {

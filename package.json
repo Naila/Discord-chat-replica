@@ -5,7 +5,9 @@
   "author": "Bowser65",
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "rm -rf dist; mkdir dist; hash=$(echo -n $(date +%s) | openssl sha1 | cut -c10-50); echo \"{\\\"hash\\\":\\\"$hash\\\"}\" > dist/manifest.json; esbuild src/index.js --outfile=dist/$hash.js --minify --bundle; node-sass old_src/style.scss --output-style compressed dist/$hash.css"
+    "build-scss": "node-sass old_src/style.scss --output-style compressed dist/style.css",
+    "build-js": "esbuild src/index.js --outfile=dist/script.js --minify --bundle",
+    "build": "pnpm run build-js && pnpm run build-scss"
   },
   "dependencies": {
     "ejs": "^3.0.1",

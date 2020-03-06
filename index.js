@@ -24,8 +24,8 @@ const ejs = require('ejs')
 const Formatter = require('./formatter')
 
 // Stuff
+const assets = require('./assets')
 const config = require('./config')
-const manifest = require('./dist/manifest')
 const testData = require('./example')
 
 require('http')
@@ -47,7 +47,7 @@ require('http')
 
     const handler = async (data) => {
       const fm = new Formatter(data)
-      ejs.renderFile('./views/index.ejs', { data: await fm.format(), manifest }, null, (err, str) => {
+      ejs.renderFile('./views/index.ejs', { data: await fm.format(), assets }, null, (err, str) => {
         if (err) {
           res.writeHead(500)
           res.end('Internal Server Error')
@@ -57,6 +57,7 @@ require('http')
       })
     }
 
+    res.setHeader('content-type', 'text/html')
     if (req.method === 'POST') {
       let data = ''
       req.on('data', chunk => (data += chunk))
