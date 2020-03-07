@@ -1,52 +1,117 @@
 <% if (embed.provider && embed.provider.name === 'Spotify') { %>
-    <!-- spotify embed -->
+    <div class='spotify'>
+        <!--suppress HtmlDeprecatedAttribute-->
+        <iframe src='https://open.spotify.com/embed<%= new URL(embed.url).pathname %>' frameborder='0'
+                style='width: 400px; height: 300px; pointer-events: none;'></iframe>
+    </div>
 <% } else { %>
     <% if ((embed.image || embed.video) && (embed.type === 'gifv' || (embed.type !== 'rich' && !embed.author && !embed.title))) { %>
-        <!-- single image/video -->
+        <% if (embed.video) { %>
+            <!--suppress CheckTagEmptyBody-->
+            <video class='video' src='<%= embed.video.proxy_url || embed.video.url %>'
+                    <%= embed.type === 'gifv' ? 'autoplay muted' : 'controls' %>></video>
+        <% } else { %>
+            <img is='message-image' src='<%= embed.image.proxy_url || embed.image.url %>' alt='' class='image'>
+        <% } %>
     <% } else { %>
         <div class='embed' style='<% if (embed.color) { %>border-color: <%= markdown.int2rgba(embed.color) %><% } %>'>
             <div class='inner'>
                 <div class='content'>
                     <% if (embed.author) { %>
-                        <!-- author -->
+                        <div class='author'>
+                            <% if (embed.author.icon_url) { %>
+                                <img src='<%= embed.author.proxy_icon_url || embed.author.icon_url %>' alt=''/>
+                            <% } %>
+                            <% if (embed.author.url) { %>
+                                <a href='<%= embed.author.url %>' target='_blank'><%= embed.author.name %></a>
+                            <% } else { %>
+                                <span><%= embed.author.name %></span>
+                            <% } %>
+                        </div>
                     <% } %>
                     <% if (embed.title) { %>
-                        <!-- title -->
-                    <% } %>
-                    <% if (embed.description) { %>
-                        <!-- description -->
-                    <% } %>
-                    <% if (embed.fields) { %>
-                        <% for (const field of embed.fields) { %>
-                            <!-- field -->
+                        <% if (embed.url) { %>
+                            <a href='<%= embed.url %>' target='_blank' class='title'>
+                                <%- markdown.parse(embed.title, data.entities) %>
+                            </a>
+                        <% } else { %>
+                            <div class='title'>
+                                <%- markdown.parse(embed.title, data.entities) %>
+                            </div>
                         <% } %>
                     <% } %>
+                    <% if (embed.description) { %>
+                        <div class='description'>
+                            <%- markdown.parse(embed.description, data.entities, true) %>
+                        </div>
+                    <% } %>
+                    <% if (embed.fields) { %>
+                        <div class='fields'>
+                            <% for (const fields of embed.grouppedFields) { %>
+                                <div class='fields-row row-<%= fields.length %>'>
+                                    <% for (const field of fields) { %>
+                                        <div class='title'><%- markdown.parse(field.name, data.entities) %></div>
+                                        <div class='contents'><%- markdown.parse(field.value, data.entities, true) %></div>
+                                    <% } %>
+                                </div>
+                            <% } %>
+                        </div>
+                    <% } %>
                 </div>
-                <% if (embed.thumbnail) { %>
-                    <!-- thumbnail -->
+                <% if (!embed.video && embed.thumbnail) { %>
+                    <img is='message-image' src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>' alt=''
+                         class='thumbnail'/>
                 <% } %>
             </div>
             <% if (embed.video) { %>
-                <!-- video -->
+                <div class='embed-video' is='message-video' data-url='<%= embed.video.proxy_url || embed.video.url %>'>
+                    <img src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>' alt='Thumbnail' class='thumb'/>
+                    <div class='controls'>
+                        <div class='play'>
+                            <!--suppress HtmlUnknownAttribute-->
+                            <svg width='16' height='16' viewBox='0 0 24 24'>
+                                <polygon fill='currentColor' points='0 0 0 14 11 7' transform='translate(7 5)'/>
+                            </svg>
+                        </div>
+                        <a rel='noreferrer noopener' target='_blank' href='<%= embed.url %>'>
+                            <!--suppress HtmlUnknownAttribute-->
+                            <svg width='16' height='16' viewBox='0 0 24 24'>
+                                <path fill='currentColor' transform='translate(3.000000, 4.000000)'
+                                      d='M16 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4v-2H2V4h14v10h-4v2h4c1.1 0 2-.9 2-2V2a2 2 0 0 0-2-2zM9 6l-4 4h3v6h2v-6h3L9 6z'/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             <% } else if (embed.images) { %>
                 <div class='gallery'>
-                    <% const groupped = embed.images.reduce((acc, val, i, org) => {
-                        acc[org.length - i <= 2 ? 1 : 0].push(val)
-                        return acc
-                    }, [ [], [] ]).filter(a => a.length) %>
-                    <% for (const group of groupped) { %>
+                    <% for (const images of embed.grouppedImages) { %>
                         <div class='column'>
-                            <% for (const image of group) { %>
-                                <!-- image -->
+                            <% for (const image of images) { %>
+                                <img is='message-image' src='<%= image.proxy_url || image.url %>' alt=''
+                                     class='gallery-image'/>
                             <% } %>
                         </div>
                     <% } %>
                 </div>
             <% } else if (embed.image) { %>
-                <!-- single image -->
+                <img is='message-image' src='<%= embed.image.proxy_url || embed.image.url %>' alt=''
+                     class='embed-image'/>
             <% } %>
-            <% if (embed.footer) { %>
-                <!-- footer -->
+            <% if (embed.footer || embed.timestamp) { %>
+                <div class='footer'>
+                    <% if (embed.footer && embed.footer.icon_url) { %>
+                        <img src='<%= embed.footer.proxy_icon_url || embed.footer.icon_url %>' alt=''/>
+                    <% } %>
+                    <% if (embed.footer && embed.footer.text) { %>
+                        <%= embed.footer.text %>
+                    <% } %>
+                    <% if (embed.timestamp) { %>
+                        <% if (embed.footer.text) { %>|<% } %>
+                        <message-date class='date' type='date' timestamp='<%= new Date(embed.timestamp).getTime() %>'>
+                            <%= new Date(embed.timestamp).toUTCString() %>
+                        </message-date>
+                    <% } %>
+                </div>
             <% } %>
         </div>
     <% } %>

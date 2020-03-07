@@ -29,6 +29,7 @@ module.exports = class Formatter {
     }
 
     await this._formatAttachments()
+    this._formatEmbeds()
     this._formatMessages()
     return this.payload
   }
@@ -36,18 +37,43 @@ module.exports = class Formatter {
   async _formatAttachments () {
     for (const i1 in this.payload.messages) {
       // noinspection JSUnfilteredForInLoop
-      for (const i2 in this.payload.messages[i1].content) {
+      for (const i2 in this.payload.messages[i1].attachments) {
         // noinspection JSUnfilteredForInLoop
-        for (const i3 in this.payload.messages[i1].content[i2].attachments) {
+        const url = this.payload.messages[i1].attachments[i2]
+        if (typeof url === 'string') {
           // noinspection JSUnfilteredForInLoop
-          const url = this.payload.messages[i1].content[i2].attachments[i3]
-          if (typeof url === 'string') {
-            // noinspection JSUnfilteredForInLoop
-            this.payload.messages[i1].content[i2].attachments[i3] = {
-              url,
-              size: await this._fetchSize(url)
-            }
+          this.payload.messages[i1].attachments[i2] = {
+            url,
+            size: await this._fetchSize(url)
           }
+        }
+      }
+    }
+  }
+
+  _formatEmbeds () {
+    for (const i1 in this.payload.messages) {
+      // noinspection JSUnfilteredForInLoop
+      for (const i2 in this.payload.messages[i1].embeds) {
+        // noinspection JSUnfilteredForInLoop
+        const embed = this.payload.messages[i1].embeds[i2]
+        if (embed.images) {
+          const grouppedImages = [ [], [] ]
+          embed.images.forEach((img, i) => grouppedImages[embed.images.length - i <= 2 ? 1 : 0].push(img))
+          embed.grouppedImages = grouppedImages.filter(a => a.length)
+        }
+        if (embed.fields) {
+          let cursor = -1
+          const limit = embed.thumbnail ? 2 : 3
+          embed.grouppedFields = []
+          embed.fields.forEach(field => {
+            const lastField = cursor !== -1 ? [ ...embed.grouppedFields[cursor] ].reverse()[0] : null
+            if (!lastField || !lastField.inline || !field.inline || embed.grouppedFields[cursor].length === limit) {
+              embed.grouppedFields.push([])
+              cursor++
+            }
+            embed.grouppedFields[cursor].push(field)
+          })
         }
       }
     }

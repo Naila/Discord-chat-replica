@@ -121,11 +121,14 @@ class Markdown {
         }),
         html: (node, output, state) => {
           let code, lang
-          try {
-            const res = hljs.highlight(node.lang, node.content)
-            code = res.value
-            lang = res.language
-          } catch (e) {
+          if (node.lang) {
+            try {
+              const res = hljs.highlight(node.lang, node.content)
+              code = res.value
+              lang = res.language
+            } catch (e) {}
+          }
+          if (!code) {
             code = output({
               type: 'text',
               content: node.content

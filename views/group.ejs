@@ -15,6 +15,7 @@
                 <div class='header' is='message-header'>
                     <span class='name'><%= author.username %></span>
                     <span class='badge'><%= author.badge %></span>
+                    <!--suppress HtmlUnknownTag-->
                     <message-date class='date' type='date' timestamp='<%= msg.time %>'>
                         <%= new Date(msg.time).toUTCString() %>
                     </message-date>
