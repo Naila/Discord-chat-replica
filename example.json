@@ -1,41 +1,43 @@
 {
   "channel_name": "emma-is-cute",
-  "users": {
-    "1337": {
-      "avatar": "https://weeb.services/assets/avatars/ZPhAsM9w3NA.png",
-      "username": "Shana",
-      "discriminator": "6969",
-      "badge": null
+  "entities": {
+    "users": {
+      "1337": {
+        "avatar": "https://weeb.services/assets/avatars/ZPhAsM9w3NA.png",
+        "username": "Shana",
+        "discriminator": "6969",
+        "badge": null
+      },
+      "6969": {
+        "avatar": "https://weeb.services/assets/avatars/rtzoj7LMmW4.png",
+        "username": "Noire",
+        "discriminator": "1337",
+        "badge": "Staff"
+      },
+      "420": {
+        "avatar": "https://weeb.services/assets/avatars/QRUqd-yuqYI.png",
+        "username": "WeebBot",
+        "discriminator": "0420",
+        "badge": "Bot"
+      }
     },
-    "6969": {
-      "avatar": "https://weeb.services/assets/avatars/rtzoj7LMmW4.png",
-      "username": "Noire",
-      "discriminator": "1337",
-      "badge": "Staff"
+    "channels": {
+      "1": {
+        "name": "test-channel"
+      }
     },
-    "420": {
-      "avatar": "https://weeb.services/assets/avatars/QRUqd-yuqYI.png",
-      "username": "WeebBot",
-      "discriminator": "0420",
-      "badge": "Bot"
-    }
-  },
-  "channels": {
-    "1": {
-      "name": "test-channel"
-    }
-  },
-  "roles": {
-    "3": {
-      "name": "test role",
-      "color": 16029848
+    "roles": {
+      "3": {
+        "name": "test role",
+        "color": 16029848
+      }
     }
   },
   "messages": [
     {
       "author": "1337",
       "time": 1576091429571,
-      "content": "> it seems to be __working__\nthen **don't** touch *anything*"
+      "content": "> it seems to be __working__\nthen **don't** touch *anything* ||owo||"
     },
     {
       "author": "1337",

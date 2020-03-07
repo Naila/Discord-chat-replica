@@ -57,21 +57,14 @@ module.exports = class Formatter {
     let cursor = -1
     this.payload.grouppedMessages = []
     this.payload.messages.forEach(msg => {
-      const lastMessage = cursor !== -1 ? this.payload.grouppedMessages[cursor].reverse()[0] : null
+      const lastMessage = cursor !== -1 ? [ ...this.payload.grouppedMessages[cursor] ].reverse()[0] : null
       if (!lastMessage || msg.author !== lastMessage.author || msg.time - lastMessage.time > 420000) {
         this.payload.grouppedMessages.push([])
         cursor++
       }
-      this.payload.grouppedMessages[cursor].push({
-        ...msg,
-        markdownContent: this._markdown(msg.content)
-      })
+      this.payload.grouppedMessages[cursor].push(msg)
     })
     this.payload.grouppedMessages = this.payload.grouppedMessages.filter(a => a.length !== 0)
-  }
-
-  _markdown (message) {
-    return message // TODO
   }
 
   _validate () {

@@ -21,10 +21,11 @@ const { resolve } = require('path')
 const mime = require('mime-types')
 const ejs = require('ejs')
 
-const Formatter = require('./formatter')
+const markdown = require('./src/markdown')
+const Formatter = require('./src/formatter')
 
 // Stuff
-const assets = require('./assets')
+const assets = require('./src/assets')
 const config = require('./config')
 const testData = require('./example')
 
@@ -47,7 +48,7 @@ require('http')
 
     const handler = async (data) => {
       const fm = new Formatter(data)
-      ejs.renderFile('./views/index.ejs', { data: await fm.format(), assets }, null, (err, str) => {
+      ejs.renderFile('./views/index.ejs', { data: await fm.format(), assets, markdown }, null, (err, str) => {
         if (err) {
           res.writeHead(500)
           res.end('Internal Server Error')

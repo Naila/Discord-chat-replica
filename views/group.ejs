@@ -1,5 +1,5 @@
 <% for (const msg of group) { %>
-    <% const author = data.users[msg.author] %>
+    <% const author = data.entities.users[msg.author] %>
     <div class='message'>
         <% if (group.indexOf(msg) === 0) { %>
             <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>' alt='avatar' class='avatar'/>
@@ -19,7 +19,7 @@
                     </message-date>
                 </div>
             <% } %>
-            <div class='markup'><%= msg.markdownContent %></div>
+            <div class='markup'><%- markdown.parse(msg.content, data.entities) %></div>
         </div>
     </div>
 <% } %>

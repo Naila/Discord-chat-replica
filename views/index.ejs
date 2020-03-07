@@ -25,7 +25,7 @@
     <%- include('header.ejs', { data: data }) %>
     <div class='messages'>
         <% for (const group of data.grouppedMessages) { %>
-            <%- include('group.ejs', { data: data, group: group }) %>
+            <%- include('group.ejs', { data: data, group: group, markdown: markdown }) %>
         <% } %>
     </div>
     <script><%- assets.script %></script>
