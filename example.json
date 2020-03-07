@@ -115,53 +115,55 @@
       "author": "420",
       "time": 1576098466245,
       "content": "<:blobcatsalute:381555549097164800> Embed test",
-      "embed": {
-        "title": "title ~~(did you know you can have markdown here too?)~~",
-        "description": "this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown.\n```\nyes, even code blocks\n```",
-        "url": "https://discordapp.com",
-        "color": 7501608,
-        "timestamp": "2019-12-18T22:40:46.571Z",
-        "author": {
-          "name": "author name *md*",
-          "url": "https://weeb.services",
-          "icon_url": "https://weeb.services/assets/avatars/d3IDxm3pvhE.png"
-        },
-        "thumbnail": {
-          "url": "https://weeb.services/assets/avatars/vs9g_CvR3U8.png"
-        },
-        "fields": [
-          {
-            "name": "Field Title *md* [a](https://a.a)",
-            "value": "this is a vert interesting and useful thing *md*"
+      "embeds": [
+        {
+          "title": "title ~~(did you know you can have markdown here too?)~~",
+          "description": "this supports [named links](https://discordapp.com) on top of the previously shown subset of markdown.\n```\nyes, even code blocks\n```",
+          "url": "https://discordapp.com",
+          "color": 7501608,
+          "timestamp": "2019-12-18T22:40:46.571Z",
+          "author": {
+            "name": "author name *md*",
+            "url": "https://weeb.services",
+            "icon_url": "https://weeb.services/assets/avatars/d3IDxm3pvhE.png"
           },
-          {
-            "name": "Field Title *md*",
-            "value": "with a lot of important data *md*"
+          "thumbnail": {
+            "url": "https://weeb.services/assets/avatars/vs9g_CvR3U8.png"
           },
-          {
-            "name": "Inline Field *md*",
-            "value": "these last two *md*",
-            "inline": true
+          "fields": [
+            {
+              "name": "Field Title *md* [a](https://a.a)",
+              "value": "this is a vert interesting and useful thing *md*"
+            },
+            {
+              "name": "Field Title *md*",
+              "value": "with a lot of important data *md*"
+            },
+            {
+              "name": "Inline Field *md*",
+              "value": "these last two *md*",
+              "inline": true
+            },
+            {
+              "name": "Inline Field *md*",
+              "value": "are inline fields *md*",
+              "inline": true
+            },
+            {
+              "name": "Inline Field *md*",
+              "value": "are inline fields *md*",
+              "inline": true
+            }
+          ],
+          "image": {
+            "url": "https://weeb.services/assets/avatars/KlkfjuQgejw.png"
           },
-          {
-            "name": "Inline Field *md*",
-            "value": "are inline fields *md*",
-            "inline": true
-          },
-          {
-            "name": "Inline Field *md*",
-            "value": "are inline fields *md*",
-            "inline": true
+          "footer": {
+            "icon_url": "https://weeb.services/assets/avatars/UQ2Q40pAq4A.png",
+            "text": "footer text *md*"
           }
-        ],
-        "image": {
-          "url": "https://weeb.services/assets/avatars/KlkfjuQgejw.png"
-        },
-        "footer": {
-          "icon_url": "https://weeb.services/assets/avatars/UQ2Q40pAq4A.png",
-          "text": "footer text *md*"
         }
-      }
+      ]
     }
   ]
 }

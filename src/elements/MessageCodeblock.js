@@ -16,12 +16,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import './elements/ThemeSwitch'
-import './elements/MessageHeader'
-import './elements/MessageAvatar'
-import './elements/MessageDate'
-import './elements/MessageEmoji'
-import './elements/MessageMention'
-import './elements/MessageSpoiler'
-import './elements/MessageCodeblock'
-import './elements/MessageImage'
+export default class MessageCodeblock extends HTMLPreElement {
+  constructor () {
+    super()
+    this.onClick = this.onClick.bind(this)
+    this.animation = false
+  }
+
+  connectedCallback () {
+    this.querySelector('.copy').addEventListener('click', this.onClick)
+  }
+
+  onClick () {
+    if (this.animation) return
+    console.log('todo')
+    // todo
+  }
+}
+
+customElements.define('message-codeblock', MessageCodeblock, { extends: 'pre' })

@@ -25,7 +25,7 @@ module.exports = class Formatter {
 
   async format () {
     if (!this._validate()) {
-      return [ 400, null ]
+      return null
     }
 
     await this._formatAttachments()

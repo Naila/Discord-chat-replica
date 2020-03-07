@@ -16,12 +16,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import './elements/ThemeSwitch'
-import './elements/MessageHeader'
-import './elements/MessageAvatar'
-import './elements/MessageDate'
-import './elements/MessageEmoji'
-import './elements/MessageMention'
-import './elements/MessageSpoiler'
-import './elements/MessageCodeblock'
-import './elements/MessageImage'
+export default class MessageImage extends HTMLImageElement {
+  constructor () {
+    super()
+    this.onClick = this.onClick.bind(this)
+  }
+
+  connectedCallback () {
+    this.addEventListener('click', this.onClick)
+  }
+
+  onClick () {
+    console.log('todo')
+    // todo
+  }
+}
+
+customElements.define('message-image', MessageImage, { extends: 'img' })

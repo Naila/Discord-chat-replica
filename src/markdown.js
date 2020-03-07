@@ -138,7 +138,10 @@ class Markdown {
               SimpleMarkdown.htmlTag('code', code, { class: [ 'hljs', lang ].filter(Boolean).join(' ') })
             ].join(''), { class: 'shitcode' }),
             SimpleMarkdown.htmlTag('div', 'Copy', { class: 'copy' })
-          ].filter(Boolean).join(''), { class: 'codeblock' })
+          ].filter(Boolean).join(''), {
+            class: 'codeblock',
+            is: 'message-codeblock'
+          })
         }
       },
       roleMention: {
@@ -218,7 +221,7 @@ class Markdown {
           }
           if (node.color) {
             attributes.class += ' role'
-            attributes.style = `--role-color:${this._int2rgba(node.color)};--role-bg:${this._int2rgba(node.color, 0.1)};--role-bg-h:${this._int2rgba(node.color, 0.3)}`
+            attributes.style = `--role-color:${this.int2rgba(node.color)};--role-bg:${this.int2rgba(node.color, 0.1)};--role-bg-h:${this.int2rgba(node.color, 0.3)}`
           }
           return SimpleMarkdown.htmlTag('span', output(node.content, state), attributes)
         }
@@ -284,6 +287,10 @@ class Markdown {
         return ''.concat(options.base, options.size, '/', icon, options.ext)
       }
     })
+  }
+
+  int2rgba (int, a = 1) {
+    return `rgba(${int >> 16 & 255}, ${int >> 8 & 255}, ${255 & int}, ${a})`
   }
 
   _flattenAst (ast, parentAst = null) {
@@ -355,10 +362,6 @@ class Markdown {
     } catch (e) {
       return target
     }
-  }
-
-  _int2rgba (int, a = 1) {
-    return `rgba(${int >> 16 & 255}, ${int >> 8 & 255}, ${255 & int}, ${a})`
   }
 }
 

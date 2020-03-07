@@ -1,0 +1,53 @@
+<% if (embed.provider && embed.provider.name === 'Spotify') { %>
+    <!-- spotify embed -->
+<% } else { %>
+    <% if ((embed.image || embed.video) && (embed.type === 'gifv' || (embed.type !== 'rich' && !embed.author && !embed.title))) { %>
+        <!-- single image/video -->
+    <% } else { %>
+        <div class='embed' style='<% if (embed.color) { %>border-color: <%= markdown.int2rgba(embed.color) %><% } %>'>
+            <div class='inner'>
+                <div class='content'>
+                    <% if (embed.author) { %>
+                        <!-- author -->
+                    <% } %>
+                    <% if (embed.title) { %>
+                        <!-- title -->
+                    <% } %>
+                    <% if (embed.description) { %>
+                        <!-- description -->
+                    <% } %>
+                    <% if (embed.fields) { %>
+                        <% for (const field of embed.fields) { %>
+                            <!-- field -->
+                        <% } %>
+                    <% } %>
+                </div>
+                <% if (embed.thumbnail) { %>
+                    <!-- thumbnail -->
+                <% } %>
+            </div>
+            <% if (embed.video) { %>
+                <!-- video -->
+            <% } else if (embed.images) { %>
+                <div class='gallery'>
+                    <% const groupped = embed.images.reduce((acc, val, i, org) => {
+                        acc[org.length - i <= 2 ? 1 : 0].push(val)
+                        return acc
+                    }, [ [], [] ]).filter(a => a.length) %>
+                    <% for (const group of groupped) { %>
+                        <div class='column'>
+                            <% for (const image of group) { %>
+                                <!-- image -->
+                            <% } %>
+                        </div>
+                    <% } %>
+                </div>
+            <% } else if (embed.image) { %>
+                <!-- single image -->
+            <% } %>
+            <% if (embed.footer) { %>
+                <!-- footer -->
+            <% } %>
+        </div>
+    <% } %>
+<% } %>

@@ -2,7 +2,8 @@
     <% const author = data.entities.users[msg.author] %>
     <div class='message'>
         <% if (group.indexOf(msg) === 0) { %>
-            <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>' alt='avatar' class='avatar'/>
+            <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
+                 alt='avatar' class='avatar'/>
         <% } else { %>
             <message-date type='time' timestamp='<%= msg.time %>'>
                 <% const msgDate = new Date(msg.time) %>
@@ -20,6 +21,13 @@
                 </div>
             <% } %>
             <div class='markup'><%- markdown.parse(msg.content, data.entities) %></div>
+            <div class='embeds'>
+                <% if (typeof msg.embeds !== 'undefined') { %>
+                    <% for (const embed of msg.embeds) { %>
+                        <%- include('embed.ejs', { data: data, embed: embed, markdown: markdown }) %>
+                    <% } %>
+                <% } %>
+            </div>
         </div>
     </div>
 <% } %>
