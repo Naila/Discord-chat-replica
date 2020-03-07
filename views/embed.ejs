@@ -106,7 +106,7 @@
                         <%= embed.footer.text %>
                     <% } %>
                     <% if (embed.timestamp) { %>
-                        <% if (embed.footer.text) { %>|<% } %>
+                        <% if (embed.footer.text) { %>|&nbsp;<% } %>
                         <message-date class='date' type='date' timestamp='<%= new Date(embed.timestamp).getTime() %>'>
                             <%= new Date(embed.timestamp).toUTCString() %>
                         </message-date>

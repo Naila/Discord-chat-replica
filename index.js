@@ -20,6 +20,7 @@ const { existsSync, createReadStream } = require('fs')
 const { resolve } = require('path')
 const mime = require('mime-types')
 const ejs = require('ejs')
+const { minify } = require('html-minifier')
 
 const markdown = require('./src/markdown')
 const Formatter = require('./src/formatter')
@@ -54,7 +55,10 @@ require('http')
           res.end('Internal Server Error')
           console.error(err)
         }
-        res.end(str)
+        res.end(minify(str, {
+          collapseWhitespace: true,
+          removeComments: true
+        }))
       })
     }
 
