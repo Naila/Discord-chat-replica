@@ -16,10 +16,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import './elements/ThemeSwitch'
-import './elements/MessageHeader'
-import './elements/MessageAvatar'
-import './elements/MessageDate'
-import './elements/MessageEmoji'
-import './elements/MessageMention'
-import './elements/MessageSpoiler'
+export default class MessageSpoiler extends HTMLSpanElement {
+  constructor () {
+    super()
+    this.onClick = this.onClick.bind(this)
+  }
+
+  connectedCallback () {
+    this.addEventListener('click', this.onClick)
+  }
+
+  onClick () {
+    this.classList.add('revealed')
+    this.removeEventListener('click', this.onClick)
+  }
+}
+
+customElements.define('message-spoiler', MessageSpoiler, { extends: 'span' })

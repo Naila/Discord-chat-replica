@@ -16,10 +16,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import './elements/ThemeSwitch'
-import './elements/MessageHeader'
-import './elements/MessageAvatar'
-import './elements/MessageDate'
-import './elements/MessageEmoji'
-import './elements/MessageMention'
-import './elements/MessageSpoiler'
+export default class MessageEmoji extends HTMLImageElement {
+  constructor () {
+    super()
+    this.onError = this.onError.bind(this)
+  }
+
+  connectedCallback () {
+    this.addEventListener('error', this.onError)
+  }
+
+  onError () {
+    this.outerHTML = this.alt
+  }
+}
+
+customElements.define('message-emoji', MessageEmoji, { extends: 'img' })

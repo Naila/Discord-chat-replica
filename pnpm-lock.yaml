@@ -1,8 +1,9 @@
 dependencies:
   ejs: 3.0.1
   highlight.js: 9.18.1
-  marked: 0.7.0
   mime-types: 2.1.26
+  punycode: 2.1.1
+  simple-markdown: 0.7.2
   twemoji: 12.1.5
 devDependencies:
   eslint: 6.8.0
@@ -32,6 +33,17 @@ packages:
     dev: true
     resolution:
       integrity: sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
+  /@types/prop-types/15.7.3:
+    dev: false
+    resolution:
+      integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+  /@types/react/16.9.23:
+    dependencies:
+      '@types/prop-types': 15.7.3
+      csstype: 2.6.9
+    dev: false
+    resolution:
+      integrity: sha512-SsGVT4E7L2wLN3tPYLiF20hmZTPGuzaayVunfgXzUn1x4uHVsKH6QDJQ/TdpHqwsTLd4CwrmQ2vOgxN7gE24gw==
   /abbrev/1.1.1:
     dev: true
     resolution:
@@ -375,6 +387,10 @@ packages:
       node: '>=4.8'
     resolution:
       integrity: sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==
+  /csstype/2.6.9:
+    dev: false
+    resolution:
+      integrity: sha512-xz39Sb4+OaTsULgUERcCk+TJj8ylkL4aSVDQiX/ksxbELSqwkgt4d4RD7fovIdgJGSuNYqwZEiVjYY5l0ask+Q==
   /currently-unhandled/0.4.1:
     dependencies:
       array-find-index: 1.0.2
@@ -1317,13 +1333,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-2TPOuSBdgr3PSIb2dCvcK03qFG0=
-  /marked/0.7.0:
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-c+yYdCZJQrsRjTPhUx7VKkApw9bwDkNbHUKo1ovgcfDjb2kc8rLuRbIFyXL5WOEUwzSSKo3IXpph2K6DqB/KZg==
   /meow/3.7.0:
     dependencies:
       camelcase-keys: 2.1.0
@@ -1720,7 +1729,6 @@ packages:
     resolution:
       integrity: sha512-5NsSEDv8zY70ScRnOTn7bK7eanl2MvFrOrS/R6x+dBt5g1ghnj9Zv90kO8GwT8gxcu2ANyFprnFYB85IogIJOQ==
   /punycode/2.1.1:
-    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -1965,6 +1973,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+  /simple-markdown/0.7.2:
+    dependencies:
+      '@types/react': 16.9.23
+    dev: false
+    resolution:
+      integrity: sha512-XfCvqqzMyzRj4L7eIxJgGaQ2Gaxr20GhTFMB+1yuY8q3xffjzmOg4Q5tC0kcaJPV42NNUHCQDaRK6jzi3/RhrA==
   /slice-ansi/2.1.0:
     dependencies:
       ansi-styles: 3.2.1
@@ -2391,7 +2405,8 @@ specifiers:
   eslint-plugin-promise: ^4.2.1
   eslint-plugin-standard: ^4.0.1
   highlight.js: ^9.17.0
-  marked: ^0.7.0
   mime-types: ^2.1.26
   node-sass: ^4.13.0
+  punycode: ^2.1.1
+  simple-markdown: ^0.7.2
   twemoji: ^12.1.4

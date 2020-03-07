@@ -12,8 +12,9 @@
   "dependencies": {
     "ejs": "^3.0.1",
     "highlight.js": "^9.17.0",
-    "marked": "^0.7.0",
     "mime-types": "^2.1.26",
+    "punycode": "^2.1.1",
+    "simple-markdown": "^0.7.2",
     "twemoji": "^12.1.4"
   },
   "devDependencies": {
