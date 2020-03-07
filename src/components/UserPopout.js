@@ -16,20 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class MessageSpoiler extends HTMLSpanElement {
-  constructor () {
-    super()
-    this.onClick = this.onClick.bind(this)
-  }
+import Component from './Component'
+import Engine from './engine'
 
-  connectedCallback () {
-    this.addEventListener('click', this.onClick)
-  }
-
-  onClick () {
-    this.classList.add('revealed')
-    this.removeEventListener('click', this.onClick)
+const e = Engine.createElement
+class UserPopout extends Component {
+  render () {
+    e('div', null, 'this is a test yes')
   }
 }
 
-customElements.define('message-spoiler', MessageSpoiler, { extends: 'span' })
+export default UserPopout

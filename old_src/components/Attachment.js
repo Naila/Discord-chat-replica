@@ -23,7 +23,7 @@ const ext = {
   video: [ 'mp4', 'webm', 'mov' ]
 }
 
-export default class Attachment extends React.Component {
+class Attachment extends React.Component {
   formatBytes (bytes) {
     if (bytes === 0) return '0 B'
     const k = 1024

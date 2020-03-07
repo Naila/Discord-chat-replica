@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class MessageCodeblock extends HTMLPreElement {
+class MessageCodeblock extends HTMLPreElement {
   constructor () {
     super()
     this.onClick = this.onClick.bind(this)
@@ -24,13 +24,32 @@ export default class MessageCodeblock extends HTMLPreElement {
   }
 
   connectedCallback () {
-    this.querySelector('.copy').addEventListener('click', this.onClick)
+    this.copyElement = this.querySelector('.copy')
+    this.copyElement.addEventListener('click', this.onClick)
   }
 
   onClick () {
     if (this.animation) return
-    console.log('todo')
-    // todo
+    this.animation = true
+    this.copy()
+    this.copyElement.classList.add('success')
+    this.copyElement.innerText = 'Copied!'
+
+    setTimeout(() => {
+      this.copyElement.classList.remove('success')
+      this.copyElement.innerText = 'Copy'
+    }, 3e3)
+  }
+
+  copy () {
+    const textarea = document.createElement('textarea')
+    textarea.value = this.querySelector('.hljs').textContent
+    textarea.style.opacity = '0'
+    textarea.style.position = 'absolute'
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    textarea.remove()
   }
 }
 

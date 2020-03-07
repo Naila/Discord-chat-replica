@@ -21,7 +21,7 @@ import Attachment from './Attachment'
 import Embed from './Embed'
 import Markdown from '../src/markdown'
 
-export default class MessageGroup extends React.Component {
+class MessageGroup extends React.Component {
   render () {
     return <div
       className='message'

@@ -11,7 +11,8 @@
             <video class='video' src='<%= embed.video.proxy_url || embed.video.url %>'
                     <%= embed.type === 'gifv' ? 'autoplay muted' : 'controls' %>></video>
         <% } else { %>
-            <img is='message-image' src='<%= embed.image.proxy_url || embed.image.url %>' alt='' class='image'>
+            <img is='message-image' data-clickable src='<%= embed.image.proxy_url || embed.image.url %>' alt=''
+                 class='image'>
         <% } %>
     <% } else { %>
         <div class='embed' style='<% if (embed.color) { %>border-color: <%= markdown.int2rgba(embed.color) %><% } %>'>
@@ -20,7 +21,8 @@
                     <% if (embed.author) { %>
                         <div class='author'>
                             <% if (embed.author.icon_url) { %>
-                                <img src='<%= embed.author.proxy_icon_url || embed.author.icon_url %>' alt=''/>
+                                <img is='message-image'
+                                     src='<%= embed.author.proxy_icon_url || embed.author.icon_url %>' alt=''/>
                             <% } %>
                             <% if (embed.author.url) { %>
                                 <a href='<%= embed.author.url %>' target='_blank'><%= embed.author.name %></a>
@@ -50,8 +52,10 @@
                             <% for (const fields of embed.grouppedFields) { %>
                                 <div class='fields-row row-<%= fields.length %>'>
                                     <% for (const field of fields) { %>
-                                        <div class='title'><%- markdown.parse(field.name, data.entities) %></div>
-                                        <div class='contents'><%- markdown.parse(field.value, data.entities, true) %></div>
+                                        <div class='field'>
+                                            <div class='title'><%- markdown.parse(field.name, data.entities) %></div>
+                                            <div class='contents'><%- markdown.parse(field.value, data.entities, true) %></div>
+                                        </div>
                                     <% } %>
                                 </div>
                             <% } %>
@@ -59,13 +63,14 @@
                     <% } %>
                 </div>
                 <% if (!embed.video && embed.thumbnail) { %>
-                    <img is='message-image' src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>' alt=''
-                         class='thumbnail'/>
+                    <img is='message-image' data-clickable src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>'
+                         alt='' class='thumbnail'/>
                 <% } %>
             </div>
             <% if (embed.video) { %>
                 <div class='embed-video' is='message-video' data-url='<%= embed.video.proxy_url || embed.video.url %>'>
-                    <img src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>' alt='Thumbnail' class='thumb'/>
+                    <img is='message-image' src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>'
+                         alt='Thumbnail' class='thumb'/>
                     <div class='controls'>
                         <div class='play'>
                             <!--suppress HtmlUnknownAttribute-->
@@ -87,20 +92,21 @@
                     <% for (const images of embed.grouppedImages) { %>
                         <div class='column'>
                             <% for (const image of images) { %>
-                                <img is='message-image' src='<%= image.proxy_url || image.url %>' alt=''
+                                <img is='message-image' data-clickable src='<%= image.proxy_url || image.url %>' alt=''
                                      class='gallery-image'/>
                             <% } %>
                         </div>
                     <% } %>
                 </div>
             <% } else if (embed.image) { %>
-                <img is='message-image' src='<%= embed.image.proxy_url || embed.image.url %>' alt=''
+                <img is='message-image' data-clickable src='<%= embed.image.proxy_url || embed.image.url %>' alt=''
                      class='embed-image'/>
             <% } %>
             <% if (embed.footer || embed.timestamp) { %>
                 <div class='footer'>
                     <% if (embed.footer && embed.footer.icon_url) { %>
-                        <img src='<%= embed.footer.proxy_icon_url || embed.footer.icon_url %>' alt=''/>
+                        <img is='message-image' src='<%= embed.footer.proxy_icon_url || embed.footer.icon_url %>'
+                             alt=''/>
                     <% } %>
                     <% if (embed.footer && embed.footer.text) { %>
                         <%= embed.footer.text %>

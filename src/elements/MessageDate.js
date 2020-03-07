@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class MessageDate extends HTMLElement {
+class MessageDate extends HTMLElement {
   connectedCallback () {
     const type = this.getAttribute('type')
     if (type === 'date') {

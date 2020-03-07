@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class MessageVideo extends HTMLDivElement {
+class MessageVideo extends HTMLDivElement {
   connectedCallback () {
     // TODO
   }

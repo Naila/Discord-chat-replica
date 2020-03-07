@@ -16,19 +16,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class MessageImage extends HTMLImageElement {
+import Engine from '../components/engine'
+import ImagePreview from '../components/ImagePreview'
+
+class MessageImage extends HTMLImageElement {
   constructor () {
     super()
     this.onClick = this.onClick.bind(this)
+    this.onError = this.onError.bind(this)
   }
 
   connectedCallback () {
-    this.addEventListener('click', this.onClick)
+    console.log(this.dataset)
+    if (this.dataset.clickable) {
+      this.addEventListener('click', this.onClick)
+    }
+    this.addEventListener('error', this.onError)
+  }
+
+  onError () {
+    this.removeEventListener('error', this.onError)
+    this.removeEventListener('click', this.onClick)
+    this.removeAttribute('data-clickable')
+    this.src = 'https://canary.discordapp.com/assets/e0c782560fd96acd7f01fda1f8c6ff24.svg'
   }
 
   onClick () {
-    console.log('todo')
-    // todo
+    Engine.mount(Engine.createElement(ImagePreview, { image: this.src }))
   }
 }
 

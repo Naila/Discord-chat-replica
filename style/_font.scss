@@ -16,20 +16,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class MessageSpoiler extends HTMLSpanElement {
-  constructor () {
-    super()
-    this.onClick = this.onClick.bind(this)
-  }
-
-  connectedCallback () {
-    this.addEventListener('click', this.onClick)
-  }
-
-  onClick () {
-    this.classList.add('revealed')
-    this.removeEventListener('click', this.onClick)
-  }
+@font-face {
+  font-family: Whitney;
+  font-weight: 400;
+  src: url(https://discordapp.com/assets/e8acd7d9bf6207f99350ca9f9e23b168.woff) format("woff")
 }
 
-customElements.define('message-spoiler', MessageSpoiler, { extends: 'span' })
+@font-face {
+  font-family: Whitney;
+  font-weight: 500;
+  src: url(https://discordapp.com/assets/3bdef1251a424500c1b3a78dea9b7e57.woff) format("woff")
+}
+
+@font-face {
+  font-family: Whitney;
+  font-weight: 600;
+  src: url(https://discordapp.com/assets/be0060dafb7a0e31d2a1ca17c0708636.woff) format("woff")
+}

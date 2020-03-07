@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class MessageAvatar extends HTMLImageElement {
+class MessageAvatar extends HTMLImageElement {
   constructor () {
     super()
     this.onError = this.onError.bind(this)
@@ -31,7 +31,8 @@ export default class MessageAvatar extends HTMLImageElement {
 
   onError () {
     this.removeEventListener('error', this.onError)
-    console.log('handle') // TODO
+    const discriminator = parseInt(this.dataset.discriminator) || 0
+    this.src = `https://cdn.discordapp.com/embed/avatars/${discriminator % 4}.png`
   }
 }
 

@@ -16,20 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class MessageSpoiler extends HTMLSpanElement {
-  constructor () {
-    super()
-    this.onClick = this.onClick.bind(this)
-  }
-
-  connectedCallback () {
-    this.addEventListener('click', this.onClick)
-  }
-
-  onClick () {
-    this.classList.add('revealed')
-    this.removeEventListener('click', this.onClick)
-  }
-}
-
-customElements.define('message-spoiler', MessageSpoiler, { extends: 'span' })
+@import 'font';
+@import 'main';
+@import 'header';
+@import 'chat';
+@import 'message';
+@import 'embed';
+@import 'attachment';
+@import 'footer';
+@import 'modal';
+@import 'popout';

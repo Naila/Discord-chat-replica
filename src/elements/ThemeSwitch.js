@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class ThemeSwitch extends HTMLElement {
+class ThemeSwitch extends HTMLElement {
   constructor () {
     super()
     this.toggle = this.toggle.bind(this)

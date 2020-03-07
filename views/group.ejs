@@ -1,13 +1,17 @@
 <% for (const msg of group) { %>
     <% const author = data.entities.users[msg.author] %>
-    <div class='message'>
+    <!-- TODO: System messages -->
+    <!-- TODO: Date separators -->
+    <div class='message<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
         <% if (group.indexOf(msg) === 0) { %>
             <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
                  alt='avatar' class='avatar'/>
         <% } else { %>
-            <message-date type='time' timestamp='<%= msg.time %>'>
+            <message-date class='time' type='time' timestamp='<%= msg.time %>'>
                 <% const msgDate = new Date(msg.time) %>
+                <!-- @formatter:off -->
                 <%= msgDate.getHours().toString().padStart(2, '0') %>:<%= msgDate.getMinutes().toString().padStart(2, '0') %>
+                <!-- @formatter:on -->
             </message-date>
         <% } %>
         <div class='contents'>
@@ -21,7 +25,8 @@
                     </message-date>
                 </div>
             <% } %>
-            <div class='markup'><%- markdown.parse(msg.content, data.entities) %></div>
+            <!-- Note: Webhooks **can** use named links in messages -->
+            <div class='markup'><%- markdown.parse(msg.content, data.entities, author.discriminator === '0000') %></div>
             <div class='embeds'>
                 <% if (typeof msg.embeds !== 'undefined') { %>
                     <% for (const embed of msg.embeds) { %>

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class MessageHeader extends HTMLDivElement {
+class MessageHeader extends HTMLDivElement {
   connectedCallback () {
     this.querySelector('span').addEventListener('click', () => {
       console.log('todo') // TODO

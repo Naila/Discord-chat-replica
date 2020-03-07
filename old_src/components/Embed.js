@@ -19,7 +19,7 @@
 import React from 'react'
 import Markdown from '../src/markdown'
 
-export default class Embed extends React.Component {
+class Embed extends React.Component {
   renderAuthor () {
     return <div className='author'>
       {this.props.author.icon_url && <img src={this.props.author.icon_url} alt=''/>}

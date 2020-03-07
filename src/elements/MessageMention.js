@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class MessageMention extends HTMLSpanElement {
+class MessageMention extends HTMLSpanElement {
   connectedCallback () {
     this.addEventListener('click', () => {
       console.log('todo') // TODO

@@ -5,7 +5,7 @@
   "author": "Bowser65",
   "license": "AGPL-3.0",
   "scripts": {
-    "build-scss": "node-sass old_src/style.scss --output-style compressed dist/style.css",
+    "build-scss": "node-sass style/style.scss --output-style compressed dist/style.css",
     "build-js": "esbuild src/index.js --outfile=dist/script.js --minify --bundle",
     "build": "pnpm run build-js && pnpm run build-scss"
   },

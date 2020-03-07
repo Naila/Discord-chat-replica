@@ -1,0 +1,134 @@
+/*
+ * Small microservice to generate a Discord-like chat section
+ * Copyright (C) 2020 Bowser65
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.messages {
+  overflow-y: auto;
+  height: calc(100% - 48px);
+
+  .message {
+    display: flex;
+    position: relative;
+    padding: .125rem 48px .125rem 72px;
+
+    &.group-start {
+      margin-top: 1.0625em;
+    }
+
+    .avatar {
+      position: absolute;
+      left: 16px;
+      top: 4px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .time {
+      position: absolute;
+      left: 0;
+      height: 1.375rem;
+      line-height: 1.375rem;
+      width: 3.5rem;
+      user-select: none;
+      text-align: right;
+      font-size: 0.6875rem;
+      margin: 0 .25rem;
+      color: var(--color-gray);
+      opacity: 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      line-height: 1.375rem;
+      min-height: 1.375rem;
+      font-size: 0;
+
+      .name {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.375em;
+        margin-right: .25rem;
+        cursor: pointer;
+        display: inline;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .badge {
+        background: #7289da;
+        color: #fff;
+        height: 15px;
+        font-weight: 500;
+        padding: .072rem .275rem;
+        margin-right: .25rem;
+        margin-top: .075em;
+        border-radius: 3px;
+        font-size: .625rem;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        line-height: 1.3;
+
+        &:empty {
+          display: none;
+        }
+      }
+
+      .date {
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1.375rem;
+        color: var(--color-gray);
+        margin-left: .25rem;
+        display: inline-block;
+      }
+    }
+
+    &:hover {
+      background-color: var(--background-hover);
+
+      .time {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+// Scrollbars
+// noinspection CssUnknownProperty
+.messages {
+  scrollbar-color: var(--background-very-dark) var(--background);
+  scrollbar-width: thin;
+}
+
+.messages::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: var(--background-very-dark);
+  border: 0 var(--background) solid;
+  border-left-width: 1px;
+  border-right-width: 1px;
+}

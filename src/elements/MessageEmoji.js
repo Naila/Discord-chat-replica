@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default class MessageEmoji extends HTMLImageElement {
+class MessageEmoji extends HTMLImageElement {
   constructor () {
     super()
     this.onError = this.onError.bind(this)
@@ -27,7 +27,7 @@ export default class MessageEmoji extends HTMLImageElement {
   }
 
   onError () {
-    this.outerHTML = this.alt
+    this.parentNode.replaceChild(document.createTextNode(this.alt), this)
   }
 }
 
