@@ -16,8 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const https = require('https')
-
 module.exports = class Formatter {
   constructor (payload) {
     this.payload = payload
@@ -29,6 +27,7 @@ module.exports = class Formatter {
     }
 
     await this._formatAttachments()
+    this._mergeEmbeds()
     this._formatEmbeds()
     this._formatMessages()
     return this.payload
@@ -39,14 +38,36 @@ module.exports = class Formatter {
       // noinspection JSUnfilteredForInLoop
       for (const i2 in this.payload.messages[i1].attachments) {
         // noinspection JSUnfilteredForInLoop
-        const url = this.payload.messages[i1].attachments[i2]
-        if (typeof url === 'string') {
-          // noinspection JSUnfilteredForInLoop
-          this.payload.messages[i1].attachments[i2] = {
-            url,
-            size: await this._fetchSize(url)
-          }
+        const attachment = this.payload.messages[i1].attachments[i2]
+        if (attachment.width && attachment.height) {
+          attachment.displayMaxWidth = `${this._fit(attachment.width, attachment.height, 400, 300).width}px`
         }
+      }
+    }
+  }
+
+  _mergeEmbeds () {
+    for (const i1 in this.payload.messages) {
+      // noinspection JSUnfilteredForInLoop
+      if (this.payload.messages[i1].embeds) {
+        // noinspection JSUnfilteredForInLoop
+        const msg = this.payload.messages[i1]
+        const { embeds } = msg
+        msg.embeds = []
+        embeds.forEach(embed => {
+          if (embed.url && embed.image) {
+            const match = msg.embeds.find(e => e.url === embed.url)
+            if (match) {
+              if (!match.images) {
+                match.images = []
+                if (match.image) match.images.push(match.image)
+              }
+              if (embed.image) match.images.push(embed.image)
+              return
+            }
+          }
+          msg.embeds.push(embed)
+        })
       }
     }
   }
@@ -57,11 +78,14 @@ module.exports = class Formatter {
       for (const i2 in this.payload.messages[i1].embeds) {
         // noinspection JSUnfilteredForInLoop
         const embed = this.payload.messages[i1].embeds[i2]
+
+        // Group images
         if (embed.images) {
-          const grouppedImages = [ [], [] ]
-          embed.images.forEach((img, i) => grouppedImages[embed.images.length - i <= 2 ? 1 : 0].push(img))
-          embed.grouppedImages = grouppedImages.filter(a => a.length)
+          embed.grouppedImages = [ [], [] ]
+          embed.images.forEach((img, i) => embed.grouppedImages[embed.images.length - i <= 2 ? 1 : 0].push(img))
         }
+
+        // Group fields
         if (embed.fields) {
           let cursor = -1
           const limit = embed.thumbnail ? 2 : 3
@@ -75,6 +99,24 @@ module.exports = class Formatter {
             embed.grouppedFields[cursor].push(field)
           })
         }
+
+        // Compute display width
+        embed.displayMaxWidth = '520px'
+        const media = embed.image || embed.video
+        if (media) {
+          embed.displayMaxWidth = `${this._fit(media.width, media.height, 400, 300).width + 32}px`
+        }
+        if (embed.image) {
+          embed.image.displayMaxWidth = `${this._fit(embed.image.width, embed.image.height, 400, 300).width}px`
+        }
+        if (embed.type === 'image' && embed.thumbnail) {
+          embed.thumbnail.displayMaxWidth = `${this._fit(embed.thumbnail.width, embed.thumbnail.height, 400, 300).width}px`
+        }
+        if (embed.video) {
+          const size = this._fit(embed.video.width, embed.video.height, 400, 300)
+          embed.video.displayMaxWidth = `${size.width}px`
+          embed.video.displayMaxHeight = `${size.height}px`
+        }
       }
     }
   }
@@ -83,6 +125,7 @@ module.exports = class Formatter {
     let cursor = -1
     this.payload.grouppedMessages = []
     this.payload.messages.forEach(msg => {
+      this._parseInvites(msg)
       const lastMessage = cursor !== -1 ? [ ...this.payload.grouppedMessages[cursor] ].reverse()[0] : null
       if (!lastMessage || msg.author !== lastMessage.author || msg.time - lastMessage.time > 420000) {
         this.payload.grouppedMessages.push([])
@@ -93,22 +136,26 @@ module.exports = class Formatter {
     this.payload.grouppedMessages = this.payload.grouppedMessages.filter(a => a.length !== 0)
   }
 
+  _parseInvites (msg) {
+    msg.invites = []
+  }
+
   _validate () {
     return true // TODO
   }
 
-  _fetchSize (url) {
-    return new Promise(resolve => {
-      const parts = url.split('/').slice(2)
-      const host = parts.shift()
-      const path = `/${parts.join('/')}`
-      const req = https.request({
-        method: 'HEAD',
-        port: 443,
-        host,
-        path
-      }, (res) => resolve(parseInt(res.headers['content-length'])))
-      req.end()
-    })
+  _fit (width, height, maxWidth, maxHeight) {
+    if (width !== maxWidth || height !== maxHeight) {
+      const widthRatio = width > maxWidth ? maxWidth / width : 1
+      width = Math.max(Math.round(width * widthRatio), 0)
+      const heightRatio = (height = Math.max(Math.round(height * widthRatio), 0)) > maxHeight ? maxHeight / height : 1
+
+      width = Math.max(Math.round(width * heightRatio), 0)
+      height = Math.max(Math.round(height * heightRatio), 0)
+    }
+    return {
+      width,
+      height
+    }
   }
 }

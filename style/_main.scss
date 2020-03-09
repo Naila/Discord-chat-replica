@@ -26,6 +26,8 @@
   --color-gray: #72767d;
   --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05), 0 2px 0 rgba(4, 4, 5, 0.05);
   --spacer: hsla(0, 0%, 100%, 0.06);
+  --spoiler: #202225;
+  --spoiler-revealed: hsla(0, 0%, 100%, .1);
   --theme: url(https://discordapp.com/assets/522c8314225487737f7dd4ead8d4a731.svg);
 }
 
@@ -39,6 +41,8 @@
   --color-gray: #747f8d;
   --elevation: 0 1px 0 rgba(6, 6, 7, 0.1), 0 1.5px 0 rgba(6, 6, 7, 0.025), 0 2px 0 rgba(6, 6, 7, 0.025);
   --spacer: rgba(6, 6, 7, 0.08);
+  --spoiler: #b9bbbe;
+  --spoiler-revealed: rgba(0, 0, 0, .1);
   --theme: url(https://discordapp.com/assets/6c8c8654d649bee316b88e2342b6c8fa.svg);
 }
 

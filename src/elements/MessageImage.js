@@ -27,8 +27,7 @@ class MessageImage extends HTMLImageElement {
   }
 
   connectedCallback () {
-    console.log(this.dataset)
-    if (this.dataset.clickable) {
+    if (this.dataset.clickable !== void 0) {
       this.addEventListener('click', this.onClick)
     }
     this.addEventListener('error', this.onError)
@@ -46,4 +45,20 @@ class MessageImage extends HTMLImageElement {
   }
 }
 
+class MessageGifv extends HTMLVideoElement {
+  constructor () {
+    super()
+    this.onClick = this.onClick.bind(this)
+  }
+
+  connectedCallback () {
+    this.addEventListener('click', this.onClick)
+  }
+
+  onClick () {
+    Engine.mount(Engine.createElement(ImagePreview, { video: this.src }))
+  }
+}
+
 customElements.define('message-image', MessageImage, { extends: 'img' })
+customElements.define('message-gifv', MessageGifv, { extends: 'video' })

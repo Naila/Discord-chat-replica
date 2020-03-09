@@ -16,14 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import './elements/ThemeSwitch'
-import './elements/MessageHeader'
-import './elements/MessageAvatar'
-import './elements/MessageDate'
-import './elements/MessageMarkup'
-import './elements/MessageEmoji'
-import './elements/MessageMention'
-import './elements/MessageSpoiler'
-import './elements/MessageCodeblock'
-import './elements/MessageImage'
-import './elements/MessageVideo'
+class MessageMarkup extends HTMLDivElement {
+  connectedCallback () {
+    const actualNodes = [ ...this.childNodes ].filter(n => !(n instanceof HTMLBRElement))
+    if (actualNodes.length < 28 && !actualNodes.find(n => !n.classList || !n.classList.contains('emoji'))) {
+      actualNodes.forEach(n => n.classList.add('jumbo'))
+    }
+  }
+}
+
+customElements.define('message-markup', MessageMarkup, { extends: 'div' })

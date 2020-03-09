@@ -24,9 +24,11 @@
     display: flex;
     position: relative;
     padding: .125rem 48px .125rem 72px;
+    min-height: 1.375rem;
 
     &.group-start {
       margin-top: 1.0625em;
+      min-height: 2.75rem;
     }
 
     .avatar {
@@ -112,7 +114,6 @@
     }
   }
 }
-
 
 // Scrollbars
 // noinspection CssUnknownProperty

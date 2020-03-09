@@ -24,9 +24,10 @@
 </head>
 <body class='theme-dark'>
     <%- include('header.ejs', { data: data }) %>
+    <!-- TODO: "Hey this is the beginning of #----" -->
     <div class='messages'>
         <% for (const group of data.grouppedMessages) { %>
-            <%- include('group.ejs', { data: data, group: group, markdown: markdown }) %>
+            <%- include('messages.ejs', { data: data, group: group, markdown: markdown }) %>
         <% } %>
     </div>
     <!-- TODO: Some kind of footer -->

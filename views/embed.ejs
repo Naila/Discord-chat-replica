@@ -1,23 +1,35 @@
 <% if (embed.provider && embed.provider.name === 'Spotify') { %>
     <div class='spotify'>
+        <% const url = new URL(embed.url).pathname %>
         <!--suppress HtmlDeprecatedAttribute-->
-        <iframe src='https://open.spotify.com/embed<%= new URL(embed.url).pathname %>' frameborder='0'
-                style='width: 400px; height: 300px; pointer-events: none;'></iframe>
+        <iframe src='https://open.spotify.com/embed<%= url %>' frameborder='0'
+                style='width: 400px; height: <%= url.startsWith('/track/') ? 80 : 300 %>px; pointer-events: none;'></iframe>
     </div>
 <% } else { %>
-    <% if ((embed.image || embed.video) && (embed.type === 'gifv' || (embed.type !== 'rich' && !embed.author && !embed.title))) { %>
+    <% if ((embed.thumbnail || embed.video) && (embed.type === 'gifv' || (embed.type !== 'rich' && !embed.author && !embed.title))) { %>
         <% if (embed.video) { %>
             <!--suppress CheckTagEmptyBody-->
-            <video class='video' src='<%= embed.video.proxy_url || embed.video.url %>'
-                    <%= embed.type === 'gifv' ? 'autoplay muted' : 'controls' %>></video>
+            <video is='message-gifv' class='video' src='<%= embed.video.proxy_url || embed.video.url %>'
+                    <%= embed.type === 'gifv' ? 'autoplay muted loop' : 'controls' %>
+                   style='max-width: <%= embed.video.displayMaxWidth %>'></video>
         <% } else { %>
-            <img is='message-image' data-clickable src='<%= embed.image.proxy_url || embed.image.url %>' alt=''
-                 class='image'>
+            <img is='message-image' data-clickable src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>' alt=''
+                 class='image' style='max-width: <%= embed.thumbnail.displayMaxWidth %>'>
         <% } %>
     <% } else { %>
-        <div class='embed' style='<% if (embed.color) { %>border-color: <%= markdown.int2rgba(embed.color) %><% } %>'>
+        <div class='embed'
+             style='max-width: <%= embed.displayMaxWidth %>;<% if (embed.color) { %> border-color: <%= markdown.int2rgba(embed.color) %><% } %>'>
             <div class='inner'>
                 <div class='content'>
+                    <% if (embed.provider) { %>
+                        <% if (embed.provider.url) { %>
+                            <a href='<%= embed.provider.url %>' target='_blank' class='provider'>
+                                <%= embed.provider.name %>
+                            </a>
+                        <% } else { %>
+                            <span class='provider'><%= embed.provider.name %></span>
+                        <% } %>
+                    <% } %>
                     <% if (embed.author) { %>
                         <div class='author'>
                             <% if (embed.author.icon_url) { %>
@@ -42,7 +54,7 @@
                             </div>
                         <% } %>
                     <% } %>
-                    <% if (embed.description) { %>
+                    <% if (embed.description && ![ 'image', 'video', 'gifv' ].includes(embed.type)) { %>
                         <div class='description'>
                             <%- markdown.parse(embed.description, data.entities, true) %>
                         </div>
@@ -68,19 +80,21 @@
                 <% } %>
             </div>
             <% if (embed.video) { %>
-                <div class='embed-video' is='message-video' data-url='<%= embed.video.proxy_url || embed.video.url %>'>
+                <div class='embed-video' is='message-video' data-url='<%= embed.video.proxy_url || embed.video.url %>'
+                     style='width: <%= embed.video.displayMaxWidth %>; height: <%= embed.video.displayMaxHeight %>'>
                     <img is='message-image' src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>'
+                         style='width: <%= embed.video.displayMaxWidth %>; height: <%= embed.video.displayMaxHeight %>'
                          alt='Thumbnail' class='thumb'/>
                     <div class='controls'>
                         <div class='play'>
                             <!--suppress HtmlUnknownAttribute-->
-                            <svg width='16' height='16' viewBox='0 0 24 24'>
+                            <svg width='24' height='24' viewBox='0 0 24 24'>
                                 <polygon fill='currentColor' points='0 0 0 14 11 7' transform='translate(7 5)'/>
                             </svg>
                         </div>
                         <a rel='noreferrer noopener' target='_blank' href='<%= embed.url %>'>
                             <!--suppress HtmlUnknownAttribute-->
-                            <svg width='16' height='16' viewBox='0 0 24 24'>
+                            <svg width='24' height='24' viewBox='0 0 24 24'>
                                 <path fill='currentColor' transform='translate(3.000000, 4.000000)'
                                       d='M16 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4v-2H2V4h14v10h-4v2h4c1.1 0 2-.9 2-2V2a2 2 0 0 0-2-2zM9 6l-4 4h3v6h2v-6h3L9 6z'/>
                             </svg>
@@ -92,15 +106,17 @@
                     <% for (const images of embed.grouppedImages) { %>
                         <div class='column'>
                             <% for (const image of images) { %>
-                                <img is='message-image' data-clickable src='<%= image.proxy_url || image.url %>' alt=''
-                                     class='gallery-image'/>
+                                <div class='gallery-image'>
+                                    <img is='message-image' src='<%= image.proxy_url || image.url %>' alt=''
+                                         data-clickable/>
+                                </div>
                             <% } %>
                         </div>
                     <% } %>
                 </div>
             <% } else if (embed.image) { %>
                 <img is='message-image' data-clickable src='<%= embed.image.proxy_url || embed.image.url %>' alt=''
-                     class='embed-image'/>
+                     class='embed-image' style='max-width: <%= embed.image.displayMaxWidth %>'/>
             <% } %>
             <% if (embed.footer || embed.timestamp) { %>
                 <div class='footer'>

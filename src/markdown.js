@@ -26,16 +26,20 @@ const punycode = require('punycode') // this is from npm but eslint dumb
 class Markdown {
   constructor () {
     this.defaultRules = {
-      newline: SimpleMarkdown.defaultRules.newline,
+      newline: {
+        ...SimpleMarkdown.defaultRules.newline,
+        match: SimpleMarkdown.inlineRegex(/^\n/),
+        html: () => '<br>'
+      },
       paragraph: SimpleMarkdown.defaultRules.paragraph,
       escape: SimpleMarkdown.defaultRules.escape,
       blockQuote: {
         ...SimpleMarkdown.defaultRules.blockQuote,
         match: (source, state) => {
-          if (/^$|\n *$/.test(state.prevCapture || '') && !state.inQuote && !state.nested) {
-            return /^( *>>> +([\s\S]*))|^( *>(?!>>) +[^\n]*(\n *>(?!>>) +[^\n]*)*\n?)/.exec(source)
+          if (!/^$|\n *$/.test(state.prevCapture ? state.prevCapture[0] : '') || state.inQuote || state.nested) {
+            return null
           }
-          return null
+          return /^( *>>> +([\s\S]*))|^( *>(?!>>) +[^\n]*(\n *>(?!>>) +[^\n]*)*\n?)/.exec(source)
         },
         parse: ([ source ], parse, state) => {
           const multilineRegex = /^ *>>> ?/
@@ -76,7 +80,12 @@ class Markdown {
             return null
           }
           return SimpleMarkdown.defaultRules.link.match(source, state, prevCapture)
-        }
+        },
+        html: (node, output, state) => SimpleMarkdown.htmlTag('a', output(node.content, state), {
+          href: SimpleMarkdown.sanitizeUrl(node.target),
+          title: node.title,
+          target: '_blank'
+        })
       },
       autolink: {
         ...SimpleMarkdown.defaultRules.autolink,
@@ -108,7 +117,6 @@ class Markdown {
       strong: SimpleMarkdown.defaultRules.strong,
       em: SimpleMarkdown.defaultRules.em,
       u: SimpleMarkdown.defaultRules.u,
-      br: SimpleMarkdown.defaultRules.br,
       text: SimpleMarkdown.defaultRules.text,
       inlineCode: SimpleMarkdown.defaultRules.inlineCode,
       codeBlock: {
@@ -255,16 +263,18 @@ class Markdown {
         order: SimpleMarkdown.defaultRules.text.order,
         match: e => /^\|\|([\s\S]+?)\|\|/.exec(e),
         parse: ([ , content ], parse, state) => ({ content: parse(content, state) }),
-        html: (node, output, state) => SimpleMarkdown.htmlTag('span', output(node.content, state), {
-          class: 'spoiler',
-          is: 'message-spoiler'
-        })
+        html: (node, output, state) => SimpleMarkdown.htmlTag('span',
+          SimpleMarkdown.htmlTag('span', output(node.content, state)), {
+            class: 'spoiler',
+            is: 'message-spoiler'
+          })
       }
     }
     this.limitReached = Symbol('ast.limit')
   }
 
   parse (markdown, entities, allowInlineLinks) {
+    if (!markdown) return ''
     const parser = SimpleMarkdown.parserFor(this.defaultRules)
     const htmlOutput = SimpleMarkdown.htmlFor(SimpleMarkdown.ruleOutput(this.defaultRules, 'html'))
     let tree = parser(markdown, {
@@ -274,6 +284,7 @@ class Markdown {
     })
     tree = this._flattenAst(tree)
     tree = this._constrainAst(tree)
+    console.log(tree)
     const html = htmlOutput(tree)
     return twemoji.parse(html, {
       callback: function (icon, options) {

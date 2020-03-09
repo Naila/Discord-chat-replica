@@ -21,12 +21,34 @@
     width: 100%;
   }
 
+  .spoiler {
+    border-radius: 3px;
+    transition: all .1s ease;
+    background-color: var(--spoiler-revealed);
+
+    &:not(.revealed) {
+      cursor: pointer;
+      background-color: var(--spoiler);
+
+      span {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+  }
+
   .emoji {
     width: 1.375em;
     height: 1.375em;
     object-fit: contain;
     margin-top: 0;
     margin-bottom: -5px;
+
+    &.jumbo {
+      width: 3rem;
+      height: 3rem;
+      min-height: 3rem;
+    }
   }
 
   blockquote {
@@ -68,12 +90,8 @@
     }
   }
 
-  img {
-    object-fit: contain;
-
-    &[data-clickable] {
-      cursor: pointer;
-    }
+  img[data-clickable], video[is='message-gifv'] {
+    cursor: pointer;
   }
 
   code, pre {

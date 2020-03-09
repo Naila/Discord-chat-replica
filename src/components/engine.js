@@ -25,8 +25,13 @@ export default {
     if (typeof element === 'string') {
       const node = document.createElement(element)
       for (const attr in attributes) {
-        // noinspection JSUnfilteredForInLoop
-        node.setAttribute(attr, attributes[attr])
+        if (attr === 'bindEvents') {
+          for (const event of attributes.bindEvents) {
+            node.addEventListener(event.type, event.callback)
+          }
+        } else {
+          node.setAttribute(attr, attributes[attr])
+        }
       }
       if (Array.isArray(children)) {
         for (const child of children) {
@@ -57,7 +62,12 @@ export default {
     if (!(element instanceof HTMLElement)) {
       throw new Error('Cannot mount something that isn\'t a HTMLElement!')
     }
+    this.mountedElement = element
     document.querySelector('.render-engine').innerHTML = ''
     document.querySelector('.render-engine').appendChild(element)
+  },
+
+  unmount () {
+    document.querySelector('.render-engine').innerHTML = ''
   }
 }

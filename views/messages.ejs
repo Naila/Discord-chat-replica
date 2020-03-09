@@ -26,7 +26,9 @@
                 </div>
             <% } %>
             <!-- Note: Webhooks **can** use named links in messages -->
-            <div class='markup'><%- markdown.parse(msg.content, data.entities, author.discriminator === '0000') %></div>
+            <div is='message-markup' class='markup'>
+                <%- markdown.parse(msg.content, data.entities, author.discriminator === '0000') %>
+            </div>
             <div class='embeds'>
                 <% if (typeof msg.embeds !== 'undefined') { %>
                     <% for (const embed of msg.embeds) { %>

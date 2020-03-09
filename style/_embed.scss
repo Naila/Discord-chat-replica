@@ -16,8 +16,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+.embeds {
+  padding-top: .125rem;
+  padding-bottom: .125rem;
+
+  &:empty {
+    display: none;
+  }
+}
+
 .embed {
-  margin-top: 8px;
   border-left: 4px solid var(--background-very-dark);
   background: var(--background-dark);
   border-radius: 4px;
@@ -33,15 +41,22 @@
     flex: 1;
   }
 
-  .author, .title, .description, .thumbnail, .fields, .field, .footer {
+  .provider, .author, .title, .description, .thumbnail, .fields, .field, .footer {
     display: block;
     margin-top: 8px;
+  }
+
+  .provider {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 400;
+    color: var(--color-light-gray)
   }
 
   .author, .footer {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 0.875rem;
 
     img {
       width: 24px;
@@ -59,6 +74,7 @@
 
   .title {
     font-weight: 600;
+    font-size: 1rem;
   }
 
   .fields {
@@ -84,6 +100,7 @@
         color: var(--color-gray);
         font-weight: 500;
         margin-bottom: 2px;
+        font-size: inherit;
       }
     }
   }
@@ -92,6 +109,87 @@
     margin-top: 16px;
     max-width: 300px;
     max-height: 400px;
+  }
+
+  .gallery {
+    grid-column: 1/2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4px;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-top: 16px;
+    height: 300px;
+
+    .column {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .gallery-image {
+      min-height: calc(50% - 2px);
+      max-height: 100%;
+      min-width: 100%;
+      max-width: 100%;
+
+      &:only-child {
+        min-height: 100%;
+      }
+
+      &:nth-child(2) {
+        margin-top: 4px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .embed-video {
+    position: relative;
+    border-radius: 4px;
+    contain: paint;
+    margin-top: 16px;
+
+    .controls {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      padding: 12px;
+      height: 48px;
+      border-radius: 24px;
+      background-color: rgba(0, 0, 0, .6);
+      color: #fff;
+
+      div, a {
+        opacity: .6;
+        cursor: pointer;
+        transition: opacity .25s;
+        color: inherit;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      div svg {
+        margin-left: 1px;
+        margin-right: -1px;
+      }
+
+      a svg {
+        margin-left: 2px;
+        margin-right: 4px;
+      }
+    }
   }
 
   .thumbnail {

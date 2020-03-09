@@ -36,16 +36,19 @@ class MessageDate extends HTMLElement {
     const daysBetween = (today.getUTCFullYear() - date.getUTCFullYear()) * 365 +
       (today.getUTCMonth() - date.getUTCMonth()) * 30 +
       (today.getUTCDate() - date.getUTCDate())
+
+    const hours = date.getHours().toString().padStart(2, '0')
+    const minutes = date.getMinutes().toString().padStart(2, '0')
     if (daysBetween === 0) {
-      this.innerText = `Today at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+      this.innerText = `Today at ${hours}:${minutes}`
     } else if (daysBetween === 1) {
-      this.innerText = `Yesterday at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+      this.innerText = `Yesterday at ${hours}:${minutes}`
     } else if (daysBetween < 7) {
-      this.innerText = `Last ${days[date.getUTCDay() - 1]} at ${date.getUTCHours()}:${date.getUTCMinutes()}`
+      this.innerText = `Last ${days[date.getDay() - 1]} at ${hours}:${minutes}`
     } else {
-      this.innerText = `${date.getUTCDay().toString().padStart(2, '0')}/` +
-        `${date.getUTCMonth().toString().padStart(2, '0')}/` +
-        `${date.getUTCFullYear().toString().padStart(2, '0')}`
+      this.innerText = `${date.getDate().toString().padStart(2, '0')}/` +
+        `${date.getMonth().toString().padStart(2, '0')}/` +
+        `${date.getFullYear().toString()}`
     }
   }
 }
