@@ -1,4 +1,4 @@
-/*!
+/*
  * Small microservice to generate a Discord-like chat section
  * Copyright (C) 2020 Bowser65
  *
@@ -16,8 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-.header-bar {
+header {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   user-select: none;
   height: 48px;
@@ -46,11 +47,6 @@
     padding-left: 16px;
     border-left: 1px var(--spacer) solid;
     flex: 1;
-  }
-
-  .date {
-    margin-left: auto;
-    margin-right: 15px;
   }
 
   // noinspection CssInvalidHtmlTagReference

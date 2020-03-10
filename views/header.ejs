@@ -1,4 +1,4 @@
-<div class='header-bar'>
+<header>
     <!--suppress HtmlUnknownAttribute-->
     <svg width='24' height='24' viewBox='0 0 24 24'>
         <path fill='currentColor'
@@ -6,7 +6,6 @@
     </svg>
     <span class='name'><%= data.channel_name %></span>
     <span class='topic'>Messages: <%= data.messages.length %></span>
-    <span class='date'>Generation date: <%= new Date().toUTCString() %></span>
     <!--suppress CheckTagEmptyBody, HtmlUnknownTag-->
     <theme-switch></theme-switch>
-</div>
+</header>

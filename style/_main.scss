@@ -1,4 +1,4 @@
-/*!
+/*
  * Small microservice to generate a Discord-like chat section
  * Copyright (C) 2020 Bowser65
  *
@@ -69,4 +69,30 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+main {
+  display: flex;
+  overflow-y: auto;
+  height: calc(100% - 156px);
+  flex-direction: column;
+}
+
+// Scrollbars
+// noinspection CssUnknownProperty
+main {
+  scrollbar-color: var(--background-very-dark) var(--background);
+  scrollbar-width: thin;
+}
+
+main::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+}
+
+main::-webkit-scrollbar-thumb {
+  background-color: var(--background-very-dark);
+  border: 0 var(--background) solid;
+  border-left-width: 1px;
+  border-right-width: 1px;
 }

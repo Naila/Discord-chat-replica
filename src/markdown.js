@@ -284,7 +284,6 @@ class Markdown {
     })
     tree = this._flattenAst(tree)
     tree = this._constrainAst(tree)
-    console.log(tree)
     const html = htmlOutput(tree)
     return twemoji.parse(html, {
       callback: function (icon, options) {

@@ -30,7 +30,7 @@ class MessageDate extends HTMLElement {
   }
 
   formatDate () {
-    const days = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
+    const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
     const today = new Date()
     const date = new Date(parseInt(this.getAttribute('timestamp')))
     const daysBetween = (today.getUTCFullYear() - date.getUTCFullYear()) * 365 +
@@ -44,7 +44,7 @@ class MessageDate extends HTMLElement {
     } else if (daysBetween === 1) {
       this.innerText = `Yesterday at ${hours}:${minutes}`
     } else if (daysBetween < 7) {
-      this.innerText = `Last ${days[date.getDay() - 1]} at ${hours}:${minutes}`
+      this.innerText = `Last ${days[date.getDay()]} at ${hours}:${minutes}`
     } else {
       this.innerText = `${date.getDate().toString().padStart(2, '0')}/` +
         `${date.getMonth().toString().padStart(2, '0')}/` +
