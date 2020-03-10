@@ -2,19 +2,19 @@
   "entities": {
     "users": {
       "173237945149423619": {
-        "avatar": "https://cdn.discordapp.com/avatars/173237945149423619/a_20579a6ab02c959ce2f482ee6ec9a187.gif?size=1024",
+        "avatar": "https://cdn.discordapp.com/avatars/173237945149423619/a_20579a6ab02c959ce2f482ee6ec9a187.gif",
         "username": "Kanin",
         "discriminator": "0001",
         "badge": null
       },
       "337481187419226113": {
-        "avatar": "https://cdn.discordapp.com/avatars/337481187419226113/ae4a1951d381d6bca97cdb4ce307fbce.png?size=1024",
+        "avatar": "https://cdn.discordapp.com/avatars/337481187419226113/ae4a1951d381d6bca97cdb4ce307fbce.png",
         "username": "Naila",
         "discriminator": "1361",
         "badge": "bot"
       },
       "610443119225471007": {
-        "avatar": "https://cdn.discordapp.com/avatars/610443119225471007/4c9ca7e3a57c71098bf0c166d9772135.png?size=1024",
+        "avatar": "https://cdn.discordapp.com/avatars/610443119225471007/4c9ca7e3a57c71098bf0c166d9772135.png",
         "username": "Naila likes Testing",
         "discriminator": "8783",
         "badge": "bot"

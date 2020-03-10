@@ -36,6 +36,7 @@
   font-weight: 500;
   line-height: 16px;
   flex-shrink: 0;
+  user-select: none;
 }
 
 .theme-dark .beginning {
@@ -49,6 +50,15 @@
 }
 
 .messages {
+  position: relative;
+  z-index: 5;
+
+  &:after {
+    content: '';
+    display: block;
+    height: 30px;
+  }
+
   .message {
     display: flex;
     position: relative;

@@ -22,10 +22,13 @@ footer {
   align-items: center;
   height: 52px;
   border-radius: 5px;
-  margin: 30px 16px 24px;
+  margin: 0 16px 24px;
   padding: 16px;
   width: calc(100% - 32px);
   background-color: var(--background-very-dark);
+  position: relative;
+  z-index: 10;
+  user-select: none;
 
   img {
     height: 60px;
