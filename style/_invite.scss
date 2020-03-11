@@ -1,0 +1,137 @@
+/*
+ * Small microservice to generate a Discord-like chat section
+ * Copyright (C) 2020 Bowser65
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+// noinspection CssInvalidHtmlTagReference
+discord-invite {
+  background-color: var(--background-dark);
+  border-radius: 4px;
+  padding: 16px;
+  width: 432px;
+  user-select: none;
+  display: block;
+
+  .header {
+    font-weight: 700;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-light-gray);
+    font-size: 12px;
+    line-height: 16px;
+    text-transform: uppercase;
+    height: 16px;
+  }
+
+  .resolving {
+    height: 48px; // TODO: Animation once Discord fixed it on their end
+  }
+
+  .guild {
+    display: flex;
+    align-items: center;
+
+    .name, .invalid {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+      color: var(--color);
+    }
+
+    .name {
+      margin-bottom: 2px;
+    }
+
+    .invalid {
+      color: #f04747;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  img {
+    border-radius: 12px;
+    background-position: 50%;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    margin-right: 16px;
+  }
+
+  .counts {
+    display: flex;
+    align-items: center;
+    color: var(--color-light-gray);
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .online, .offline {
+    margin-right: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #747f8d;
+  }
+
+  .online {
+    background-color: #43b581;
+  }
+
+  .count {
+    margin-right: 8px;
+
+    b {
+      margin-right: 3px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .button {
+    flex-shrink: 0;
+    height: 40px;
+    padding: 2px 20px;
+    color: #fff;
+    background-color: #43b581;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color .17s ease;
+    display: flex;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      text-decoration: none;
+      background-color: #3ca374;
+    }
+  }
+}

@@ -18,21 +18,20 @@
 
 class MessageDate extends HTMLElement {
   connectedCallback () {
-    const type = this.getAttribute('type')
-    if (type === 'date') {
+    if (this.dataset.type === 'date') {
       this.formatDate()
-    } else if (type === 'time') {
-      const date = new Date(parseInt(this.getAttribute('timestamp')))
+    } else if (this.dataset.type === 'time') {
+      const date = new Date(parseInt(this.dataset.timestamp))
       this.innerText = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
     } else {
-      console.warn(`MessageDate: Cannot parse date: unknown format ${type}`)
+      console.warn(`MessageDate: Cannot parse date: unknown format ${this.dataset.type}`)
     }
   }
 
   formatDate () {
     const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
     const today = new Date()
-    const date = new Date(parseInt(this.getAttribute('timestamp')))
+    const date = new Date(parseInt(this.dataset.timestamp))
     const daysBetween = (today.getUTCFullYear() - date.getUTCFullYear()) * 365 +
       (today.getUTCMonth() - date.getUTCMonth()) * 30 +
       (today.getUTCDate() - date.getUTCDate())

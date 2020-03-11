@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class MessageMarkup extends HTMLDivElement {
+class MessageMarkup extends HTMLElement {
   connectedCallback () {
     const actualNodes = [ ...this.childNodes ].filter(n => !(n instanceof HTMLBRElement))
     if (actualNodes.length < 28 && !actualNodes.find(n => !n.classList || !n.classList.contains('emoji'))) {
@@ -25,4 +25,4 @@ class MessageMarkup extends HTMLDivElement {
   }
 }
 
-customElements.define('message-markup', MessageMarkup, { extends: 'div' })
+customElements.define('message-markup', MessageMarkup)

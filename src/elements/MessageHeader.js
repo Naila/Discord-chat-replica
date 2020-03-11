@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class MessageHeader extends HTMLDivElement {
+class MessageHeader extends HTMLElement {
   connectedCallback () {
     this.querySelector('span').addEventListener('click', () => {
       console.log('todo') // TODO
@@ -24,4 +24,4 @@ class MessageHeader extends HTMLDivElement {
   }
 }
 
-customElements.define('message-header', MessageHeader, { extends: 'div' })
+customElements.define('message-header', MessageHeader)

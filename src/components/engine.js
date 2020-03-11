@@ -58,16 +58,11 @@ export default {
     throw new Error('Failed to create component. You may only pass a string or a Component.')
   },
 
-  mount (element) {
-    if (!(element instanceof HTMLElement)) {
-      throw new Error('Cannot mount something that isn\'t a HTMLElement!')
+  mount (element, root = document.querySelector('.render-engine')) {
+    root.innerHTML = ''
+    if (Array.isArray(element)) {
+      return element.forEach(e => root.appendChild(e))
     }
-    this.mountedElement = element
-    document.querySelector('.render-engine').innerHTML = ''
-    document.querySelector('.render-engine').appendChild(element)
-  },
-
-  unmount () {
-    document.querySelector('.render-engine').innerHTML = ''
+    root.appendChild(element)
   }
 }

@@ -84,8 +84,8 @@
     .time {
       position: absolute;
       left: 0;
-      height: 1.375rem;
-      line-height: 1.375rem;
+      height: 1.365rem;
+      line-height: 1.365rem;
       width: 3.5rem;
       user-select: none;
       text-align: right;
@@ -95,12 +95,12 @@
       opacity: 0;
     }
 
-    .header {
+    // noinspection CssInvalidHtmlTagReference
+    message-header {
       display: flex;
       align-items: center;
       line-height: 1.375rem;
       min-height: 1.375rem;
-      font-size: 0;
 
       .name {
         font-size: 1rem;

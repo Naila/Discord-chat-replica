@@ -16,15 +16,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import './elements/ThemeSwitch'
-import './elements/MessageHeader'
-import './elements/MessageAvatar'
-import './elements/MessageDate'
-import './elements/MessageMarkup'
-import './elements/MessageEmoji'
-import './elements/MessageMention'
-import './elements/MessageSpoiler'
-import './elements/MessageCodeblock'
-import './elements/MessageImage'
-import './elements/MessageVideo'
-import './elements/DiscordInvite'
+import Engine from '../components/engine'
+import Invite from '../components/Invite'
+
+class DiscordInvite extends HTMLElement {
+  async connectedCallback () {
+    Engine.mount(Engine.createElement(Invite, { state: 'RESOLVING' }), this)
+    const invite = await this.fetchInvite()
+    if (invite) {
+      return Engine.mount(Engine.createElement(Invite, {
+        state: 'RESOLVED',
+        invite
+      }), this)
+    }
+    Engine.mount(Engine.createElement(Invite, { state: 'INVALID' }), this)
+  }
+
+  async fetchInvite () {
+    const res = await fetch(`https://discordapp.com/api/v6/invite/${this.dataset.code}?with_counts=true`)
+    if (res.ok) return res.json()
+  }
+}
+
+customElements.define('discord-invite', DiscordInvite)

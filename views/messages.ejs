@@ -7,7 +7,7 @@
             <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
                  alt='avatar' class='avatar'/>
         <% } else { %>
-            <message-date class='time' type='time' timestamp='<%= msg.time %>'>
+            <message-date class='time' data-type='time' data-timestamp='<%= msg.time %>'>
                 <% const msgDate = new Date(msg.time) %>
                 <!-- @formatter:off -->
                 <%= msgDate.getHours().toString().padStart(2, '0') %>:<%= msgDate.getMinutes().toString().padStart(2, '0') %>
@@ -16,20 +16,31 @@
         <% } %>
         <div class='contents'>
             <% if (group.indexOf(msg) === 0) { %>
-                <div class='header' is='message-header'>
+                <message-header>
                     <span class='name'><%= author.username %></span>
                     <span class='badge'><%= author.badge %></span>
                     <!--suppress HtmlUnknownTag-->
-                    <message-date class='date' type='date' timestamp='<%= msg.time %>'>
+                    <message-date class='date' data-type='date' data-timestamp='<%= msg.time %>'>
                         <%= new Date(msg.time).toUTCString() %>
                     </message-date>
-                </div>
+                </message-header>
             <% } %>
             <!-- Note: Webhooks **can** use named links in messages -->
-            <div is='message-markup' class='markup'>
+            <message-markup>
                 <%- markdown.parse(msg.content, data.entities, author.discriminator === '0000') %>
-            </div>
+            </message-markup>
             <div class='embeds'>
+                <% if (typeof msg.invites !== 'undefined') { %>
+                    <% for (const invite of msg.invites) { %>
+                        <!--suppress CheckTagEmptyBody-->
+                        <discord-invite data-code='<%= invite %>'></discord-invite>
+                    <% } %>
+                <% } %>
+                <% if (typeof msg.attachments !== 'undefined') { %>
+                    <% for (const attachment of msg.attachments) { %>
+                        <!-- TODO -->
+                    <% } %>
+                <% } %>
                 <% if (typeof msg.embeds !== 'undefined') { %>
                     <% for (const embed of msg.embeds) { %>
                         <%- include('embed.ejs', { data: data, embed: embed, markdown: markdown }) %>

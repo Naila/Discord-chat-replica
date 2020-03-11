@@ -29,7 +29,7 @@ module.exports = class Formatter {
     await this._formatAttachments()
     this._mergeEmbeds()
     this._formatEmbeds()
-    this._formatMessages()
+    await this._formatMessages()
     return this.payload
   }
 
@@ -121,23 +121,29 @@ module.exports = class Formatter {
     }
   }
 
-  _formatMessages () {
+  async _formatMessages () {
     let cursor = -1
     this.payload.grouppedMessages = []
-    this.payload.messages.forEach(msg => {
-      this._parseInvites(msg)
+    for (const msg of this.payload.messages) {
+      if (msg.content) {
+        await this._parseInvites(msg)
+      }
       const lastMessage = cursor !== -1 ? [ ...this.payload.grouppedMessages[cursor] ].reverse()[0] : null
       if (!lastMessage || msg.author !== lastMessage.author || msg.time - lastMessage.time > 420000) {
         this.payload.grouppedMessages.push([])
         cursor++
       }
       this.payload.grouppedMessages[cursor].push(msg)
-    })
+    }
     this.payload.grouppedMessages = this.payload.grouppedMessages.filter(a => a.length !== 0)
   }
 
-  _parseInvites (msg) {
+  async _parseInvites (msg) {
     msg.invites = []
+    const regex = /(?: |^)(?:https?:\/\/)?discord\.gg\/([a-zA-Z0-9-]+)/g
+    for (const match of msg.content.matchAll(regex)) {
+      msg.invites.push(match[1])
+    }
   }
 
   _validate () {
@@ -148,11 +154,13 @@ module.exports = class Formatter {
     if (width !== maxWidth || height !== maxHeight) {
       const widthRatio = width > maxWidth ? maxWidth / width : 1
       width = Math.max(Math.round(width * widthRatio), 0)
-      const heightRatio = (height = Math.max(Math.round(height * widthRatio), 0)) > maxHeight ? maxHeight / height : 1
+      height = Math.max(Math.round(height * widthRatio), 0)
 
+      const heightRatio = height > maxHeight ? maxHeight / height : 1
       width = Math.max(Math.round(width * heightRatio), 0)
       height = Math.max(Math.round(height * heightRatio), 0)
     }
+
     return {
       width,
       height

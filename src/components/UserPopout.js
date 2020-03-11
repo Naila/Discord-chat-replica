@@ -22,7 +22,7 @@ import Engine from './engine'
 const e = Engine.createElement
 class UserPopout extends Component {
   render () {
-    e('div', null, 'this is a test yes')
+    return e('div', null, 'this is a test yes')
   }
 }
 

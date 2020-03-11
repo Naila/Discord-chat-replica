@@ -23,6 +23,10 @@
   &:empty {
     display: none;
   }
+
+  > * + * {
+    margin-top: .25rem;
+  }
 }
 
 .embed {
