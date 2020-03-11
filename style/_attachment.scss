@@ -1,0 +1,152 @@
+/*
+ * Small microservice to generate a Discord-like chat section
+ * Copyright (C) 2020 Bowser65
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.decorated-video {
+  width: 380px;
+  max-height: 540px;
+  position: relative;
+  overflow: hidden;
+
+  .metadata {
+    z-index: 666;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    background-image: linear-gradient(0deg, transparent, rgba(0, 0, 0, .9));
+    padding: 12px;
+    transform: translateY(-100%);
+    transition: transform .15s;
+    color: #fff;
+
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .name, .size {
+        font-weight: 500;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .name {
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      .size {
+        font-size: 12px;
+        line-height: 16px;
+        opacity: .7;
+      }
+    }
+
+    .download {
+      opacity: .6;
+      color: #fff;
+    }
+  }
+
+  video {
+    width: 100%;
+  }
+
+  &:hover .metadata {
+    transform: translateY(0);
+  }
+}
+
+.attachment {
+  border: 1px rgba(47, 49, 54, .6) solid;
+  background-color: rgba(47, 49, 54, .3);
+  max-width: 520px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+
+  &.audio {
+    max-width: 400px;
+  }
+
+  .data {
+    display: flex;
+    align-items: center;
+
+    .icon {
+      width: 30px;
+      height: 40px;
+      margin-right: 8px;
+      margin-top: 0;
+      flex-shrink: 0;
+    }
+
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      a {
+        opacity: .85;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 16px;
+      }
+
+      span {
+        font-weight: 300;
+        color: #72767d;
+        margin-right: 8px;
+        line-height: 16px;
+        font-size: 12px;
+      }
+    }
+
+    .download {
+      color: #4f545c;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  audio {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+audio {
+  height: 32px;
+  width: 380px;
+  border-radius: 3px;
+
+  // noinspection CssInvalidPseudoSelector
+  &::-webkit-media-controls-enclosure {
+    border-radius: 3px;
+  }
+}
+
+.chrome.theme-dark audio {
+  filter: invert(95%);
+}
+
+.firefox.theme-light audio {
+  filter: invert(95%);
+}

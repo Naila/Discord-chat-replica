@@ -28,3 +28,11 @@ import './elements/MessageCodeblock'
 import './elements/MessageImage'
 import './elements/MessageVideo'
 import './elements/DiscordInvite'
+
+if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
+  document.body.classList.add('firefox')
+}
+
+if (navigator.userAgent.toLowerCase().indexOf('chrome') !== -1) {
+  document.body.classList.add('chrome')
+}

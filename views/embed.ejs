@@ -1,3 +1,20 @@
+<!--
+  Small microservice to generate a Discord-like chat section
+  Copyright (C) 2020 Bowser65
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
 <% if (embed.provider && embed.provider.name === 'Spotify') { %>
     <div class='spotify'>
         <% const url = new URL(embed.url).pathname %>
@@ -8,10 +25,10 @@
 <% } else { %>
     <% if ((embed.thumbnail || embed.video) && (embed.type === 'gifv' || (embed.type !== 'rich' && !embed.author && !embed.title))) { %>
         <% if (embed.video) { %>
-            <!--suppress CheckTagEmptyBody-->
+            <!--suppress CheckTagEmptyBody HtmlUnknownAttribute-->
             <video is='message-gifv' class='video' src='<%= embed.video.proxy_url || embed.video.url %>'
-                    <%= embed.type === 'gifv' ? 'autoplay muted loop' : 'controls' %>
-                   style='max-width: <%= embed.video.displayMaxWidth %>'></video>
+                    <%= embed.type === 'gifv' ? 'autoplay muted loop' : 'controls disablePictureInPicture' %>
+                   controlsList="nodownload" style='max-width: <%= embed.video.displayMaxWidth %>'></video>
         <% } else { %>
             <img is='message-image' data-clickable src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>' alt=''
                  class='image' style='max-width: <%= embed.thumbnail.displayMaxWidth %>'>

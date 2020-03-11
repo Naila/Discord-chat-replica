@@ -1,0 +1,64 @@
+<!--
+  Small microservice to generate a Discord-like chat section
+  Copyright (C) 2020 Bowser65
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<% if (attachment.width && attachment.width > 0 && attachment.width && attachment.width > 0) { %>
+    <% if (/\.(png|jpe?g|webp|gif)$/i.test(attachment.filename)) { %>
+        <img is='message-image' data-clickable src='<%= attachment.proxy_url || attachment.url %>' alt='' class='image'
+             style='max-width: <%= attachment.displayMaxWidth %>'>
+    <% } %>
+    <% if (/\.(mp4|webm|mov)$/i.test(attachment.filename) && attachment.proxy_url) { %>
+        <div class='decorated-video'
+             style='width: <%= attachment.displayMaxWidth %>; height: <%= attachment.displayMaxHeight %>'>
+            <div class='metadata'>
+                <div class='details'>
+                    <span class='name'><%= attachment.filename %></span>
+                    <span class='size'><%= attachment.formattedBytes %></span>
+                </div>
+                <a href='<%= attachment.url %>' target='_blank' class='download'>
+                    <!--suppress HtmlUnknownAttribute-->
+                    <svg width='24' height='24' viewBox='0 0 24 24'>
+                        <path fill='currentColor' d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/>
+                    </svg>
+                </a>
+            </div>
+            <!--suppress CheckTagEmptyBody HtmlUnknownAttribute-->
+            <video src='<%= attachment.url %>' poster='<%= attachment.proxy_url %>?format=jpeg' controls
+                   controlsList='nodownload' disablePictureInPicture></video>
+        </div>
+    <% } %>
+<% } else { %>
+    <% const isAudio = /\.(mp3|ogg|wav|flac)$/i.test(attachment.filename) && attachment.url %>
+    <div class='attachment<%= isAudio ? ' audio' : '' %>'>
+        <div class='data'>
+            <img src='https://discordapp.com/assets/<%= attachment.iconHash %>.svg' alt='' class='icon'/>
+            <div class='details'>
+                <a href='<%= attachment.url %>' target='_blank'><%= attachment.filename %></a>
+                <span><%= attachment.formattedBytes %></span>
+            </div>
+            <a href='<%= attachment.url %>' target='_blank' class='download'>
+                <!--suppress HtmlUnknownAttribute-->
+                <svg width='24' height='24' viewBox='0 0 24 24'>
+                    <path fill='currentColor' d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/>
+                </svg>
+            </a>
+        </div>
+        <% if (isAudio) { %>
+            <!--suppress CheckTagEmptyBody HtmlUnknownAttribute-->
+            <audio src='<%= attachment.url %>' controls controlsList='nodownload'></audio>
+        <% } %>
+    </div>
+<% } %>

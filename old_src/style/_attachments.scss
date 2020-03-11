@@ -29,67 +29,6 @@
     width: 380px;
   }
 
-  .video-embed, > video {
-    margin-top: 5px;
-    width: 380px;
-    max-height: 540px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .video-embed {
-    .metadata {
-      z-index: 666;
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      display: flex;
-      background-image: linear-gradient(0deg, transparent, rgba(0, 0, 0, .9));
-      padding: 12px;
-      transform: translateY(-100%);
-      transition: transform .15s;
-      color: #fff;
-
-      .details {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-
-        .name, .size {
-          font-weight: 500;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-
-        .name {
-          font-size: 16px;
-          line-height: 20px;
-        }
-
-        .size {
-          font-size: 12px;
-          line-height: 16px;
-          opacity: .7;
-        }
-      }
-
-      .download {
-        opacity: .6;
-        color: #fff;
-      }
-    }
-
-    video {
-      width: 100%;
-    }
-
-    &:hover .metadata {
-      transform: translateY(0);
-    }
-  }
-
   .attachment {
     border: 1px rgba(47, 49, 54, .6) solid;
     background-color: rgba(47, 49, 54, .3);

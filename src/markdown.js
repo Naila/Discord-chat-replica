@@ -48,15 +48,10 @@ class Markdown {
           const cleanString = source.replace(isMultiline ? multilineRegex : simpleRegex, '')
 
           const prevInQuote = !!state.inQuote
-          const prenInline = !!state.inline
           state.inQuote = true
-          if (!isMultiline) {
-            state.inline = true
-          }
 
           const formattedMarkup = parse(cleanString, state)
           state.inQuote = prevInQuote
-          state.inline = prenInline
           if (formattedMarkup.length === 0) {
             formattedMarkup.push({
               type: 'text',
@@ -70,7 +65,7 @@ class Markdown {
         },
         html: (node, output, state) => SimpleMarkdown.htmlTag('blockquote', [
           SimpleMarkdown.htmlTag('div', '', { class: 'side' }),
-          SimpleMarkdown.htmlTag('div', output(node.content, state), { class: 'content' })
+          SimpleMarkdown.htmlTag('div', output(node.content, state).replace(/\n/g, '<br>'), { class: 'content' })
         ].join(''))
       },
       link: {

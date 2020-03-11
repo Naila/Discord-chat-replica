@@ -40,8 +40,13 @@ module.exports = class Formatter {
         // noinspection JSUnfilteredForInLoop
         const attachment = this.payload.messages[i1].attachments[i2]
         if (attachment.width && attachment.height) {
-          attachment.displayMaxWidth = `${this._fit(attachment.width, attachment.height, 400, 300).width}px`
+          const size = this._fit(attachment.width, attachment.height, 400, 300)
+          attachment.displayMaxWidth = `${size.width}px`
+          attachment.displayMaxHeight = `${size.height}px`
         }
+
+        attachment.formattedBytes = this._formatBytes(attachment.size)
+        attachment.iconHash = this._computeIconHash(attachment.filename)
       }
     }
   }
@@ -165,5 +170,47 @@ module.exports = class Formatter {
       width,
       height
     }
+  }
+
+  _formatBytes (bytes) {
+    if (bytes === 0) return '0 B'
+    const k = 1024
+    const sizes = [ 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' ]
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
+  }
+
+  _computeIconHash (filename) {
+    if (/\.pdf$/.test(filename)) {
+      return 'f167b4196f02faf2dc2e7eb266a24275'
+    }
+    if (/\.ae/.test(filename)) {
+      return '982bd8aedd89b0607f492d1175b3b3a5'
+    }
+    if (/\.sketch$/.test(filename)) {
+      return 'f812168e543235a62b9f6deb2b094948'
+    }
+    if (/\.ai$/.test(filename)) {
+      return '03ad68e1f4d47f2671d629cfeac048ef'
+    }
+    if (/\.(?:rar|zip|7z|tar|tar\.gz)$/.test(filename)) {
+      return '73d212e3701483c36a4660b28ac15b62'
+    }
+    if (/\.(?:c\+\+|cpp|cc|c|h|hpp|mm|m|json|js|rb|rake|py|asm|fs|pyc|dtd|cgi|bat|rss|java|graphml|idb|lua|o|gml|prl|sls|conf|cmake|make|sln|vbe|cxx|wbf|vbs|r|wml|php|bash|applescript|fcgi|yaml|ex|exs|sh|ml|actionscript)$/.test(filename)) {
+      return '481aa700fab464f2332ca9b5f4eb6ba4'
+    }
+    if (/\.(?:txt|rtf|doc|docx|md|pages|ppt|pptx|pptm|key|log)$/.test(filename)) {
+      return '85f7a4063578f6e0e2c73f60bca0fcce'
+    }
+    if (/\.(?:xls|xlsx|numbers|csv)$/.test(filename)) {
+      return '85f7a4063578f6e0e2c73f60bca0fcce'
+    }
+    if (/\.(?:html|xhtml|htm|js|xml|xls|xsd|css|styl)$/.test(filename)) {
+      return 'a11e895b46cde503a094dd31641060a6'
+    }
+    if (/\.(?:mp3|ogg|wav|flac)$/.test(filename)) {
+      return '5b0da31dc2b00717c1e35fb1f84f9b9b'
+    }
+    return '985ea67d2edab4424c62009886f12e44'
   }
 }
