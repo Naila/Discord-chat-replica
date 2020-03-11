@@ -16,14 +16,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class Component {
-  constructor (props) {
-    this.props = props
-  }
-
-  render () {
-    return null
-  }
-}
-
-export default Component
+export { default as createElement } from './createElement'
+export { default as createTooltip } from './createTooltip'

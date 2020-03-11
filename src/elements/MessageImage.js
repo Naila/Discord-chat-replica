@@ -16,9 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Engine from '../components/engine'
-import ImagePreview from '../components/ImagePreview'
-
 class MessageImage extends HTMLImageElement {
   constructor () {
     super()
@@ -41,7 +38,7 @@ class MessageImage extends HTMLImageElement {
   }
 
   onClick () {
-    Engine.mount(Engine.createElement(ImagePreview, { image: this.src }))
+    // TODO: document.body.appendChild(Engine.createElement(ImagePreview, { image: this.src }))
   }
 }
 
@@ -56,7 +53,7 @@ class MessageGifv extends HTMLVideoElement {
   }
 
   onClick () {
-    Engine.mount(Engine.createElement(ImagePreview, { video: this.src }))
+    // TODO: document.body.appendChild(Engine.createElement(ImagePreview, { video: this.src }))
   }
 }
 

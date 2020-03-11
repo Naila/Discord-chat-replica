@@ -1,0 +1,75 @@
+/*
+ * Small microservice to generate a Discord-like chat section
+ * Copyright (C) 2020 Bowser65
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.tooltip {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  z-index: 6969;
+  background-color: #000;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 8px 12px;
+  word-wrap: break-word;
+  animation-fill-mode: both;
+  animation-duration: .15s;
+  animation-timing-function: cubic-bezier(0.54, 0.01, 0.45, 1.6);
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: inherit;
+  }
+
+  &.top:before {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 4px) rotate(45deg);
+  }
+
+  &.right:before {
+    top: 50%;
+    left: 0;
+    transform: translate(-4px, -50%) rotate(45deg);
+  }
+
+  &.entering {
+    animation-name: tooltip;
+  }
+
+  &.leaving {
+    animation-name: tooltip;
+    animation-direction: reverse;
+  }
+}
+
+@keyframes tooltip {
+  from {
+    opacity: 0;
+    transform: scale(.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

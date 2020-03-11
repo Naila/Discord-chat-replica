@@ -172,6 +172,7 @@ discord-messages {
     font-size: 12px;
     font-weight: 600;
     margin: 1.5rem .875rem .5rem 1rem;
+    user-select: none;
 
     &:before, &:after {
       content: '';

@@ -16,6 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { createTooltip } from '../utils'
+
 class MessageEmoji extends HTMLImageElement {
   constructor () {
     super()
@@ -24,6 +26,7 @@ class MessageEmoji extends HTMLImageElement {
 
   connectedCallback () {
     this.addEventListener('error', this.onError)
+    createTooltip(this, this.alt)
   }
 
   onError () {
