@@ -18,30 +18,27 @@
 <% for (const msg of group) { %>
     <% const author = data.entities.users[msg.author] %>
     <!-- TODO: System messages -->
-    <!-- TODO: Date separators -->
     <div class='message<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
-        <% if (group.indexOf(msg) === 0) { %>
-            <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
-                 alt='avatar' class='avatar'/>
-        <% } else { %>
-            <message-date class='time' data-type='time' data-timestamp='<%= msg.time %>'>
-                <% const msgDate = new Date(msg.time) %>
-                <!-- @formatter:off -->
-                <%= msgDate.getHours().toString().padStart(2, '0') %>:<%= msgDate.getMinutes().toString().padStart(2, '0') %>
-                <!-- @formatter:on -->
-            </message-date>
-        <% } %>
+        <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
+             alt='avatar' class='avatar'/>
+        <!--suppress HtmlUnknownTag-->
+        <message-date class='time' data-type='time' data-timestamp='<%= msg.time %>'>
+            <% const msgDate = new Date(msg.time) %>
+            <!-- @formatter:off -->
+            <%= msgDate.getHours().toString().padStart(2, '0') %>:<%= msgDate.getMinutes().toString().padStart(2, '0') %>
+            <!-- @formatter:on -->
+        </message-date>
         <div class='contents'>
-            <% if (group.indexOf(msg) === 0) { %>
-                <message-header>
-                    <span class='name'><%= author.username %></span>
-                    <span class='badge'><%= author.badge %></span>
-                    <!--suppress HtmlUnknownTag-->
-                    <message-date class='date' data-type='date' data-timestamp='<%= msg.time %>'>
-                        <%= new Date(msg.time).toUTCString() %>
-                    </message-date>
-                </message-header>
-            <% } %>
+            <!--suppress HtmlUnknownTag-->
+            <message-header>
+                <span class='name'><%= author.username %></span>
+                <span class='badge'><%= author.badge %></span>
+                <!--suppress HtmlUnknownTag-->
+                <message-date class='date' data-type='date' data-timestamp='<%= msg.time %>'>
+                    <%= new Date(msg.time).toUTCString() %>
+                </message-date>
+            </message-header>
+            <!--suppress HtmlUnknownTag-->
             <message-markup>
                 <!-- Note: Webhooks **can** use named links in messages -->
                 <%- markdown.parse(msg.content, data.entities, author.discriminator === '0000') %>

@@ -17,6 +17,7 @@
  */
 
 import './elements/ThemeSwitch'
+import './elements/DiscordMessages'
 import './elements/MessageHeader'
 import './elements/MessageAvatar'
 import './elements/MessageDate'
