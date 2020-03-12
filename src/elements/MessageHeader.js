@@ -16,10 +16,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { createUserPopout } from '../utils'
+
 class MessageHeader extends HTMLElement {
   connectedCallback () {
-    this.querySelector('span').addEventListener('click', () => {
-      console.log('todo') // TODO
+    const image = this.parentElement.previousElementSibling.previousElementSibling
+    createUserPopout(this.querySelector('.name'), {
+      username: this.querySelector('.name').textContent,
+      discriminator: image.dataset.discriminator,
+      avatar: image.src,
+      badge: this.querySelector('.badge').textContent
     })
   }
 }

@@ -1,0 +1,82 @@
+/*
+ * Small microservice to generate a Discord-like chat section
+ * Copyright (C) 2020 Bowser65
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.user-popout {
+  position: absolute;
+  z-index: 6969;
+  background-color: var(--background-very-dark);
+  padding: 20px 10px;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(32,34,37,.6);
+  width: 250px;
+  border-radius: 5px;
+  overflow: hidden;
+  animation-fill-mode: forwards;
+  animation-duration: .2s;
+  animation-timing-function: ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    user-select: none;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+
+  .details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .username {
+    font-weight: 600;
+    color: var(--color);
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .discriminator {
+    font-weight: 500;
+    color: var(--color);
+    opacity: .6;
+  }
+
+  .badge {
+    margin-left: 1ch;
+  }
+
+  &.mounted {
+    animation-name: popout;
+  }
+}
+
+@keyframes popout {
+  from {
+    transform: translateX(10px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

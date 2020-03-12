@@ -16,6 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { createUserPopout } from '../utils'
+
 class MessageAvatar extends HTMLImageElement {
   constructor () {
     super()
@@ -24,8 +26,12 @@ class MessageAvatar extends HTMLImageElement {
 
   connectedCallback () {
     this.addEventListener('error', this.onError)
-    this.addEventListener('click', () => {
-      console.log('todo') // TODO
+    const contents = this.nextElementSibling.nextElementSibling
+    createUserPopout(this, {
+      username: contents.querySelector('.name').textContent,
+      discriminator: this.dataset.discriminator,
+      avatar: this.src,
+      badge: contents.querySelector('.badge').textContent
     })
   }
 

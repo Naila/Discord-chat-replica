@@ -16,10 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { createUserPopout } from '../utils'
+
 class MessageMention extends HTMLSpanElement {
   connectedCallback () {
-    this.addEventListener('click', () => {
-      console.log('todo') // TODO
+    createUserPopout(this, {
+      username: this.dataset.username || '',
+      discriminator: this.dataset.discriminator || '',
+      avatar: this.dataset.avatar || '',
+      badge: this.dataset.badge || ''
     })
   }
 }
