@@ -109,13 +109,19 @@ module.exports = class Formatter {
         embed.displayMaxWidth = '520px'
         const media = embed.image || embed.video
         if (media) {
-          embed.displayMaxWidth = `${this._fit(media.width, media.height, 400, 300).width + 32}px`
+          const size = this._fit(media.width, media.height, 400, 300)
+          embed.displayMaxWidth = `${size.width + 32}px`
+          embed.displayMaxHeight = `${size.height}px`
         }
         if (embed.image) {
-          embed.image.displayMaxWidth = `${this._fit(embed.image.width, embed.image.height, 400, 300).width}px`
+          const size = this._fit(embed.image.width, embed.image.height, 400, 300)
+          embed.image.displayMaxWidth = `${size.width}px`
+          embed.image.displayMaxHeight = `${size.height}px`
         }
         if (embed.type === 'image' && embed.thumbnail) {
-          embed.thumbnail.displayMaxWidth = `${this._fit(embed.thumbnail.width, embed.thumbnail.height, 400, 300).width}px`
+          const size = this._fit(embed.thumbnail.width, embed.thumbnail.height, 400, 300)
+          embed.thumbnail.displayMaxWidth = `${size.width}px`
+          embed.thumbnail.displayMaxHeight = `${size.height}px`
         }
         if (embed.video) {
           const size = this._fit(embed.video.width, embed.video.height, 400, 300)

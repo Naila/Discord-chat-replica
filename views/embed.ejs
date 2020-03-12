@@ -30,7 +30,12 @@
                     <%= embed.type === 'gifv' ? 'autoplay muted loop' : 'controls disablePictureInPicture' %>
                    controlsList="nodownload" style='max-width: <%= embed.video.displayMaxWidth %>'></video>
         <% } else { %>
-            <img is='message-image' data-clickable src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>' alt=''
+            <%
+                const url = new URL(embed.thumbnail.proxy_url || embed.thumbnail.url)
+                url.searchParams.append('width', parseInt(embed.thumbnail.displayMaxWidth).toString())
+                url.searchParams.append('height', parseInt(embed.thumbnail.displayMaxHeight).toString())
+            %>
+            <img is='message-image' data-clickable src='<%= url.href %>' alt=''
                  class='image' style='max-width: <%= embed.thumbnail.displayMaxWidth %>'>
         <% } %>
     <% } else { %>
@@ -92,7 +97,12 @@
                     <% } %>
                 </div>
                 <% if (!embed.video && embed.thumbnail) { %>
-                    <img is='message-image' data-clickable src='<%= embed.thumbnail.proxy_url || embed.thumbnail.url %>'
+                    <%
+                        const url = new URL(embed.thumbnail.proxy_url || embed.thumbnail.url)
+                        url.searchParams.append('width', '80')
+                        url.searchParams.append('height', '80')
+                    %>
+                    <img is='message-image' data-clickable src='<%= url.href %>'
                          alt='' class='thumbnail'/>
                 <% } %>
             </div>
@@ -123,17 +133,26 @@
                     <% for (const images of embed.grouppedImages) { %>
                         <div class='column'>
                             <% for (const image of images) { %>
+                                <%
+                                    const url = new URL(image.proxy_url || image.url)
+                                    url.searchParams.append('width', parseInt(embed.image.displayMaxWidth).toString())
+                                    url.searchParams.append('height', parseInt(embed.image.displayMaxHeight).toString())
+                                %>
                                 <div class='gallery-image'>
-                                    <img is='message-image' src='<%= image.proxy_url || image.url %>' alt=''
-                                         data-clickable/>
+                                    <img is='message-image' src='<%= url.href %>' alt='' data-clickable/>
                                 </div>
                             <% } %>
                         </div>
                     <% } %>
                 </div>
             <% } else if (embed.image) { %>
-                <img is='message-image' data-clickable src='<%= embed.image.proxy_url || embed.image.url %>' alt=''
-                     class='embed-image' style='max-width: <%= embed.image.displayMaxWidth %>'/>
+                <%
+                    const url = new URL(embed.image.proxy_url || embed.image.url)
+                    url.searchParams.append('width', parseInt(embed.image.displayMaxWidth).toString())
+                    url.searchParams.append('height', parseInt(embed.image.displayMaxHeight).toString())
+                %>
+                <img is='message-image' data-clickable src='<%= url.href %>' alt='' class='embed-image'
+                     style='max-width: <%= embed.image.displayMaxWidth %>'/>
             <% } %>
             <% if (embed.footer || embed.timestamp) { %>
                 <div class='footer'>
@@ -146,7 +165,8 @@
                     <% } %>
                     <% if (embed.timestamp) { %>
                         <% if (embed.footer.text) { %>|&nbsp;<% } %>
-                        <message-date class='date' data-type='date' data-timestamp='<%= new Date(embed.timestamp).getTime() %>'>
+                        <message-date class='date' data-type='date'
+                                      data-timestamp='<%= new Date(embed.timestamp).getTime() %>'>
                             <%= new Date(embed.timestamp).toUTCString() %>
                         </message-date>
                     <% } %>

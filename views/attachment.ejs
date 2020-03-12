@@ -17,7 +17,12 @@
 -->
 <% if (attachment.width && attachment.width > 0 && attachment.width && attachment.width > 0) { %>
     <% if (/\.(png|jpe?g|webp|gif)$/i.test(attachment.filename)) { %>
-        <img is='message-image' data-clickable src='<%= attachment.proxy_url || attachment.url %>' alt='' class='image'
+        <%
+            const url = new URL(attachment.proxy_url || attachment.url)
+            url.searchParams.append('width', parseInt(attachment.displayMaxWidth).toString())
+            url.searchParams.append('height', parseInt(attachment.displayMaxHeight).toString())
+        %>
+        <img is='message-image' data-clickable src='<%= url.href %>' alt='' class='image'
              style='max-width: <%= attachment.displayMaxWidth %>'>
     <% } %>
     <% if (/\.(mp4|webm|mov)$/i.test(attachment.filename) && attachment.proxy_url) { %>
