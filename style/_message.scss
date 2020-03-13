@@ -17,9 +17,11 @@
  */
 
 .message {
-  // noinspection CssInvalidHtmlTagReference
-  .contents, message-markup {
-    width: 100%;
+  &:not(.system) {
+    // noinspection CssInvalidHtmlTagReference
+    .contents, message-markup {
+      width: 100%;
+    }
   }
 
   .spoiler {
@@ -67,7 +69,7 @@
     }
   }
 
-  .mention {
+  &:not(.system) .mention {
     color: #7289da;
     background-color: rgba(114, 137, 218, .1);
     transition: background-color 50ms ease-out, color 50ms ease-out;

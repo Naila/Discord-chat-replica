@@ -140,7 +140,10 @@ module.exports = class Formatter {
         await this._parseInvites(msg)
       }
       const lastMessage = cursor !== -1 ? [ ...this.payload.grouppedMessages[cursor] ].reverse()[0] : null
-      if (!lastMessage || msg.author !== lastMessage.author || msg.time - lastMessage.time > 420000) {
+      if (!lastMessage || (!((lastMessage.type || 0) !== 0 && (msg.type || 0) !== 0) && (
+        !((lastMessage.type || 0) === 0 && (msg.type || 0) === 0) ||
+        msg.author !== lastMessage.author || msg.time - lastMessage.time > 420000)
+      )) {
         this.payload.grouppedMessages.push([])
         cursor++
       }

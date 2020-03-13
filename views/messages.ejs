@@ -15,52 +15,82 @@
   You should have received a copy of the GNU Affero General Public License
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
+<% const icons = [
+    'https://canary.discordapp.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
+    'https://canary.discordapp.com/assets/aff52bc375fe2da876174301a5c6d09d.svg',
+    'https://canary.discordapp.com/assets/d80d1fdc43a3c42134a31a39581160ac.svg',
+    'https://canary.discordapp.com/assets/0c9615349350c4185381d58c69b88cbc.svg',
+    'https://canary.discordapp.com/assets/0c9615349350c4185381d58c69b88cbc.svg',
+    'https://canary.discordapp.com/assets/5da4cdab01d4d89c593c48c62ae0d937.svg',
+    'https://canary.discordapp.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
+    'https://cdn.discordapp.com/emojis/585558042309820447.png',
+    'https://cdn.discordapp.com/emojis/585558042309820447.png',
+    'https://cdn.discordapp.com/emojis/585558042309820447.png',
+    'https://cdn.discordapp.com/emojis/585558042309820447.png',
+    'https://canary.discordapp.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
+    null, // GUILD_STREAM (seems unused?)
+    'https://canary.discordapp.com/assets/46db4c8d56c169f418cc5c0f0d4ddf70.svg',
+    'https://canary.discordapp.com/assets/286a546022f1e3cbe45b41090f8d6e97.svg'
+] %>
 <% for (const msg of group) { %>
     <% const author = data.entities.users[msg.author] %>
-    <!-- TODO: System messages -->
-    <div class='message<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
-        <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
-             alt='avatar' class='avatar'/>
-        <!--suppress HtmlUnknownTag-->
-        <message-date class='time' data-type='time' data-timestamp='<%= msg.time %>'>
-            <% const msgDate = new Date(msg.time) %>
-            <!-- @formatter:off -->
-            <%= msgDate.getHours().toString().padStart(2, '0') %>:<%= msgDate.getMinutes().toString().padStart(2, '0') %>
-            <!-- @formatter:on -->
-        </message-date>
-        <div class='contents'>
+    <% if (msg.type && msg.type !== 0) { %>
+        <div class='message system<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
+            <div class='icon'>
+                <img src='<%= icons[msg.type - 1] %>' alt='icon'>
+            </div>
             <!--suppress HtmlUnknownTag-->
-            <message-header>
-                <span class='name'><%= author.username %></span>
-                <span class='badge'><%= author.badge %></span>
+            <message-markup><%- markdown.parse(msg.content, data.entities, false, true) %></message-markup>
+            <!--suppress HtmlUnknownTag-->
+            <message-date class='date' data-type='date' data-timestamp='<%= msg.time %>'>
+                <%= new Date(msg.time).toUTCString() %>
+            </message-date>
+        </div>
+    <% } else { %>
+        <div class='message<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
+            <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
+                 alt='avatar' class='avatar'/>
+            <!--suppress HtmlUnknownTag-->
+            <message-date class='time' data-type='time' data-timestamp='<%= msg.time %>'>
+                <% const msgDate = new Date(msg.time) %>
+                <!-- @formatter:off -->
+                <%= msgDate.getHours().toString().padStart(2, '0') %>:<%= msgDate.getMinutes().toString().padStart(2, '0') %>
+                <!-- @formatter:on -->
+            </message-date>
+            <div class='contents'>
                 <!--suppress HtmlUnknownTag-->
-                <message-date class='date' data-type='date' data-timestamp='<%= msg.time %>'>
-                    <%= new Date(msg.time).toUTCString() %>
-                </message-date>
-            </message-header>
-            <!--suppress HtmlUnknownTag-->
-            <message-markup>
-                <!-- Note: Webhooks **can** use named links in messages -->
-                <%- markdown.parse(msg.content, data.entities, author.discriminator === '0000') %>
-            </message-markup>
-            <div class='embeds'>
-                <% if (typeof msg.invites !== 'undefined') { %>
-                    <% for (const invite of msg.invites) { %>
-                        <!--suppress CheckTagEmptyBody-->
-                        <discord-invite data-code='<%= invite %>'></discord-invite>
+                <message-header>
+                    <span class='name'><%= author.username %></span>
+                    <span class='badge'><%= author.badge %></span>
+                    <!--suppress HtmlUnknownTag-->
+                    <message-date class='date' data-type='date' data-timestamp='<%= msg.time %>'>
+                        <%= new Date(msg.time).toUTCString() %>
+                    </message-date>
+                </message-header>
+                <!--suppress HtmlUnknownTag-->
+                <message-markup>
+                    <!-- Note: Webhooks **can** use named links in messages -->
+                    <%- markdown.parse(msg.content, data.entities, author.discriminator === '0000') %>
+                </message-markup>
+                <div class='embeds'>
+                    <% if (typeof msg.invites !== 'undefined') { %>
+                        <% for (const invite of msg.invites) { %>
+                            <!--suppress CheckTagEmptyBody-->
+                            <discord-invite data-code='<%= invite %>'></discord-invite>
+                        <% } %>
                     <% } %>
-                <% } %>
-                <% if (typeof msg.attachments !== 'undefined') { %>
-                    <% for (const attachment of msg.attachments) { %>
-                        <%- include('attachment.ejs', { data: data, attachment: attachment }) %>
+                    <% if (typeof msg.attachments !== 'undefined') { %>
+                        <% for (const attachment of msg.attachments) { %>
+                            <%- include('attachment.ejs', { data: data, attachment: attachment }) %>
+                        <% } %>
                     <% } %>
-                <% } %>
-                <% if (typeof msg.embeds !== 'undefined') { %>
-                    <% for (const embed of msg.embeds) { %>
-                        <%- include('embed.ejs', { data: data, embed: embed, markdown: markdown }) %>
+                    <% if (typeof msg.embeds !== 'undefined') { %>
+                        <% for (const embed of msg.embeds) { %>
+                            <%- include('embed.ejs', { data: data, embed: embed, markdown: markdown }) %>
+                        <% } %>
                     <% } %>
-                <% } %>
+                </div>
             </div>
         </div>
-    </div>
+    <% } %>
 <% } %>

@@ -66,8 +66,30 @@ discord-messages {
     padding: .125rem 48px .125rem 72px;
     min-height: 1.375rem;
 
+    &.system {
+      color: var(--color-lighter-gray);
+      font-weight: 400;
+
+      .mention {
+        color: var(--color);
+        font-weight: 500;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      strong {
+        font-weight: 700;
+      }
+    }
+
     &.group-start {
       margin-top: 1.0625em;
+    }
+
+    &:not(.system).group-start {
       min-height: 2.75rem;
 
       .time {
@@ -92,18 +114,34 @@ discord-messages {
       cursor: pointer;
     }
 
+    &.system .icon {
+      padding-top: .25rem;
+      position: absolute;
+      user-select: none;
+      width: 2.5rem;
+      left: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
     .time {
       position: absolute;
-      left: 0;
+      user-select: none;
+      color: var(--color-gray);
       height: 1.370rem;
       line-height: 1.370rem;
-      width: 3.5rem;
-      user-select: none;
       text-align: right;
       font-size: 0.6875rem;
       margin: 0 .25rem;
-      color: var(--color-gray);
+      width: 3.5rem;
       opacity: 0;
+      left: 0;
     }
 
     // noinspection CssInvalidHtmlTagReference
@@ -125,15 +163,15 @@ discord-messages {
           text-decoration: underline;
         }
       }
+    }
 
-      .date {
-        font-size: 0.75rem;
-        font-weight: 500;
-        line-height: 1.375rem;
-        color: var(--color-gray);
-        margin-left: .25rem;
-        display: inline-block;
-      }
+    .date {
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1.375rem;
+      color: var(--color-gray);
+      margin-left: .25rem;
+      display: inline-block;
     }
 
     &:hover {

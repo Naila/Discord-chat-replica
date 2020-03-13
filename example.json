@@ -49,6 +49,35 @@
       "content": "Did you know that webhooks can use [named links](https://myanimelist.net/anime/40010)? p cool isn't it. Spoiler: ||nobody cares :^)||"
     },
     {
+      "type": 7,
+      "author": "337481187419226113",
+      "time": 1576091466245,
+      "content": "Where’s <@337481187419226113>? In the server!"
+    },
+    {
+      "type": 8,
+      "author": "173237945149423619",
+      "time": 1576091466245,
+      "content": "<@173237945149423619> just boosted the server!"
+    },
+    {
+      "type": 10,
+      "author": "9999",
+      "time": 1576091466245,
+      "content": "<@9999> just boosted the server! Powercord has achieved **Level 2!**"
+    },
+    {
+      "author": "9999",
+      "time": 1576091466245,
+      "content": "Test message"
+    },
+    {
+      "type": 10,
+      "author": "9999",
+      "time": 1576091466245,
+      "content": "<@9999> just boosted the server! Powercord has achieved **Level 2!**"
+    },
+    {
       "author": "173237945149423619",
       "time": 1583650388316,
       "content": "https://open.spotify.com/track/3lHSI9u83d3W5jPcvs4Mvt?si=ypkN7LIvRmi_X4gO7CSuCQ",

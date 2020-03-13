@@ -158,7 +158,7 @@ class Markdown {
           if (!role) {
             return {
               type: 'text',
-              content: '@deleted-role'
+              content: `${state.noMentionPrefix ? '' : '@'}deleted-role`
             }
           }
           return {
@@ -166,7 +166,7 @@ class Markdown {
             color: role.color,
             content: [ {
               type: 'text',
-              content: `@${role.name}`
+              content: `${state.noMentionPrefix ? '' : '@'}${role.name}`
             } ]
           }
         }
@@ -179,14 +179,14 @@ class Markdown {
           if (!channel) {
             return {
               type: 'text',
-              content: '#deleted-channel'
+              content: `${state.noMentionPrefix ? '' : '#'}deleted-channel`
             }
           }
           return {
             type: 'mention',
             content: [ {
               type: 'text',
-              content: `#${channel.name}`
+              content: `${state.noMentionPrefix ? '' : '#'}${channel.name}`
             } ]
           }
         }
@@ -201,7 +201,7 @@ class Markdown {
               user: state.entities.users[id],
               content: [ {
                 type: 'text',
-                content: `@${state.entities.users[id].username}`
+                content: `${state.noMentionPrefix ? '' : '@'}${state.entities.users[id].username}`
               } ]
             }
           }
@@ -268,13 +268,14 @@ class Markdown {
     this.limitReached = Symbol('ast.limit')
   }
 
-  parse (markdown, entities, allowInlineLinks) {
+  parse (markdown, entities, allowInlineLinks, noMentionPrefix) {
     if (!markdown) return ''
     const parser = SimpleMarkdown.parserFor(this.defaultRules)
     const htmlOutput = SimpleMarkdown.htmlFor(SimpleMarkdown.ruleOutput(this.defaultRules, 'html'))
     let tree = parser(markdown, {
       entities,
       allowInlineLinks,
+      noMentionPrefix,
       inline: true
     })
     tree = this._flattenAst(tree)
