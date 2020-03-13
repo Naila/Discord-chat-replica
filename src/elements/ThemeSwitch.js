@@ -27,11 +27,12 @@ class ThemeSwitch extends HTMLElement {
   }
 
   toggle () {
-    const theme = document.body.className
-    if (theme === 'theme-dark') {
-      document.body.className = 'theme-light'
+    if (document.body.classList.contains('theme-dark')) {
+      document.body.classList.remove('theme-dark')
+      document.body.classList.add('theme-light')
     } else {
-      document.body.className = 'theme-dark'
+      document.body.classList.remove('theme-light')
+      document.body.classList.add('theme-dark')
     }
   }
 }

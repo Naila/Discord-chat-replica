@@ -75,8 +75,7 @@
 }
 
 .attachment {
-  border: 1px rgba(47, 49, 54, .6) solid;
-  background-color: rgba(47, 49, 54, .3);
+  border: 1px solid;
   max-width: 520px;
   width: 100%;
   padding: 10px;
@@ -130,6 +129,15 @@
     width: 100%;
     margin-top: 10px;
   }
+}
+
+.theme-dark .attachment {
+  border-color: rgba(47, 49, 54, .6);
+  background-color: rgba(47, 49, 54, .3);
+}
+
+.theme-light .attachment {
+  border-color: #f6f6f7;
 }
 
 audio {

@@ -27,9 +27,11 @@
   --color-lighter-gray: #8e9297;
   --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05), 0 2px 0 rgba(4, 4, 5, 0.05);
   --spacer: hsla(0, 0%, 100%, 0.06);
+  --spacer-light: hsla(0, 0%, 100%, 0.02);
   --spoiler: #202225;
   --spoiler-revealed: hsla(0, 0%, 100%, .1);
   --theme: url(https://discordapp.com/assets/522c8314225487737f7dd4ead8d4a731.svg);
+  --link: #00b0f4;
 }
 
 .theme-light {
@@ -43,9 +45,11 @@
   --color-lighter-gray: #6a7480;
   --elevation: 0 1px 0 rgba(6, 6, 7, 0.1), 0 1.5px 0 rgba(6, 6, 7, 0.025), 0 2px 0 rgba(6, 6, 7, 0.025);
   --spacer: rgba(6, 6, 7, 0.08);
+  --spacer-light: #eceeef;
   --spoiler: #b9bbbe;
   --spoiler-revealed: rgba(0, 0, 0, .1);
   --theme: url(https://discordapp.com/assets/6c8c8654d649bee316b88e2342b6c8fa.svg);
+  --link: #0067e0;
 }
 
 * {
@@ -65,7 +69,7 @@ body {
 }
 
 a {
-  color: #00b0f4;
+  color: var(--link);
   text-decoration: none;
 
   &:hover {

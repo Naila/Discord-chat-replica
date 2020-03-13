@@ -20,33 +20,34 @@
   flex: 1;
 }
 
-.beginning {
+.welcome {
+  margin: 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px var(--spacer-light) solid;
   display: flex;
-  border-bottom: 1px solid;
-  align-items: flex-end;
-  margin-left: 16px;
-  margin-right: 16px;
-  padding-bottom: 14px;
-  height: 95px;
-  background-position: 0 100%, 100% 100%;
-  background-size: 192px 80px, 216px 64px;
-  background-repeat: no-repeat, no-repeat;
-  color: var(--color-light-gray);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 16px;
+  justify-content: flex-end;
+  flex-direction: column;
   flex-shrink: 0;
+  height: 95px;
   user-select: none;
-}
 
-.theme-dark .beginning {
-  border-color: hsla(0, 0%, 100%, .02);
-  background-image: url(https://canary.discordapp.com/assets/5eed3f20bc3c75fd5ff63c60df8f679d.png), url(https://canary.discordapp.com/assets/129bf63f677720a34bc7ffeb74468a0e.png);
-}
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    margin: 8px 0;
+    color: var(--color);
 
-.theme-light .beginning {
-  border-color: #eceeef;
-  background-image: url(https://canary.discordapp.com/assets/012426a1f0780d7d36be6c39d9c1e6ed.png), url(https://canary.discordapp.com/assets/6bf0150b5ab7622ea15150094e3c4850.png);
+    b {
+      font-weight: 600;
+    }
+  }
+
+  div {
+    color: var(--color-light-gray);
+    font-size: 16px;
+    line-height: 20px;
+  }
 }
 
 // noinspection CssInvalidHtmlTagReference

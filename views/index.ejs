@@ -43,8 +43,9 @@
     <%- include('header.ejs', { data: data }) %>
     <main>
         <div class='placeholder'></div>
-        <div class='beginning'>
-            <div>Welcome to the beginning of the <b>#<%= data.channel_name %></b> channel.</div>
+        <div class='welcome'>
+            <h1>Welcome to <b>#<%= data.channel_name %></b>!</h1>
+            <div>This is the start of the #<%= data.channel_name %> channel. </div>
         </div>
         <!--suppress HtmlUnknownTag-->
         <discord-messages>
