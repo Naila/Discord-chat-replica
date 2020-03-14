@@ -16,6 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+const fit = require('./commons/fit')
+
 module.exports = class Formatter {
   constructor (payload) {
     this.payload = payload
@@ -40,7 +42,7 @@ module.exports = class Formatter {
         // noinspection JSUnfilteredForInLoop
         const attachment = this.payload.messages[i1].attachments[i2]
         if (attachment.width && attachment.height) {
-          const size = this._fit(attachment.width, attachment.height, 400, 300)
+          const size = fit(attachment.width, attachment.height, 400, 300)
           attachment.displayMaxWidth = `${size.width}px`
           attachment.displayMaxHeight = `${size.height}px`
         }
@@ -109,22 +111,22 @@ module.exports = class Formatter {
         embed.displayMaxWidth = '520px'
         const media = embed.image || embed.video
         if (media) {
-          const size = this._fit(media.width, media.height, 400, 300)
+          const size = fit(media.width, media.height, 400, 300)
           embed.displayMaxWidth = `${size.width + 32}px`
           embed.displayMaxHeight = `${size.height}px`
         }
         if (embed.image) {
-          const size = this._fit(embed.image.width, embed.image.height, 400, 300)
+          const size = fit(embed.image.width, embed.image.height, 400, 300)
           embed.image.displayMaxWidth = `${size.width}px`
           embed.image.displayMaxHeight = `${size.height}px`
         }
         if (embed.type === 'image' && embed.thumbnail) {
-          const size = this._fit(embed.thumbnail.width, embed.thumbnail.height, 400, 300)
+          const size = fit(embed.thumbnail.width, embed.thumbnail.height, 400, 300)
           embed.thumbnail.displayMaxWidth = `${size.width}px`
           embed.thumbnail.displayMaxHeight = `${size.height}px`
         }
         if (embed.video) {
-          const size = this._fit(embed.video.width, embed.video.height, 400, 300)
+          const size = fit(embed.video.width, embed.video.height, 400, 300)
           embed.video.displayMaxWidth = `${size.width}px`
           embed.video.displayMaxHeight = `${size.height}px`
         }
@@ -142,8 +144,8 @@ module.exports = class Formatter {
       const lastMessage = cursor !== -1 ? [ ...this.payload.grouppedMessages[cursor] ].reverse()[0] : null
       if (!lastMessage || (!((lastMessage.type || 0) !== 0 && (msg.type || 0) !== 0) && (
         !((lastMessage.type || 0) === 0 && (msg.type || 0) === 0) ||
-        msg.author !== lastMessage.author || msg.time - lastMessage.time > 420000)
-      )) {
+        msg.author !== lastMessage.author || msg.time - lastMessage.time > 420000
+      ))) {
         this.payload.grouppedMessages.push([])
         cursor++
       }
@@ -162,23 +164,6 @@ module.exports = class Formatter {
 
   _validate () {
     return true // TODO
-  }
-
-  _fit (width, height, maxWidth, maxHeight) {
-    if (width !== maxWidth || height !== maxHeight) {
-      const widthRatio = width > maxWidth ? maxWidth / width : 1
-      width = Math.max(Math.round(width * widthRatio), 0)
-      height = Math.max(Math.round(height * widthRatio), 0)
-
-      const heightRatio = height > maxHeight ? maxHeight / height : 1
-      width = Math.max(Math.round(width * heightRatio), 0)
-      height = Math.max(Math.round(height * heightRatio), 0)
-    }
-
-    return {
-      width,
-      height
-    }
   }
 
   _formatBytes (bytes) {

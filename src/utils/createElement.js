@@ -23,8 +23,8 @@ function createElement (element, attributes = {}, children = null) {
     const node = document.createElement(element)
     for (const attr in attributes) {
       if (attr === 'bindEvents') {
-        for (const event of attributes.bindEvents) {
-          node.addEventListener(event.type, event.callback)
+        for (const event of Object.keys(attributes.bindEvents)) {
+          node.addEventListener(event, attributes.bindEvents[event])
         }
       } else {
         node.setAttribute(attr, attributes[attr])

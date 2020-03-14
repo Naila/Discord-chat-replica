@@ -45,13 +45,11 @@
         <div class='placeholder'></div>
         <div class='welcome'>
             <h1>Welcome to <b>#<%= data.channel_name %></b>!</h1>
-            <div>This is the start of the #<%= data.channel_name %> channel. </div>
+            <div>This is the start of the #<%= data.channel_name %> channel.</div>
         </div>
         <!--suppress HtmlUnknownTag-->
         <discord-messages>
-            <% for (const group of data.grouppedMessages) { %>
-                <%- include('messages.ejs', { data: data, group: group, markdown: markdown }) %>
-            <% } %>
+            <%- include('messages.ejs', { data: data, markdown: markdown }) %>
         </discord-messages>
     </main>
     <footer>

@@ -23,7 +23,8 @@
             url.searchParams.append('height', parseInt(attachment.displayMaxHeight).toString())
         %>
         <img is='message-image' data-clickable src='<%= url.href %>' alt='' class='image'
-             style='max-width: <%= attachment.displayMaxWidth %>'>
+             data-width='<%= attachment.width %>' data-height='<%= attachment.height %>'
+             data-url='<%= attachment.url %>' style='max-width: <%= attachment.displayMaxWidth %>'>
     <% } %>
     <% if (/\.(mp4|webm|mov)$/i.test(attachment.filename) && attachment.proxy_url) { %>
         <div class='decorated-video'
@@ -48,6 +49,7 @@
 <% } else { %>
     <% const isAudio = /\.(mp3|ogg|wav|flac)$/i.test(attachment.filename) && attachment.url %>
     <div class='attachment<%= isAudio ? ' audio' : '' %>'>
+        <!-- TODO: preview contents -->
         <div class='data'>
             <img src='https://discordapp.com/assets/<%= attachment.iconHash %>.svg' alt='' class='icon'/>
             <div class='details'>

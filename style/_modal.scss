@@ -1,0 +1,82 @@
+.modal-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .85);
+  z-index: 1000;
+  transform: translateZ(0px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.entering {
+    animation: modal .15s;
+  }
+
+  &.leaving {
+    animation: modal-leaving .15s;
+    animation-fill-mode: forwards;
+  }
+}
+
+.modal-image {
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+
+  a {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    transition: opacity .15s ease;
+    opacity: .5;
+    line-height: 30px;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: underline
+    }
+  }
+}
+
+.entering .modal-image, .leaving .modal-image {
+  animation: image-modal .35s cubic-bezier(0.35, 1.01, 0.75, 1.04);
+}
+
+.leaving .modal-image {
+  animation-duration: .20s;
+  animation-direction: reverse;
+  animation-fill-mode: forwards;
+}
+
+@keyframes modal {
+  from {
+    opacity: .4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-leaving {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes image-modal {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -16,10 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { showLargerImage } from '../utils'
+
 class MessageImage extends HTMLImageElement {
   constructor () {
     super()
-    this.onClick = this.onClick.bind(this)
+    this.onClick = () => showLargerImage(this)
     this.onError = this.onError.bind(this)
   }
 
@@ -36,24 +38,16 @@ class MessageImage extends HTMLImageElement {
     this.removeAttribute('data-clickable')
     this.src = 'https://canary.discordapp.com/assets/e0c782560fd96acd7f01fda1f8c6ff24.svg'
   }
-
-  onClick () {
-    // TODO: document.body.appendChild(Engine.createElement(ImagePreview, { image: this.src }))
-  }
 }
 
 class MessageGifv extends HTMLVideoElement {
   constructor () {
     super()
-    this.onClick = this.onClick.bind(this)
+    this.onClick = () => showLargerImage(this)
   }
 
   connectedCallback () {
     this.addEventListener('click', this.onClick)
-  }
-
-  onClick () {
-    // TODO: document.body.appendChild(Engine.createElement(ImagePreview, { video: this.src }))
   }
 }
 
