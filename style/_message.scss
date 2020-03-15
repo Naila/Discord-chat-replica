@@ -18,7 +18,8 @@
 
 @import 'include';
 
-.message {
+// noinspection CssInvalidHtmlTagReference
+discord-message {
   &:not(.system) {
     // noinspection CssInvalidHtmlTagReference
     .contents, message-markup {
@@ -71,7 +72,8 @@
     }
   }
 
-  &:not(.system) .mention {
+  // noinspection CssInvalidHtmlTagReference
+  &:not(.system) message-mention {
     color: #7289da;
     background-color: rgba(114, 137, 218, .1);
     transition: background-color 50ms ease-out, color 50ms ease-out;
@@ -84,7 +86,7 @@
       background-color: rgba(114, 137, 218, .7);
     }
 
-    &.role {
+    &[data-type='role'] {
       color: var(--role-color);
       background-color: var(--role-bg);
 

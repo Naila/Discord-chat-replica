@@ -16,6 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { copy } from '../utils'
+
 class MessageCodeblock extends HTMLPreElement {
   constructor () {
     super()
@@ -31,25 +33,14 @@ class MessageCodeblock extends HTMLPreElement {
   onClick () {
     if (this.animation) return
     this.animation = true
-    this.copy()
     this.copyElement.classList.add('success')
     this.copyElement.innerText = 'Copied!'
+    copy(this.querySelector('code').textContent)
 
     setTimeout(() => {
       this.copyElement.classList.remove('success')
       this.copyElement.innerText = 'Copy'
     }, 3e3)
-  }
-
-  copy () {
-    const textarea = document.createElement('textarea')
-    textarea.value = this.querySelector('code').textContent
-    textarea.style.opacity = '0'
-    textarea.style.position = 'absolute'
-    document.body.appendChild(textarea)
-    textarea.select()
-    document.execCommand('copy')
-    textarea.remove()
   }
 }
 

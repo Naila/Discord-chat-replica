@@ -16,10 +16,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import createElement from './createElement'
+import e from './createElement'
 
 function createTooltip (element, text, placement = 'top') {
-  const tooltip = createElement('div', { class: `tooltip ${placement}` }, text)
+  const tooltip = e('div', { class: `tooltip ${placement}` }, text)
   let timeout = null
 
   element.addEventListener('mouseenter', () => {

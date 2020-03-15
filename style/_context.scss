@@ -16,9 +16,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { default as createElement } from './createElement'
-export { default as createTooltip } from './createTooltip'
-export { default as createUserPopout } from './createUserPopout'
-export { default as showLargerImage } from './showLargerImage'
-export { default as contextMenu } from './contextMenu'
-export { default as copy } from './copy'
+.context-menu {
+  position: absolute;
+  min-width: 188px;
+  max-width: 320px;
+  border-radius: 4px;
+  padding: 6px 8px;
+  background-color: var(--background-extreme-dark);
+  box-shadow: var(--elevation-high);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--color-light-gray);
+  z-index: 6969;
+
+  .item {
+    margin: 2px 0;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    min-height: 32px;
+    cursor: pointer;
+  }
+
+  .item:hover {
+    color: var(--color);
+    background-color: var(--background-context-hover);
+  }
+}

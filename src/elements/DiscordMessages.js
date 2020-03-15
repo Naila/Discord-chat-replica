@@ -28,7 +28,7 @@ const months = [
 class DiscordMessages extends HTMLElement {
   connectedCallback () {
     let before = -1
-    this.querySelectorAll('.message').forEach(msg => {
+    this.querySelectorAll('discord-message').forEach(msg => {
       const time = parseInt(msg.querySelector('message-date').dataset.timestamp)
       if (before > 0) {
         if (Math.floor((time - before) / 1000 / 60 / 60 / 24) > 0) {

@@ -61,7 +61,8 @@ discord-messages {
     height: 30px;
   }
 
-  .message {
+  // noinspection CssInvalidHtmlTagReference
+  discord-message {
     display: flex;
     position: relative;
     padding: .125rem 48px .125rem 72px;
@@ -71,7 +72,7 @@ discord-messages {
       color: var(--color-lighter-gray);
       font-weight: 400;
 
-      .mention {
+      message-mention {
         color: var(--color);
         font-weight: 500;
         cursor: pointer;

@@ -112,7 +112,10 @@ class Markdown {
       strong: SimpleMarkdown.defaultRules.strong,
       em: SimpleMarkdown.defaultRules.em,
       u: SimpleMarkdown.defaultRules.u,
-      text: SimpleMarkdown.defaultRules.text,
+      text: {
+        ...SimpleMarkdown.defaultRules.text,
+        html: node => SimpleMarkdown.sanitizeText(node.content).replace(/(^ +)|( +$)/g, '&nbsp;')
+      },
       inlineCode: SimpleMarkdown.defaultRules.inlineCode,
       codeBlock: {
         order: SimpleMarkdown.defaultRules.codeBlock.order,
@@ -162,6 +165,7 @@ class Markdown {
             }
           }
           return {
+            id,
             type: 'mention',
             color: role.color,
             content: [ {
@@ -183,6 +187,7 @@ class Markdown {
             }
           }
           return {
+            id,
             type: 'mention',
             content: [ {
               type: 'text',
@@ -197,6 +202,7 @@ class Markdown {
         parse: ([ raw, id ], _, state) => {
           if (id && state.entities.users[id]) {
             return {
+              id,
               type: 'mention',
               user: state.entities.users[id],
               content: [ {
@@ -207,6 +213,7 @@ class Markdown {
           }
 
           return {
+            id,
             type: 'mention',
             content: [ {
               type: 'text',
@@ -216,20 +223,21 @@ class Markdown {
         },
         html: (node, output, state) => {
           const attributes = {
-            class: 'mention'
+            'data-type': 'channel',
+            'data-id': node.id
           }
           if (node.user) {
-            attributes.is = 'message-mention'
+            attributes['data-type'] = 'user'
             for (const data in node.user) {
               // noinspection JSUnfilteredForInLoop
               attributes[`data-${data}`] = node.user[data] || ''
             }
           }
           if (node.color) {
-            attributes.class += ' role'
+            attributes['data-type'] = 'role'
             attributes.style = `--role-color:${this.int2rgba(node.color)};--role-bg:${this.int2rgba(node.color, 0.1)};--role-bg-h:${this.int2rgba(node.color, 0.3)}`
           }
-          return SimpleMarkdown.htmlTag('span', output(node.content, state), attributes)
+          return SimpleMarkdown.htmlTag('message-mention', output(node.content, state), attributes)
         }
       },
       customEmoji: {

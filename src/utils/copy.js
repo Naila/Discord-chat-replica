@@ -16,9 +16,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { default as createElement } from './createElement'
-export { default as createTooltip } from './createTooltip'
-export { default as createUserPopout } from './createUserPopout'
-export { default as showLargerImage } from './showLargerImage'
-export { default as contextMenu } from './contextMenu'
-export { default as copy } from './copy'
+function copy (text) {
+  const textarea = document.createElement('textarea')
+  textarea.value = text
+  textarea.style.opacity = '0'
+  textarea.style.position = 'absolute'
+  textarea.style.pointerEvents = 'none'
+  document.body.appendChild(textarea)
+  textarea.select()
+  document.execCommand('copy')
+  textarea.remove()
+}
+
+export default copy
