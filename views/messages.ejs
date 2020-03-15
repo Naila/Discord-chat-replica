@@ -37,7 +37,8 @@
         <% const author = data.entities.users[msg.author] %>
         <% if (msg.type && msg.type !== 0) { %>
             <!--suppress HtmlUnknownTag-->
-            <discord-message class='system<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
+            <discord-message data-id='<%= msg.id %>' data-author='<%= msg.author %>'
+                             class='system<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
                 <div class='icon'>
                     <img src='<%= icons[msg.type - 1] %>' alt='icon'>
                 </div>
@@ -50,7 +51,8 @@
             </discord-message>
         <% } else { %>
             <!--suppress HtmlUnknownTag-->
-            <discord-message class='<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
+            <discord-message data-id='<%= msg.id %>' data-author='<%= msg.author %>'
+                             class='<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
                 <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
                      alt='avatar' class='avatar'/>
                 <!--suppress HtmlUnknownTag-->

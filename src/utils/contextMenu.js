@@ -19,6 +19,7 @@
 import e from './createElement'
 
 function contextMenu (element, options) {
+  if (!element) return
   const context = e('div', { class: 'context-menu' },
     options.map(opt => e('div', {
       class: 'item',
