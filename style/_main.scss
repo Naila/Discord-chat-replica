@@ -86,17 +86,17 @@ main {
 
 // Scrollbars
 // noinspection CssUnknownProperty
-main {
+html {
   scrollbar-color: var(--background-very-dark) var(--background);
   scrollbar-width: thin;
 }
 
-main::-webkit-scrollbar {
+::-webkit-scrollbar {
   background-color: transparent;
   width: 8px;
 }
 
-main::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: var(--background-very-dark);
   border: 0 var(--background) solid;
   border-left-width: 1px;

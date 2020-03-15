@@ -16,16 +16,39 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@import 'font';
-@import 'main';
-@import 'header';
-@import 'chat';
-@import 'message';
-@import 'invite';
-@import 'attachment';
-@import 'embed';
-@import 'footer';
-@import 'modal';
-@import 'popout';
-@import 'tooltip';
-@import 'spinner';
+.spinner {
+  position: relative;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+
+  &:before, &:after {
+    content: '';
+    animation: spinner 1.8s infinite ease-in-out;
+    background-color: #7289da;
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    left: 0;
+    top: 0;
+  }
+
+  &:after {
+    animation-delay: -.9s;
+  }
+}
+
+@keyframes spinner {
+  25% {
+    transform: translateX(22px) rotate(-90deg) scale(.5)
+  }
+  50% {
+    transform: translateX(22px) translateY(22px) rotate(-180deg)
+  }
+  75% {
+    transform: translateX(0) translateY(22px) rotate(-270deg) scale(.5)
+  }
+  100% {
+    transform: rotate(-1turn)
+  }
+}

@@ -35,7 +35,7 @@ function showLargerImage (element) {
         }
       }
     }, e('div', {
-      class: 'modal-image',
+      class: 'modal-inner image',
       bindEvents: { click: e => e.stopPropagation() }
     }, [
       element.classList.contains('video')

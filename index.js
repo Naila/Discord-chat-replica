@@ -19,6 +19,7 @@
 const { existsSync, createReadStream } = require('fs')
 const { resolve } = require('path')
 const mime = require('mime-types')
+const https = require('https')
 const ejs = require('ejs')
 const { minify } = require('html-minifier')
 
@@ -34,7 +35,7 @@ require('http')
   .createServer((req, res) => {
     if (![ 'GET', 'POST' ].includes(req.method)) {
       res.writeHead(405)
-      res.end()
+      return res.end()
     }
 
     // Assets
@@ -47,9 +48,38 @@ require('http')
       }
     }
 
+    // Attachments
+    if (req.url.startsWith('/attachments/')) {
+      console.log(req.url)
+      https.get({
+        host: 'cdn.discordapp.com',
+        path: req.url,
+        port: 443
+      }, resp => {
+        delete resp.headers['content-disposition']
+        res.writeHead(resp.statusCode, {
+          ...resp.headers,
+          'Access-Control-Allow-Origin': '*'
+        })
+        resp.pipe(res)
+      })
+      return
+    }
+
+    // Serve
     const handler = async (data) => {
       const fm = new Formatter(data)
-      ejs.renderFile('./views/index.ejs', { data: await fm.format(), assets, markdown }, null, (err, str) => {
+      const formatted = await fm.format()
+      if (!formatted) {
+        res.writeHead(400)
+        return res.end()
+      }
+      ejs.renderFile('./views/index.ejs', {
+        data: formatted,
+        assets,
+        markdown,
+        req
+      }, null, (err, str) => {
         if (err) {
           res.writeHead(500)
           res.end('Internal Server Error')

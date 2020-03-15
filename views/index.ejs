@@ -70,6 +70,9 @@
             </message-date>
         </span>
     </footer>
+    <script>
+      window.GLOBAL_ENV = { HOSTNAME: '<%= `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}` %>' }
+    </script>
     <script><%- assets.script %></script>
 </body>
 </html>

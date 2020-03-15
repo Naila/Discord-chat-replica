@@ -43,7 +43,7 @@ class MessageCodeblock extends HTMLPreElement {
 
   copy () {
     const textarea = document.createElement('textarea')
-    textarea.value = this.querySelector('.hljs').textContent
+    textarea.value = this.querySelector('code').textContent
     textarea.style.opacity = '0'
     textarea.style.position = 'absolute'
     document.body.appendChild(textarea)

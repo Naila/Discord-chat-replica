@@ -47,15 +47,25 @@
         </div>
     <% } %>
 <% } else { %>
+    <% const textRegex = /\.(?:txt|md|log|c\+\+|cpp|cc|c|h|hpp|mm|m|json|js|jsx|rb|rake|py|asm|fs|cgi|bat|rss|java|graphml|idb|lua|o|gml|prl|sls|conf|cmake|make|sln|vbe|cxx|wbf|vbs|r|wml|php|bash|applescript|fcgi|yaml|ex|exs|sh|ml|actionscript|html|xhtml|htm|xml|xls|xsd|css|styl|scss|go)$/i%>
     <% const isAudio = /\.(mp3|ogg|wav|flac)$/i.test(attachment.filename) && attachment.url %>
-    <div class='attachment<%= isAudio ? ' audio' : '' %>'>
-        <!-- TODO: preview contents -->
+    <!--suppress HtmlUnknownTag-->
+    <message-attachment class='<%= isAudio ? ' audio' : '' %>'>
         <div class='data'>
             <img src='https://discordapp.com/assets/<%= attachment.iconHash %>.svg' alt='' class='icon'/>
             <div class='details'>
                 <a href='<%= attachment.url %>' target='_blank'><%= attachment.filename %></a>
                 <span><%= attachment.formattedBytes %></span>
             </div>
+            <% if (textRegex.test(attachment.filename)) { %>
+                <div class='preview'>
+                    <!--suppress HtmlUnknownAttribute-->
+                    <svg width='20' height='20' viewBox='0 0 18 20'>
+                        <path fill='currentColor'
+                              d='M15 15H3V13H15Zm0-4H3V9H15Zm0-4H3V5H15ZM0 20l1.5-1.5L3 20l1.5-1.5L6 20l1.5-1.5L9 20l1.5-1.5L12 20l1.5-1.5L15 20l1.5-1.5L18 20V0L16.5 1.5 15 0 13.5 1.5 12 0 10.5 1.5 9 0 7.5 1.5 6 0 4.5 1.5 3 0 1.5 1.5 0 0Z'/>
+                    </svg>
+                </div>
+            <% } %>
             <a href='<%= attachment.url %>' target='_blank' class='download'>
                 <!--suppress HtmlUnknownAttribute-->
                 <svg width='24' height='24' viewBox='0 0 24 24'>
@@ -67,5 +77,5 @@
             <!--suppress CheckTagEmptyBody HtmlUnknownAttribute-->
             <audio src='<%= attachment.url %>' controls controlsList='nodownload'></audio>
         <% } %>
-    </div>
+    </message-attachment>
 <% } %>

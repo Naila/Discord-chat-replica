@@ -74,7 +74,9 @@
   }
 }
 
-.attachment {
+// noinspection CssInvalidHtmlTagReference
+message-attachment {
+  display: block;
   border: 1px solid;
   max-width: 520px;
   width: 100%;
@@ -118,10 +120,14 @@
       }
     }
 
-    .download {
+    .preview, .download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #4f545c;
       width: 24px;
       height: 24px;
+      cursor: pointer;
     }
   }
 
@@ -131,12 +137,14 @@
   }
 }
 
-.theme-dark .attachment {
+// noinspection CssInvalidHtmlTagReference
+.theme-dark message-attachment {
   border-color: rgba(47, 49, 54, .6);
   background-color: rgba(47, 49, 54, .3);
 }
 
-.theme-light .attachment {
+// noinspection CssInvalidHtmlTagReference
+.theme-light message-attachment {
   border-color: #f6f6f7;
 }
 

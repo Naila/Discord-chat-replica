@@ -1,3 +1,23 @@
+/*
+ * Small microservice to generate a Discord-like chat section
+ * Copyright (C) 2020 Bowser65
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import 'include';
+
 .modal-container {
   position: absolute;
   top: 0;
@@ -21,12 +41,12 @@
   }
 }
 
-.modal-image {
+.modal-inner {
   display: flex;
   flex-direction: column;
   user-select: none;
 
-  a {
+  &.image a {
     font-size: 14px;
     font-weight: 500;
     color: #fff;
@@ -41,11 +61,100 @@
   }
 }
 
-.entering .modal-image, .leaving .modal-image {
-  animation: image-modal .35s cubic-bezier(0.35, 1.01, 0.75, 1.04);
+.modal {
+  background-color: var(--background);
+  width: 540px;
+  max-height: 660px;
+  min-height: 200px;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &-header {
+    padding: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: .3px;
+  }
+
+  &-body {
+    padding: 0 20px 20px;
+    overflow-y: scroll;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--background-dark);
+    padding: 20px;
+
+    button, a {
+      height: 38px;
+      min-width: 96px;
+      min-height: 38px;
+      background: none;
+      border: none;
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16px;
+      padding: 2px 16px;
+      user-select: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+    }
+
+    a {
+      color: #fff;
+      background-color: #7289da;
+      text-decoration: none;
+    }
+
+    button {
+      color: var(--color);
+      transition: background-color .17s ease;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
-.leaving .modal-image {
+.theme-dark .modal {
+  box-shadow: 0 0 0 1px rgba(32, 34, 37, .6), 0 2px 10px 0 rgba(0, 0, 0, .2);
+}
+
+.theme-light .modal {
+  box-shadow: 0 0 0 1px rgba(185, 187, 190, .3), 0 2px 10px 0 rgba(0, 0, 0, .1);
+}
+
+.attachment-details {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+
+  .contents {
+    @extend %codeblock;
+  }
+
+  .error {
+    font-weight: 700;
+    color: #f04747;
+  }
+}
+
+.entering .modal-inner, .leaving .modal-inner {
+  animation: modal-inner .35s cubic-bezier(0.35, 1.01, 0.75, 1.04);
+}
+
+.leaving .modal-inner {
   animation-duration: .20s;
   animation-direction: reverse;
   animation-fill-mode: forwards;
@@ -69,7 +178,7 @@
   }
 }
 
-@keyframes image-modal {
+@keyframes modal-inner {
   from {
     opacity: 0;
     transform: scale(0.5);

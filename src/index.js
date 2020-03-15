@@ -28,6 +28,7 @@ import './elements/MessageSpoiler'
 import './elements/MessageCodeblock'
 import './elements/MessageImage'
 import './elements/MessageVideo'
+import './elements/MessageAttachment'
 import './elements/DiscordInvite'
 
 if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
