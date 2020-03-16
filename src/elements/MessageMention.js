@@ -26,6 +26,7 @@ class MessageMention extends HTMLElement {
     } ])
     if (this.dataset.type === 'user') {
       createUserPopout(this, {
+        id: this.dataset.id || '',
         username: this.dataset.username || '',
         discriminator: this.dataset.discriminator || '',
         avatar: this.dataset.avatar || '',

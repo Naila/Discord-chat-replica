@@ -91,6 +91,10 @@ discord-messages {
       margin-top: 1.0625em;
     }
 
+    &.deleted {
+      color: #f04747;
+    }
+
     &:not(.system).group-start {
       min-height: 2.75rem;
 

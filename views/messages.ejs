@@ -34,11 +34,11 @@
 ] %>
 <% for (const group of data.grouppedMessages) { %>
     <% for (const msg of group) { %>
-        <% const author = data.entities.users[msg.author] %>
+        <% const author = data.entities.users[msg.author] || { username: 'Deleted User', discriminator: '0000\u200B' } %>
         <% if (msg.type && msg.type !== 0) { %>
             <!--suppress HtmlUnknownTag-->
             <discord-message data-id='<%= msg.id %>' data-author='<%= msg.author %>'
-                             class='system<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
+                             class='system<% if (group.indexOf(msg) === 0) { %> group-start<% } %><% if (msg.deleted) { %> deleted<% } %>'>
                 <div class='icon'>
                     <img src='<%= icons[msg.type - 1] %>' alt='icon'>
                 </div>
@@ -52,7 +52,7 @@
         <% } else { %>
             <!--suppress HtmlUnknownTag-->
             <discord-message data-id='<%= msg.id %>' data-author='<%= msg.author %>'
-                             class='<% if (group.indexOf(msg) === 0) { %> group-start<% } %>'>
+                             class='<% if (group.indexOf(msg) === 0) { %> group-start<% } %><% if (msg.deleted) { %> deleted<% } %>'>
                 <img is='message-avatar' src='<%= author.avatar %>' data-discriminator='<%= author.discriminator %>'
                      alt='avatar' class='avatar'/>
                 <!--suppress HtmlUnknownTag-->

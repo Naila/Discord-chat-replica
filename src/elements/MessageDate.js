@@ -33,7 +33,7 @@ class MessageDate extends HTMLElement {
     }
 
     if (this.dataset.type === 'date') {
-      this.formatDate(date)
+      this.innerText = MessageDate.formatDate(date)
     } else if (this.dataset.type === 'time') {
       this.innerText = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
     } else if (this.dataset.type === 'full') {
@@ -50,7 +50,7 @@ class MessageDate extends HTMLElement {
     }
   }
 
-  formatDate (date) {
+  static formatDate (date) {
     const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
     const today = new Date()
     const daysBetween = (today.getUTCFullYear() - date.getUTCFullYear()) * 365 +
@@ -60,13 +60,13 @@ class MessageDate extends HTMLElement {
     const hours = date.getHours().toString().padStart(2, '0')
     const minutes = date.getMinutes().toString().padStart(2, '0')
     if (daysBetween === 0) {
-      this.innerText = `Today at ${hours}:${minutes}`
+      return `Today at ${hours}:${minutes}`
     } else if (daysBetween === 1) {
-      this.innerText = `Yesterday at ${hours}:${minutes}`
+      return `Yesterday at ${hours}:${minutes}`
     } else if (daysBetween < 7) {
-      this.innerText = `Last ${days[date.getDay()]} at ${hours}:${minutes}`
+      return `Last ${days[date.getDay()]} at ${hours}:${minutes}`
     } else {
-      this.innerText = `${date.getDate().toString().padStart(2, '0')}/` +
+      return `${date.getDate().toString().padStart(2, '0')}/` +
         `${date.getMonth().toString().padStart(2, '0')}/` +
         `${date.getFullYear().toString()}`
     }
@@ -74,3 +74,4 @@ class MessageDate extends HTMLElement {
 }
 
 customElements.define('message-date', MessageDate)
+export default MessageDate

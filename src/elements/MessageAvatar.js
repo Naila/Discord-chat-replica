@@ -28,6 +28,7 @@ class MessageAvatar extends HTMLImageElement {
     this.addEventListener('error', this.onError)
     const contents = this.nextElementSibling.nextElementSibling
     createUserPopout(this, {
+      id: this.parentElement.dataset.author,
       username: contents.querySelector('.name').textContent,
       discriminator: this.dataset.discriminator,
       avatar: this.src,

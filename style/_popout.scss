@@ -19,8 +19,7 @@
 .user-popout {
   position: absolute;
   z-index: 6969;
-  background-color: var(--background-very-dark);
-  padding: 20px 10px;
+  background-color: var(--background);
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .2), 0 0 0 1px rgba(32, 34, 37, .6);
   width: 250px;
   border-radius: 5px;
@@ -28,42 +27,70 @@
   animation-fill-mode: forwards;
   animation-duration: .2s;
   animation-timing-function: ease-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  img {
-    user-select: none;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    position: relative;
-    width: 80px;
-    height: 80px;
-  }
-
-  .details {
+  .header {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    background-color: var(--background-very-dark);
+    padding: 20px 10px;
+
+    img {
+      user-select: none;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .details {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .username {
+      font-weight: 600;
+      color: var(--color);
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .discriminator {
+      font-weight: 500;
+      color: var(--color);
+      opacity: .6;
+    }
+
+    .badge {
+      margin-left: 1ch;
+    }
   }
 
-  .username {
-    font-weight: 600;
-    color: var(--color);
-    text-overflow: ellipsis;
-    overflow: hidden;
+  .body {
+    padding: 10px;
   }
 
-  .discriminator {
-    font-weight: 500;
-    color: var(--color);
-    opacity: .6;
-  }
+  .field {
+    .title {
+      font-weight: 700;
+      color: var(--color-gray);
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
 
-  .badge {
-    margin-left: 1ch;
+    .value {
+      font-size: 12px;
+      line-height: 14px;
+    }
+
+    + .field {
+      margin-top: 15px;
+    }
   }
 
   &.mounted {

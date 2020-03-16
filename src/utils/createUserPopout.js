@@ -17,6 +17,7 @@
  */
 
 import e from './createElement'
+import MessageDate from '../elements/MessageDate'
 
 function createUserPopout (element, user) {
   const popout = renderPopout(user)
@@ -45,15 +46,29 @@ function createUserPopout (element, user) {
 }
 
 function renderPopout (user) {
+  // eslint-disable-next-line no-undef
+  const date = new Date(Number((BigInt(user.id) >> 22n) + 1420070400000n))
   return e('div', { class: 'user-popout' }, [
-    e('img', {
-      src: user.avatar,
-      alt: 'avatar'
-    }),
-    e('div', { class: 'details' }, [
-      e('div', { class: 'username' }, user.username),
-      e('div', { class: 'discriminator' }, [ '#', user.discriminator ]),
-      e('div', { class: 'badge' }, user.badge)
+    e('div', { class: 'header' }, [
+      e('img', {
+        src: user.avatar,
+        alt: 'avatar'
+      }),
+      e('div', { class: 'details' }, [
+        e('div', { class: 'username' }, user.username),
+        e('div', { class: 'discriminator' }, [ '#', user.discriminator ]),
+        e('div', { class: 'badge' }, user.badge)
+      ])
+    ]),
+    e('div', { class: 'body' }, [
+      e('div', { class: 'field' }, [
+        e('div', { class: 'title' }, 'Account Creation Date'),
+        e('div', { class: 'value' }, MessageDate.formatDate(date))
+      ]),
+      e('div', { class: 'field' }, [
+        e('div', { class: 'title' }, 'Messages Count'),
+        e('div', { class: 'value' }, document.querySelectorAll(`discord-message[data-author="${user.id}"]`).length.toString())
+      ])
     ])
   ])
 }

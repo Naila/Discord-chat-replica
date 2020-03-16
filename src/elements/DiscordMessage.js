@@ -25,6 +25,9 @@ class DiscordMessage extends HTMLElement {
       callback: () => copy(this.dataset.id)
     } ])
     contextMenu(this.querySelector('.avatar'), [ {
+      name: 'Copy Avatar URL',
+      callback: () => copy(this.querySelector('.avatar').src)
+    }, {
       name: 'Copy User ID',
       callback: () => copy(this.dataset.author)
     } ])

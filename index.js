@@ -50,7 +50,6 @@ require('http')
 
     // Attachments
     if (req.url.startsWith('/attachments/')) {
-      console.log(req.url)
       https.get({
         host: 'cdn.discordapp.com',
         path: req.url,
