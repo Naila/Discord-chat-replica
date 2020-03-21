@@ -322,7 +322,7 @@ module.exports = class Formatter {
       case 9:
       case 10:
       case 11:
-        return `<@${msg.author}> just boosted the server! This server has achieved **Level ${msg.type - 8}!**.`
+        return `<@${msg.author}> just boosted the server! This server has achieved **Level ${msg.type - 8}!**`
       case 12:
         return `<@${msg.author}> has added ${msg.content} to this channel`
       case 14:
