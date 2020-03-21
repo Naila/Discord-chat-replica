@@ -141,6 +141,9 @@ module.exports = class Formatter {
       if (msg.content) {
         await this._parseInvites(msg)
       }
+      if (msg.type && msg.type !== 0) {
+        msg.content = this._getSystemMessageText(msg)
+      }
       const lastMessage = cursor !== -1 ? [ ...this.payload.grouppedMessages[cursor] ].reverse()[0] : null
       if (!lastMessage || msg.deleted || lastMessage.deleted || (!((lastMessage.type || 0) !== 0 && (msg.type || 0) !== 0) && (
         !((lastMessage.type || 0) === 0 && (msg.type || 0) === 0) ||
@@ -204,8 +207,15 @@ module.exports = class Formatter {
       if (message.embeds && (typeof message.embeds !== 'object' || !Array.isArray(message.embeds))) return false
       if (message.attachments && (typeof message.attachments !== 'object' || !Array.isArray(message.attachments))) return false
 
-      // At least 1 embed OR 1 attachment OR contents
-      if (!message.content && (!message.embeds || message.embeds.length === 0) && (!message.attachments || message.attachments.length === 0)) return false
+      // For type 0, least 1 embed OR 1 attachment OR contents
+      if (
+        (!message.type || message.type === 0) &&
+        !message.content &&
+        (!message.embeds || message.embeds.length === 0) &&
+        (!message.attachments || message.attachments.length === 0)
+      ) {
+        return false
+      }
 
       // Messages.Embeds
       if (message.embeds) {
@@ -289,6 +299,85 @@ module.exports = class Formatter {
       }
     }
     return true
+  }
+
+  _getSystemMessageText (msg) {
+    switch (msg.type) {
+      case 1:
+        return `<@${msg.author}> added someone.`
+      case 2:
+        return `<@${msg.author}> removed someone.`
+      case 3:
+        return `<@${msg.author}> started a call.`
+      case 4:
+        return `<@${msg.author}> changed the channel name: ${msg.content}`
+      case 5:
+        return `<@${msg.author}> changed the channel icon.`
+      case 6:
+        return `<@${msg.author}> pinned a message to this channel.`
+      case 7:
+        return this._computeWelcomeMessage(msg)
+      case 8:
+        return `<@${msg.author}> just boosted the server!.`
+      case 9:
+      case 10:
+      case 11:
+        return `<@${msg.author}> just boosted the server! This server has achieved **Level ${msg.type - 8}!**.`
+      case 12:
+        return `<@${msg.author}> has added ${msg.content} to this channel`
+      case 14:
+        return 'This server has been removed from Server Discovery because it no longer passes all the requirements. Check Server Settings for more details.'
+      case 15:
+        return 'This server is eligible for Server Discovery again and has been automatically relisted!'
+    }
+  }
+
+  _computeWelcomeMessage (msg) {
+    const messages = [
+      '<@%user%> just joined the server - glhf!',
+      '<@%user%> just joined. Everyone, look busy!',
+      '<@%user%> just joined. Can I get a heal?',
+      '<@%user%> joined your party.',
+      '<@%user%> joined. You must construct additional pylons.',
+      'Ermagherd. <@%user%> is here.',
+      'Welcome, <@%user%>. Stay awhile and listen.',
+      'Welcome, <@%user%>. We were expecting you ( ͡° ͜ʖ ͡°)',
+      'Welcome, <@%user%>. We hope you brought pizza.',
+      'Welcome <@%user%>. Leave your weapons by the door.',
+      'A wild <@%user%> appeared.',
+      'Swoooosh. <@%user%> just landed.',
+      'Brace yourselves. <@%user%> just joined the server.',
+      '<@%user%> just joined... or did they?',
+      '<@%user%> just arrived. Seems OP - please nerf.',
+      '<@%user%> just slid into the server.',
+      'A <@%user%> has spawned in the server.',
+      'Big <@%user%> showed up!',
+      'Where’s <@%user%>? In the server!',
+      '<@%user%> hopped into the server. Kangaroo!!',
+      '<@%user%> just showed up. Hold my beer.',
+      'Challenger approaching - <@%user%> has appeared!',
+      'It\'s a bird! It\'s a plane! Nevermind, it\'s just <@%user%>.',
+      'It\'s <@%user%>! Praise the sun! \\\\[T]/',
+      'Never gonna give <@%user%> up. Never gonna let <@%user%> down.',
+      '<@%user%> has joined the battle bus.',
+      'Cheers, love! <@%user%>\'s here!',
+      'Hey! Listen! <@%user%> has joined!',
+      'We\'ve been expecting you <@%user%>',
+      'It\'s dangerous to go alone, take <@%user%>!',
+      '<@%user%> has joined the server! It\'s super effective!',
+      'Cheers, love! <@%user%> is here!',
+      '<@%user%> is here, as the prophecy foretold.',
+      '<@%user%> has arrived. Party\'s over.',
+      'Ready player <@%user%>',
+      '<@%user%> is here to kick butt and chew bubblegum. And <@%user%> is all out of gum.',
+      'Hello. Is it <@%user%> you\'re looking for?',
+      '<@%user%> has joined. Stay a while and listen!',
+      'Roses are red, violets are blue, <@%user%> joined this server with you'
+    ]
+
+    // eslint-disable-next-line no-undef
+    const date = Number((BigInt(msg.id) >> 22n) + 1420070400000n)
+    return messages[~~(date % messages.length)].replace(/%user%/g, msg.author)
   }
 
   _formatBytes (bytes) {

@@ -50,10 +50,16 @@ require('http')
 
     // Attachments
     if (req.url.startsWith('/attachments/')) {
+      const headers = {}
+      if (req.headers.range) {
+        headers.range = req.headers.range
+      }
+
       https.get({
         host: 'cdn.discordapp.com',
         path: req.url,
-        port: 443
+        port: 443,
+        headers
       }, resp => {
         delete resp.headers['content-disposition']
         res.writeHead(resp.statusCode, {
