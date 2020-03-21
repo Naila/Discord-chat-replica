@@ -318,7 +318,7 @@ module.exports = class Formatter {
       case 7:
         return this._computeWelcomeMessage(msg)
       case 8:
-        return `<@${msg.author}> just boosted the server!.`
+        return `<@${msg.author}> just boosted the server!`
       case 9:
       case 10:
       case 11:
