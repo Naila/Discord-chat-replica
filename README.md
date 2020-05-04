@@ -1,4 +1,6 @@
 # Discord Chat Replica
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=NailaBot/Naila.bot)](https://dependabot.com)
+
 A small microservice to generate a Discord-like chat section.
 
 ## installation
