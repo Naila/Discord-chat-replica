@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "ejs": "^3.0.1",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.0.3",
     "html-minifier": "^4.0.0",
     "mime-types": "^2.1.26",
     "punycode": "^2.1.1",
