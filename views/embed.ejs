@@ -7,7 +7,7 @@
         <% const url = new URL(embed.url).pathname %>
         <!--suppress HtmlDeprecatedAttribute-->
         <iframe src='https://open.spotify.com/embed<%= url %>' frameborder='0'
-                style='width: 400px; height: <%= url.startsWith('/track/') ? 80 : 300 %>px; pointer-events: none;'></iframe>
+                style='width: 400px; height: <%= url.startsWith('/track/') ? 80 : 300 %>px;'></iframe>
     </div>
 <% } else { %>
     <% if ((embed.thumbnail || embed.video) && (embed.type === 'gifv' || (embed.type !== 'rich' && !embed.author && !embed.title))) { %>
