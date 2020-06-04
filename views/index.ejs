@@ -1,19 +1,6 @@
 <!--
-  Small microservice to generate a Discord-like chat section
-  Copyright (C) 2020 Bowser65
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Affero General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Affero General Public License for more details.
-
-  You should have received a copy of the GNU Affero General Public License
-  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  Copyright (c) 2020 Bowser65
+  Licensed under the Open Software License version 3.0
 -->
 <!DOCTYPE html>
 <html lang='en'>
@@ -44,6 +31,7 @@
     <main>
         <div class='placeholder'></div>
         <div class='welcome'>
+            <div class='channel-icon'></div>
             <h1>Welcome to <b>#<%= data.channel_name %></b>!</h1>
             <div>This is the start of the #<%= data.channel_name %> channel.</div>
         </div>
@@ -53,7 +41,7 @@
         </discord-messages>
     </main>
     <footer>
-        <img src='https://canary.discordapp.com/assets/dc7e9e55b3a6d39d24acdd650ecc2ef3.svg' alt=''>
+        <img src='https://discord.com/assets/dc7e9e55b3a6d39d24acdd650ecc2ef3.svg' alt=''>
         <span>
             This archive was generated on the&nbsp;
             <!--suppress HtmlUnknownTag-->
@@ -71,7 +59,7 @@
         </span>
     </footer>
     <script>
-      window.GLOBAL_ENV = { HOSTNAME: '<%= `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}` %>' }
+      window.GLOBAL_ENV = { HOSTNAME: '<%= hostname %>' }
     </script>
     <script><%- assets.script %></script>
 </body>

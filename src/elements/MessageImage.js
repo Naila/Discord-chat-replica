@@ -23,7 +23,7 @@ class MessageImage extends HTMLImageElement {
     this.removeEventListener('error', this.onError)
     this.removeEventListener('click', this.onClick)
     this.removeAttribute('data-clickable')
-    this.src = 'https://canary.discordapp.com/assets/e0c782560fd96acd7f01fda1f8c6ff24.svg'
+    this.src = 'https://discord.com/assets/e0c782560fd96acd7f01fda1f8c6ff24.svg'
   }
 }
 

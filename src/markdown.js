@@ -284,9 +284,9 @@ class Markdown {
           case '2122': // ™ trademark
             return false
           case '1f52b': // gun
-            return 'https://canary.discordapp.com/assets/3071dbc60204c84ca0cf423b8b08a204.svg'
+            return 'https://discord.com/assets/3071dbc60204c84ca0cf423b8b08a204.svg'
           case '1f440': // eyes
-            return 'https://canary.discordapp.com/assets/ccf4c733929efd9762ab02cd65175377.svg'
+            return 'https://discord.com/assets/ccf4c733929efd9762ab02cd65175377.svg'
         }
         return ''.concat(options.base, options.size, '/', icon, options.ext)
       }

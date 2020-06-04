@@ -66,11 +66,12 @@ require('http')
         res.writeHead(400)
         return res.end()
       }
+      const hostname = config.hostname ? config.hostname : `${req.headers['x-forwarded-proto'] || 'http'}://${req.headers.host}`
       ejs.renderFile('./views/index.ejs', {
         data: formatted,
         assets,
         markdown,
-        req
+        hostname
       }, null, (err, str) => {
         if (err) {
           res.writeHead(500)

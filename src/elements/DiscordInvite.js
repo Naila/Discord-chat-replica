@@ -28,7 +28,7 @@ class DiscordInvite extends HTMLElement {
           e('div', { class: 'header' }, 'You received an invite, but...'),
           e('div', { class: 'guild' }, [
             e('img', {
-              src: 'https://canary.discordapp.com/assets/e0c782560fd96acd7f01fda1f8c6ff24.svg',
+              src: 'https://discord.com/assets/e0c782560fd96acd7f01fda1f8c6ff24.svg',
               alt: 'poop'
             }),
             e('div', { class: 'invalid' }, 'Invalid Invite')
@@ -59,7 +59,7 @@ class DiscordInvite extends HTMLElement {
               ])
             ]),
             e('a', {
-              href: `https://discordapp.com/invite/${invite.code}`,
+              href: `https://discord.gg/${invite.code}`,
               target: '_blank',
               class: 'button'
             }, 'Join')
@@ -71,7 +71,7 @@ class DiscordInvite extends HTMLElement {
   }
 
   async fetchInvite () {
-    const res = await fetch(`https://discordapp.com/api/v6/invite/${this.dataset.code}?with_counts=true`)
+    const res = await fetch(`https://discord.com/api/v6/invite/${this.dataset.code}?with_counts=true`)
     if (res.ok) return res.json()
   }
 }

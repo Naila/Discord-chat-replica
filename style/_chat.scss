@@ -15,8 +15,19 @@
   justify-content: flex-end;
   flex-direction: column;
   flex-shrink: 0;
-  height: 95px;
+  height: 171px;
   user-select: none;
+
+  .channel-icon {
+    width: 60px;
+    height: 60px;
+    margin-top: 16px;
+    border-radius: 30px;
+    background-color: var(--background-very-dark);
+    background-image: url(https://discord.com/assets/a9847a74a2dac6e2b2958b195a8dad96.svg);
+    background-repeat: no-repeat;
+    background-position: 50%;
+  }
 
   h1 {
     font-size: 32px;

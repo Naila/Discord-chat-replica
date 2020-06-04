@@ -1,36 +1,23 @@
 <!--
-  Small microservice to generate a Discord-like chat section
-  Copyright (C) 2020 Bowser65
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Affero General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Affero General Public License for more details.
-
-  You should have received a copy of the GNU Affero General Public License
-  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  Copyright (c) 2020 Bowser65
+  Licensed under the Open Software License version 3.0
 -->
 <% const icons = [
-    'https://canary.discordapp.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
-    'https://canary.discordapp.com/assets/aff52bc375fe2da876174301a5c6d09d.svg',
-    'https://canary.discordapp.com/assets/d80d1fdc43a3c42134a31a39581160ac.svg',
-    'https://canary.discordapp.com/assets/0c9615349350c4185381d58c69b88cbc.svg',
-    'https://canary.discordapp.com/assets/0c9615349350c4185381d58c69b88cbc.svg',
-    'https://canary.discordapp.com/assets/5da4cdab01d4d89c593c48c62ae0d937.svg',
-    'https://canary.discordapp.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
+    'https://discord.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
+    'https://discord.com/assets/aff52bc375fe2da876174301a5c6d09d.svg',
+    'https://discord.com/assets/d80d1fdc43a3c42134a31a39581160ac.svg',
+    'https://discord.com/assets/0c9615349350c4185381d58c69b88cbc.svg',
+    'https://discord.com/assets/0c9615349350c4185381d58c69b88cbc.svg',
+    'https://discord.com/assets/5da4cdab01d4d89c593c48c62ae0d937.svg',
+    'https://discord.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
     'https://cdn.discordapp.com/emojis/585558042309820447.png',
     'https://cdn.discordapp.com/emojis/585558042309820447.png',
     'https://cdn.discordapp.com/emojis/585558042309820447.png',
     'https://cdn.discordapp.com/emojis/585558042309820447.png',
-    'https://canary.discordapp.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
+    'https://discord.com/assets/b8029fe196b8f1382e90bbe81dab50dc.svg',
     null, // GUILD_STREAM (seems unused?)
-    'https://canary.discordapp.com/assets/46db4c8d56c169f418cc5c0f0d4ddf70.svg',
-    'https://canary.discordapp.com/assets/286a546022f1e3cbe45b41090f8d6e97.svg'
+    'https://discord.com/assets/46db4c8d56c169f418cc5c0f0d4ddf70.svg',
+    'https://discord.com/assets/286a546022f1e3cbe45b41090f8d6e97.svg'
 ] %>
 <% for (const group of data.grouppedMessages) { %>
     <% for (const msg of group) { %>
