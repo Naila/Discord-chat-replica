@@ -305,10 +305,16 @@ module.exports = class Formatter {
       case 7:
         return this._computeWelcomeMessage(msg)
       case 8:
+        if (msg.content) {
+          return `<@${msg.author}> just boosted the server ${msg.content} times!`
+        }
         return `<@${msg.author}> just boosted the server!`
       case 9:
       case 10:
       case 11:
+        if (msg.content) {
+          return `<@${msg.author}> just boosted the server ${msg.content} times! This server has achieved **Level ${msg.type - 8}!**`
+        }
         return `<@${msg.author}> just boosted the server! This server has achieved **Level ${msg.type - 8}!**`
       case 12:
         return `<@${msg.author}> has added ${msg.content} to this channel`
@@ -321,19 +327,19 @@ module.exports = class Formatter {
 
   _computeWelcomeMessage (msg) {
     const messages = [
-      '<@%user%> joined the party.',
-      '<@%user%> is here.',
-      'Welcome, <@%user%>. We hope you brought pizza.',
-      'A wild <@%user%> appeared.',
-      '<@%user%> just landed.',
-      '<@%user%> just slid into the server.',
-      '<@%user%> just showed up!',
-      'Welcome <@%user%>. Say hi!',
-      '<@%user%> hopped into the server.',
-      'Everyone welcome <@%user%>!',
-      'Glad you\'re here, <@%user%>.',
-      'Good to see you, <@%user%>.',
-      'Yay you made it, <@%user%>!'
+      '<@%user%> joined the party.', // -5956206959001600000
+      '<@%user%> is here.', // -5956206958997405696
+      'Welcome, <@%user%>. We hope you brought pizza.', // -5956206958993211392
+      'A wild <@%user%> appeared.', // -5956206958989017088
+      '<@%user%> just landed.', // -5956206958984822784
+      '<@%user%> just slid into the server.', // -5956206958980628480
+      '<@%user%> just showed up!', // -5956206958976434176
+      'Welcome <@%user%>. Say hi!', // -5956206958972239872
+      '<@%user%> hopped into the server.', // -5956206958968045568
+      'Everyone welcome <@%user%>!', // -5956206958963851264
+      'Glad you\'re here, <@%user%>.', // -5956206958959656960
+      'Good to see you, <@%user%>.', // -5956206958955462656
+      'Yay you made it, <@%user%>!' // -5956206958951268352
     ]
 
     // eslint-disable-next-line no-undef
