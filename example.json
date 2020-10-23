@@ -43,6 +43,12 @@
       "id": "1",
       "author": "173237945149423619",
       "time": 1603375200000,
+      "content": "Source: https://github.com/Naila/Discord-chat-replica"
+    },
+    {
+      "id": "1",
+      "author": "173237945149423619",
+      "time": 1603375200000,
       "content": "Welcome to the example chat archive! This is a tool that turns json into an HTML file that looks like this!"
     },
     {
@@ -867,5 +873,5 @@
       "content": "<@!173237945149423619> <@&645429085656580127> <#645102034579750922>"
     }
   ],
-  "channel_name": "test-archive"
+  "channel_name": "example-archive"
 }
