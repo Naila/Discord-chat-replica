@@ -5,26 +5,26 @@
   "author": "Bowser65",
   "license": "OSL-3.0",
   "scripts": {
-    "build-scss": "node-sass style/style.scss --output-style compressed dist/style.css",
+    "build-scss": "node-sass style/style.scss --output-style compressed dist/style.css && node dl-font.js",
     "build-js": "esbuild src/index.js --outfile=dist/script.js --minify --bundle",
     "build": "pnpm run build-js && pnpm run build-scss"
   },
   "dependencies": {
-    "ejs": "^3.1.3",
-    "highlight.js": "^10.0.3",
+    "ejs": "^3.1.5",
+    "highlight.js": "^10.3.1",
     "html-minifier": "^4.0.0",
     "mime-types": "^2.1.27",
     "punycode": "^2.1.1",
     "simple-markdown": "^0.7.2",
-    "twemoji": "^13.0.0"
+    "twemoji": "^13.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.1.0",
+    "eslint": "^7.12.0",
     "eslint-config-standard": "^15.0.0",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.2",
     "node-sass": "^4.14.1"
   }
 }

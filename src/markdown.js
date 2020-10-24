@@ -101,7 +101,7 @@ class Markdown {
       u: SimpleMarkdown.defaultRules.u,
       text: {
         ...SimpleMarkdown.defaultRules.text,
-        html: node => SimpleMarkdown.sanitizeText(node.content).replace(/(^ +)|( +$)/g, '&nbsp;')
+        html: node => SimpleMarkdown.sanitizeText(node.content).replace(/(^ +)|( +$)/g, '&nbsp;').replace(/\n/g, '<br>')
       },
       inlineCode: SimpleMarkdown.defaultRules.inlineCode,
       codeBlock: {

@@ -5,6 +5,8 @@
 
 const fit = require('./commons/fit')
 
+const SystemProcessed = Symbol('formatter.system')
+
 module.exports = class Formatter {
   constructor (payload) {
     this.payload = payload
@@ -289,38 +291,41 @@ module.exports = class Formatter {
   }
 
   _getSystemMessageText (msg) {
+    if (msg[SystemProcessed]) return msg.content
+    msg[SystemProcessed] = true
+
     switch (msg.type) {
-      case 1:
+      case 1: // Recipient add
         return `<@${msg.author}> added someone.`
-      case 2:
+      case 2: // Recipient removal
         return `<@${msg.author}> removed someone.`
-      case 3:
+      case 3: // Call
         return `<@${msg.author}> started a call.`
-      case 4:
+      case 4: // Channel name change
         return `<@${msg.author}> changed the channel name: ${msg.content}`
-      case 5:
+      case 5: // Channel icon change
         return `<@${msg.author}> changed the channel icon.`
-      case 6:
+      case 6: // Message pinned
         return `<@${msg.author}> pinned a message to this channel.`
-      case 7:
+      case 7: // Welcome message
         return this._computeWelcomeMessage(msg)
-      case 8:
+      case 8: // Nitro boost
         if (msg.content) {
           return `<@${msg.author}> just boosted the server ${msg.content} times!`
         }
         return `<@${msg.author}> just boosted the server!`
-      case 9:
+      case 9: // Nitro boost (lvl up)
       case 10:
       case 11:
         if (msg.content) {
           return `<@${msg.author}> just boosted the server ${msg.content} times! This server has achieved **Level ${msg.type - 8}!**`
         }
         return `<@${msg.author}> just boosted the server! This server has achieved **Level ${msg.type - 8}!**`
-      case 12:
+      case 12: // Channel following
         return `<@${msg.author}> has added ${msg.content} to this channel`
-      case 14:
+      case 14: // Server Discovery bad
         return 'This server has been removed from Server Discovery because it no longer passes all the requirements. Check Server Settings for more details.'
-      case 15:
+      case 15: // Server Discovery good
         return 'This server is eligible for Server Discovery again and has been automatically relisted!'
     }
   }

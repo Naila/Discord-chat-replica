@@ -19,11 +19,11 @@
   user-select: none;
 
   .channel-icon {
-    width: 60px;
-    height: 60px;
+    width: 68px;
+    height: 68px;
     margin-top: 16px;
-    border-radius: 30px;
-    background-color: var(--background-very-dark);
+    border-radius: 50%;
+    background-color: var(--background-accent);
     background-image: url(https://discord.com/assets/a9847a74a2dac6e2b2958b195a8dad96.svg);
     background-repeat: no-repeat;
     background-position: 50%;
@@ -68,7 +68,10 @@ discord-messages {
 
     &.system {
       color: var(--color-lighter-gray);
+      display: flex;
+      align-items: center;
       font-weight: 400;
+      height: 30px;
 
       message-mention {
         color: var(--color);
