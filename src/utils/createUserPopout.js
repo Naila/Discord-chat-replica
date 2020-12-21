@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
@@ -34,7 +34,7 @@ function createUserPopout (element, user) {
 
 function renderPopout (user) {
   // eslint-disable-next-line no-undef
-  const date = new Date(Number((BigInt(user.id) >> 22n) + 1420070400000n))
+  const date = new Date(Number((BigInt(user.id) >> BigInt(22)) + BigInt(1420070400000)))
   return e('div', { class: 'user-popout' }, [
     e('div', { class: 'header' }, [
       e('img', {

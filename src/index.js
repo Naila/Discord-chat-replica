@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
@@ -42,10 +42,16 @@ document.querySelectorAll('img[data-clickable], message-markup a, .embed a').for
 })
 
 // User Agents
-if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
-  document.body.classList.add('firefox')
+function onLoad () {
+  if (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
+    document.body.classList.add('firefox')
+  }
+
+  if (navigator.userAgent.toLowerCase().indexOf('chrome') !== -1) {
+    document.body.classList.add('chrome')
+  }
 }
 
-if (navigator.userAgent.toLowerCase().indexOf('chrome') !== -1) {
-  document.body.classList.add('chrome')
-}
+document.readyState === 'loading'
+  ? document.addEventListener('DOMContentLoaded', onLoad)
+  : onLoad()

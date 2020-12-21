@@ -9,8 +9,8 @@
       },
       "94762492923748352": {
         "avatar": "https://cdn.discordapp.com/avatars/94762492923748352/ad72202b231eb0d8404dd0db15a5edd4.png",
-        "username": "Bowser65",
-        "discriminator": "0001",
+        "username": "Cynthia 🌹",
+        "discriminator": "1337",
         "badge": null
       },
       "337481187419226113": {
@@ -21,7 +21,7 @@
       },
       "webhook1": {
         "avatar": "https://cdn.discordapp.com/avatars/94762492923748352/ad72202b231eb0d8404dd0db15a5edd4.png",
-        "username": "Bowoser the webhook",
+        "username": "Cyyynthia the webhook",
         "discriminator": "0000",
         "badge": "bot"
       }
@@ -55,7 +55,7 @@
       "id": "1",
       "author": "173237945149423619",
       "time": 1603375200000,
-      "content": "This was created by Bowser65, you can find him over at https://bowser65.xyz/."
+      "content": "This was created by Cynthia, you can find her over at https://cynthia.dev/."
     },
     {
       "id": "-5956206958976434176",
@@ -67,7 +67,7 @@
       "id": "1",
       "author": "173237945149423619",
       "time": 1603375200000,
-      "content": "Yeah that guy.. anyways lets get into what this is capable of, starting with markdown. Currently everything supported by Discord is supported here, such as:"
+      "content": "Yeah that gal.. anyways lets get into what this is capable of, starting with markdown. Currently everything supported by Discord is supported here, such as:"
     },
     {
       "id": "1",
@@ -97,7 +97,7 @@
       "id": "1",
       "author": "webhook1",
       "time": 1603375800000,
-      "content": "Did you know that webhooks can use [named links](https://myanimelist.net/anime/40010)? p cool isn't it. Spoiler: ||nobody cares :^)||"
+      "content": "Did you know that webhooks can use [named links](https://youtube.com/watch?v=fC7oUOUEEi4)? p cool isn't it. Spoiler: ||nobody cares :^)||"
     },
     {
       "id": "1",

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
@@ -27,12 +27,12 @@ function showLargerImage (element) {
     }, [
       element.classList.contains('video')
         ? e('video', {
-          src: element.src,
-          autoplay: true,
-          muted: true,
-          loop: true,
-          style: `width: ${size.width}px; height: ${size.height}px;`
-        })
+            src: element.src,
+            autoplay: true,
+            muted: true,
+            loop: true,
+            style: `width: ${size.width}px; height: ${size.height}px;`
+          })
         : e('img', {
           src: url.href,
           alt: 'Preview',

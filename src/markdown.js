@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
@@ -101,7 +101,10 @@ class Markdown {
       u: SimpleMarkdown.defaultRules.u,
       text: {
         ...SimpleMarkdown.defaultRules.text,
-        html: node => SimpleMarkdown.sanitizeText(node.content).replace(/(^ +)|( +$)/g, '&nbsp;').replace(/\n/g, '<br>')
+        html: node => {
+          const res = SimpleMarkdown.sanitizeText(node.content).replace(/(^ +)|( +$)/g, '&nbsp;').replace(/\n/g, '<br>')
+          return node.skipEmoji ? res : this.twemoji(res)
+        }
       },
       inlineCode: SimpleMarkdown.defaultRules.inlineCode,
       codeBlock: {
@@ -148,7 +151,8 @@ class Markdown {
           if (!role) {
             return {
               type: 'text',
-              content: `${state.noMentionPrefix ? '' : '@'}deleted-role`
+              content: `${state.noMentionPrefix ? '' : '@'}deleted-role`,
+              skipEmoji: true
             }
           }
           return {
@@ -170,7 +174,8 @@ class Markdown {
           if (!channel) {
             return {
               type: 'text',
-              content: `${state.noMentionPrefix ? '' : '#'}deleted-channel`
+              content: `${state.noMentionPrefix ? '' : '#'}deleted-channel`,
+              skipEmoji: true
             }
           }
           return {
@@ -192,20 +197,26 @@ class Markdown {
               id,
               type: 'mention',
               user: state.entities.users[id],
-              content: [ {
-                type: 'text',
-                content: `${state.noMentionPrefix ? '' : '@'}${state.entities.users[id].username}`
-              } ]
+              content: [
+                {
+                  type: 'text',
+                  content: `${state.noMentionPrefix ? '' : '@'}${state.entities.users[id].username}`,
+                  skipEmoji: true
+                }
+              ]
             }
           }
 
           return {
             id,
             type: 'mention',
-            content: [ {
-              type: 'text',
-              content: raw
-            } ]
+            content: [
+              {
+                type: 'text',
+                content: raw,
+                skipEmoji: true
+              }
+            ]
           }
         },
         html: (node, output, state) => {
@@ -275,8 +286,11 @@ class Markdown {
     })
     tree = this._flattenAst(tree)
     tree = this._constrainAst(tree)
-    const html = htmlOutput(tree)
-    return twemoji.parse(html, {
+    return htmlOutput(tree)
+  }
+
+  twemoji (raw) {
+    return twemoji.parse(raw, {
       callback: function (icon, options) {
         switch (icon) {
           case 'a9': // © copyright

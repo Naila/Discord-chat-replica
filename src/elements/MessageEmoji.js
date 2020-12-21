@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
-import { createTooltip } from '../utils'
+import { lateDefine, createTooltip } from '../utils'
 
 class MessageEmoji extends HTMLImageElement {
   constructor () {
@@ -21,4 +21,4 @@ class MessageEmoji extends HTMLImageElement {
   }
 }
 
-customElements.define('message-emoji', MessageEmoji, { extends: 'img' })
+lateDefine('message-emoji', MessageEmoji, { extends: 'img' })

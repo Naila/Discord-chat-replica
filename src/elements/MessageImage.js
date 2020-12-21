@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
@@ -13,10 +13,10 @@ class MessageImage extends HTMLImageElement {
   }
 
   connectedCallback () {
+    this.addEventListener('error', this.onError)
     if (this.dataset.clickable !== void 0) {
       this.addEventListener('click', this.onClick)
     }
-    this.addEventListener('error', this.onError)
   }
 
   onError () {

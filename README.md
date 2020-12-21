@@ -6,7 +6,6 @@ A small microservice to generate a Discord-like chat section.
 ## installation
 ~~you dont~~
 
- - https://github.com/evanw/esbuild#install
  - git clone
  - pnpm i
  - pnpm run build

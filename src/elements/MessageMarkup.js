@@ -1,7 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
+
+import { lateDefine } from '../utils'
 
 class MessageMarkup extends HTMLElement {
   connectedCallback () {
@@ -12,4 +14,4 @@ class MessageMarkup extends HTMLElement {
   }
 }
 
-customElements.define('message-markup', MessageMarkup)
+lateDefine('message-markup', MessageMarkup)

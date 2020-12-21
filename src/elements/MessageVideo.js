@@ -1,7 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
+
+import { lateDefine } from '../utils'
 
 class MessageVideo extends HTMLDivElement {
   constructor () {
@@ -10,7 +12,7 @@ class MessageVideo extends HTMLDivElement {
   }
 
   connectedCallback () {
-    document.querySelector('.play').addEventListener('click', this.onClick)
+    this.querySelector('.play').addEventListener('click', this.onClick)
   }
 
   onClick () {
@@ -28,4 +30,4 @@ class MessageVideo extends HTMLDivElement {
   }
 }
 
-customElements.define('message-video', MessageVideo, { extends: 'div' })
+lateDefine('message-video', MessageVideo, { extends: 'div' })

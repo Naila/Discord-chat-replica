@@ -2,16 +2,16 @@
   "name": "discord-chat-replica",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Bowser65",
+  "author": "Cynthia <cynthia@cynthia.dev>",
   "license": "OSL-3.0",
   "scripts": {
-    "build-scss": "node-sass style/style.scss --output-style compressed dist/style.css && node dl-font.js",
-    "build-js": "esbuild src/index.js --outfile=dist/script.js --minify --bundle",
+    "build-scss": "sass -s compressed style/style.scss:dist/style.css && node dl-font.js",
+    "build-js": "esbuild src/index.js --outfile=dist/script.js --bundle --minify --target=chrome85,firefox81,safari13,edge86 --define:process.env.NODE_ENV='\"production\"'",
     "build": "pnpm run build-js && pnpm run build-scss"
   },
   "dependencies": {
     "ejs": "^3.1.5",
-    "highlight.js": "^10.3.1",
+    "highlight.js": "^10.4.1",
     "html-minifier": "^4.0.0",
     "mime-types": "^2.1.27",
     "punycode": "^2.1.1",
@@ -19,12 +19,13 @@
     "twemoji": "^13.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.12.0",
-    "eslint-config-standard": "^15.0.0",
+    "esbuild": "^0.8.26",
+    "eslint": "^7.16.0",
+    "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.2",
-    "node-sass": "^4.14.1"
+    "eslint-plugin-standard": "^4.1.0",
+    "sass": "^1.30.0"
   }
 }

@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
-import e from '../utils/createElement'
+import { lateDefine, createElement as e } from '../utils'
 
 class MessageAttachment extends HTMLElement {
   constructor () {
@@ -84,4 +84,4 @@ class MessageAttachment extends HTMLElement {
   }
 }
 
-customElements.define('message-attachment', MessageAttachment)
+lateDefine('message-attachment', MessageAttachment)

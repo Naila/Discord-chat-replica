@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
-import { copy } from '../utils'
+import { lateDefine, copy } from '../utils'
 
 class MessageCodeblock extends HTMLPreElement {
   constructor () {
@@ -31,4 +31,4 @@ class MessageCodeblock extends HTMLPreElement {
   }
 }
 
-customElements.define('message-codeblock', MessageCodeblock, { extends: 'pre' })
+lateDefine('message-codeblock', MessageCodeblock, { extends: 'pre' })

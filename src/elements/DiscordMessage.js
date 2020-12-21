@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
-import { copy, contextMenu } from '../utils'
+import { lateDefine, copy, contextMenu } from '../utils'
 
 class DiscordMessage extends HTMLElement {
   connectedCallback () {
@@ -25,4 +25,4 @@ class DiscordMessage extends HTMLElement {
   }
 }
 
-customElements.define('discord-message', DiscordMessage)
+lateDefine('discord-message', DiscordMessage)

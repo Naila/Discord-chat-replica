@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
-import { createElement } from '../utils'
+import { lateDefine, createElement } from '../utils'
 
 const months = [
   'January', 'February', 'March',
@@ -32,4 +32,4 @@ class DiscordMessages extends HTMLElement {
   }
 }
 
-customElements.define('discord-messages', DiscordMessages)
+lateDefine('discord-messages', DiscordMessages)

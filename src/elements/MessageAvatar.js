@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
-import { createUserPopout } from '../utils'
+import { lateDefine, createUserPopout } from '../utils'
 
 class MessageAvatar extends HTMLImageElement {
   constructor () {
@@ -30,4 +30,4 @@ class MessageAvatar extends HTMLImageElement {
   }
 }
 
-customElements.define('message-avatar', MessageAvatar, { extends: 'img' })
+lateDefine('message-avatar', MessageAvatar, { extends: 'img' })

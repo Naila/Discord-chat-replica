@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2020 Bowser65
+  Copyright (c) 2020 Cynthia K. Rey
   Licensed under the Open Software License version 3.0
 -->
 <!DOCTYPE html>
@@ -25,6 +25,10 @@
     <!--suppress JSUnresolvedLibraryURL-->
     <link rel='stylesheet' href='https://highlightjs.org/static/demo/styles/solarized-dark.css'/>
     <style><%- assets.style %></style>
+    <script>
+        window.GLOBAL_ENV = { HOSTNAME: '<%= hostname %>' };
+        <%- assets.script %>
+    </script>
 </head>
 <body class='theme-dark'>
     <%- include('header.ejs', { data: data }) %>
@@ -58,9 +62,5 @@
             </message-date>
         </span>
     </footer>
-    <script>
-      window.GLOBAL_ENV = { HOSTNAME: '<%= hostname %>' }
-    </script>
-    <script><%- assets.script %></script>
 </body>
 </html>

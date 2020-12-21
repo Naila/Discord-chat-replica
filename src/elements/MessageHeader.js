@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2020 Bowser65
+ * Copyright (c) 2020 Cynthia K. Rey
  * Licensed under the Open Software License version 3.0
  */
 
-import { createUserPopout } from '../utils'
+import { lateDefine, createUserPopout } from '../utils'
 
 class MessageHeader extends HTMLElement {
   connectedCallback () {
@@ -18,4 +18,4 @@ class MessageHeader extends HTMLElement {
   }
 }
 
-customElements.define('message-header', MessageHeader)
+lateDefine('message-header', MessageHeader)
