@@ -17,6 +17,12 @@ module.exports = class Formatter {
       return null
     }
 
+    for (const user of Object.values(this.payload.entities.users)) {
+      if (!user.avatar) {
+        const discriminator = parseInt(user.discriminator)
+        user.avatar = `https://cdn.discordapp.com/embed/avatars/${discriminator % 4}.png`
+      }
+    }
     await this._formatAttachments()
     this._mergeEmbeds()
     this._formatEmbeds()
@@ -168,7 +174,6 @@ module.exports = class Formatter {
 
     // Entities.Users
     for (const user of Object.values(this.payload.entities.users)) {
-      if (typeof user.avatar !== 'string') return false
       if (typeof user.username !== 'string') return false
       if (typeof user.discriminator !== 'string') return false
       if (user.badge && typeof user.badge !== 'string') return false
