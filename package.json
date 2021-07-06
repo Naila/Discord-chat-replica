@@ -19,7 +19,7 @@
     "twemoji": "^13.0.1"
   },
   "devDependencies": {
-    "esbuild": "^0.8.26",
+    "esbuild": "^0.12.15",
     "eslint": "^7.16.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
