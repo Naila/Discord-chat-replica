@@ -2,13 +2,13 @@
   "entities": {
     "users": {
       "173237945149423619": {
-        "avatar": "https://cdn.discordapp.com/avatars/173237945149423619/72b099c7ba61dd3f50bb668b68fc03e8.png",
+        "avatar": "https://avatars.githubusercontent.com/u/29491781?v=4",
         "username": "Kanin",
         "discriminator": "0001",
         "badge": null
       },
       "94762492923748352": {
-        "avatar": "https://cdn.discordapp.com/avatars/94762492923748352/ad72202b231eb0d8404dd0db15a5edd4.png",
+        "avatar": "https://avatars.githubusercontent.com/u/9999055?v=4",
         "username": "Cynthia 🌹",
         "discriminator": "1337",
         "badge": null
@@ -20,7 +20,7 @@
         "badge": "bot"
       },
       "webhook1": {
-        "avatar": "https://cdn.discordapp.com/avatars/94762492923748352/ad72202b231eb0d8404dd0db15a5edd4.png",
+        "avatar": "https://avatars.githubusercontent.com/u/9999055?v=4",
         "username": "Cyyynthia the webhook",
         "discriminator": "0000",
         "badge": "bot"
